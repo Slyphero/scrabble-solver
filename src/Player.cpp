@@ -9,8 +9,8 @@ void Player::add_point(unsigned int point){
 }
 
 void Player::draw(LettersCollection bag){
-    if (bag.FUNCTIONOFRAPH() && inventory.size() == 7){
-        //tant que le sac n'est pas vide ou que l'inventaire du joueur est inf à 7 piocher en enlevant les lettre du sac
+    while (bag.FUNCTION_EST_VIDE() && inventory.size() < LIMIT_INVENTORY){
+        inventory.push_back(bag.FUNCTION_PIOCHER());
     }
 
 }
