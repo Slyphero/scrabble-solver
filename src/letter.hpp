@@ -10,5 +10,5 @@ class Letter {
         Letter(char letter, unsigned int occurences, unsigned int points);
         unsigned int get_occurences();
         unsigned int get_points();
-        void set_occurences();
+        void decrease_occurences();
 };
