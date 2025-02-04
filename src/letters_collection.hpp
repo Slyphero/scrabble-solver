@@ -13,4 +13,5 @@ class LettersCollection {
         LettersCollection(); 
         Letter get_letter(unsigned int i);
         Letter pick_random_letter();
+        bool is_collection_empty();
 };
