@@ -1,5 +1,7 @@
 #include "letter.hpp"
 
+#include <iostream>
+
 Letter::Letter(char letter, unsigned int occurences, unsigned int points) {
     this->letter = letter;
     this->occurences = occurences;
@@ -20,3 +22,9 @@ void Letter::decrease_occurences() {
     }
 }
 
+void Letter::print() {
+    std::cout << "Letter : " << letter 
+              << " / Occurences : " << occurences
+              << " / Points : " << points 
+              << std::endl;
+}

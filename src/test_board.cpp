@@ -1,5 +1,7 @@
 #include "board.hpp"
 
+#include "letters_collection.hpp"
+
 #include <iostream>
 #include <sstream>
 
