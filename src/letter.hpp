@@ -1,5 +1,6 @@
 #pragma once
 
+//ASCII 65 = A, 90 = Z
 class Letter {
     private:
         char letter; // in [A, B, C, ..., X, Y, Z]
