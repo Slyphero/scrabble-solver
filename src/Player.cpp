@@ -2,7 +2,6 @@
 
 Player::Player(){
     point = 0;
-    inventory = {};
 }
 
 void Player::add_point(unsigned int point){
@@ -10,6 +9,8 @@ void Player::add_point(unsigned int point){
 }
 
 void Player::draw(LettersCollection bag){
-    if (bag == {} && inventory.size == 7)
+    if (bag.FUNCTIONOFRAPH() && inventory.size() == 7){
+
+    }
 
 }
