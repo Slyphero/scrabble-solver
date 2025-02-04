@@ -11,5 +11,6 @@ class LettersCollection {
         std::vector<Letter> letters_collection;
     public:
         LettersCollection(); 
-        Letter getLetter(unsigned int i);
+        Letter get_letter(unsigned int i);
+        Letter pick_random_letter();
 };

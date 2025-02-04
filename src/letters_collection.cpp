@@ -20,6 +20,6 @@ LettersCollection::LettersCollection() {
     }
 }
 
-Letter LettersCollection::getLetter(unsigned int i) {
+Letter LettersCollection::get_letter(unsigned int i) {
     return letters_collection.at(i);
 }
