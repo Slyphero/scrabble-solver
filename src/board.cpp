@@ -7,7 +7,9 @@ Board::Board() {
   //Triple word spots
   {
     Spot s(1, 3) ;
-    static const unsigned char sz = 9 ;
+    //number of tripple words in the grid
+    static const unsigned char sz = 8 ;
+    //coordonate of tripple words in the 1D tab
     static unsigned char triple_words[sz] = {
       0, 7, 14,
       105, 119,
@@ -20,7 +22,9 @@ Board::Board() {
   //Double word spots
   {
     Spot s(1, 2) ;
+    //number of double words in the grid
     static const unsigned char sz = 17 ;
+    //coordonate of double words in the 1D tab
     static unsigned char double_words[sz] = {
       16, 28,
       32, 42,
@@ -39,7 +43,9 @@ Board::Board() {
   //Tripple letter spots
   {
     Spot s(3, 1) ;
+    //number of tripple letter in the grid
     static const unsigned char sz = 12 ;
+    //coordonate of tripple letter in the 1D tab
     static unsigned char triple_letters[sz] = {
       20, 24,
       76, 80, 84, 88,
@@ -53,7 +59,9 @@ Board::Board() {
   //Double letter spots
   {
     Spot s(2, 1) ;
+    //number of double letter in the grid
     static const unsigned char sz = 24 ;
+    //coordonate of double letter in the 1D table
     static unsigned char double_letters[sz] = {
       3, 11,
       36, 38,
