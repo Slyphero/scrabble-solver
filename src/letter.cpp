@@ -28,3 +28,9 @@ void Letter::print() {
               << " / Points : " << points 
               << std::endl;
 }
+
+Letter Letter::operator=(Letter my_letter) {
+    letter = my_letter.letter;
+    occurences = my_letter.occurences;
+    points = my_letter.points;
+}

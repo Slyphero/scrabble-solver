@@ -12,4 +12,5 @@ class Letter {
         unsigned int get_points();
         void decrease_occurences();
         void print();
+        Letter operator=(Letter letter); 
 };

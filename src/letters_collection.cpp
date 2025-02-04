@@ -1,6 +1,7 @@
 #include "letters_collection.hpp"
 
 #include <iostream>
+#include <random>
 
 LettersCollection::LettersCollection() {
     unsigned int occurences_array[NUMBER_OF_LETTERS] = {
@@ -22,4 +23,10 @@ LettersCollection::LettersCollection() {
 
 Letter LettersCollection::get_letter(unsigned int i) {
     return letters_collection.at(i);
+}
+
+Letter LettresCollection::pick_random_letter() {
+    std::default_random_engine generator;
+    std::uniform_int_distribution<int> distribution(0, 25);
+    int random_number = distribution(generator);
 }
