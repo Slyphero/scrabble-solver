@@ -17,4 +17,6 @@ public:
     //decom a word and call insert with the decomposition of the word
     void insert_word(std::string word);
     bool research(std::string word);
+    Gaddag operator=(Gaddag gaddag);
+    std::tuple<bool, unsigned int> is_letter_in_sub_gaddag(char letter);
 };

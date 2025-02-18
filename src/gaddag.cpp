@@ -23,6 +23,8 @@ std::vector<std::string> Gaddag::decomp(std::string word){
     return (res);
 }
 
+std::tuple<
+
 void Gaddag::insert(std::string word){
     /*while (word == ""){
         //Vérif si lettre pas déjà dans gaddag suivant
@@ -33,9 +35,7 @@ void Gaddag::insert(std::string word){
     insert("reste du mot");*/
 
     if (word != "") {
-        bool is_letter_in_gaddag = false;
-        int i;
-
+        // On cree une nouvelle branche si le gaddag n'a que la racine
         if (next_gaddags.size() == 0) {
             Gaddag new_gaddag();
             std::tuple<Gaddag, char> new_tuple(new_gaddag, word[0]);
@@ -44,13 +44,18 @@ void Gaddag::insert(std::string word){
             new_gaddag.insert(sub_word);
         } else {
             // Verifier si la lettre existe dans un des sous-gaddags
-            
-
-            // Sinon
-
-        }
-        
-        // Sinon push_back nouveau tuple 
+            std::tuple<bool, unsigned int> is_letter_in_sub_gaddag_and_index = is_letter_in_subgaddag(word[0]);
+            if (std::get<0>(is_letter_in_sub_gaddag_and_index)) {
+                std::string sub_word = word.substr(1, word.size() - 1);
+                next_gaddag.at(std::get<1>(is_letter_in_sub_gaddag_and_index)).insert(sub_word);
+            } else {
+                Gaddag new_gaddag();
+                std::tuple<Gaddag, char> new_tuple(new_gaddag, word[0]);
+                next_gaddags.push_back(new_tuple);
+                std::string sub_word = word.substr(1, word.size() - 1);
+                new_gaddag.insert(sub_word);
+            }
+        }        
     } else {
         is_final = true;
     }
@@ -70,10 +75,19 @@ void Gaddag::research(std::string word){
     for (int i = 0; i < next_gaddags.size(); i++){
         //si la lettre est trouvé alors on fait un appel rec sur le gaddag enfant avec le reste du mot
         if (word[0] == std::get<1>(next_gaddags[i])){
-            new_gaddag = std::get<0>(next_gaddags[i]);
+            Gaddag new_gaddag = std::get<0>(next_gaddags[i]);
             std::string sub_word = word.substr(1, word.size() - 1);
             new_gaddag.research(sub_word);
         }
     }
     return (false);
+}
+
+Gaddag Gaddag::operator=(Gaddag gaddag) {
+    is_final = gaddag.is_final;
+    next_gaddags.clear();
+
+    for (std::tuple<Gaddag, char> next_gaddag : gaddag.next_gaddags) {
+        next_gaddags.push_back(next_gaddag);
+    }
 }
