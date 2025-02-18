@@ -10,7 +10,7 @@ void Player::add_point(unsigned int point){
 
 void Player::draw(LettersCollection bag){
     while (bag.is_collection_empty() && inventory.size() < LIMIT_INVENTORY){
-        inventory.push_back(bag.FUNCTION_PIOCHER());
+        inventory.push_back(bag.pick_random_letter());
     }
 
 }
