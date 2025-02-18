@@ -1,6 +1,7 @@
 #include "board.hpp"
 
 #include "letters_collection.hpp"
+#include "Player.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -41,6 +42,17 @@ int main() {
   letter.print();
 
   std::cout << "#####################" << std::endl;
+
+  my_collection.print();
+
+  Player player;
+
+  std::cout << "######################" << std::endl;
+
+  player.draw(my_collection);
+  player.print_inv();
+
+  std::cout << " ########################### " << std::endl;
 
   my_collection.print();
 

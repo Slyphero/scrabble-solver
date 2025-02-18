@@ -1,7 +1,9 @@
 #include "letters_collection.hpp"
 
 #include <iostream>
+
 #include <random>
+#include <chrono>
 
 LettersCollection::LettersCollection() {
     unsigned int occurences_array[NUMBER_OF_LETTERS] = {
@@ -32,8 +34,13 @@ Letter LettersCollection::pick_random_letter() {
         return empty_letter;
     }
 
-    std::default_random_engine generator;
+    auto now = std::chrono::high_resolution_clock::now().time_since_epoch();
+    auto seed = std::chrono::duration_cast<std::chrono::nanoseconds>(now).count();
+    
+    std::mt19937 generator(seed);
+
     std::uniform_int_distribution<int> distribution(0, 25);
+
     int random_number = distribution(generator);
 
     while (letters_collection.at(random_number).get_occurences() == 0) {
