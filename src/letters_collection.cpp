@@ -36,9 +36,11 @@ Letter LettersCollection::pick_random_letter() {
     int random_number = distribution(generator);
 
     while (letters_collection.at(random_number).get_occurences() == 0) {
-        remove_letter(random_number);
         random_number = distribution(generator);
     }
+
+    letters_collection.at(random_number).decrease_occurences();
+    return letters_collection.at(random_number);
 }
 
 bool LettersCollection::is_collection_empty() {
