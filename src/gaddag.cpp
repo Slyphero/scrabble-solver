@@ -31,5 +31,27 @@ void Gaddag::insert(std::string word){
         //insert(word.substr( 1, word.size() ))
     }
     insert("reste du mot");*/
-    return;
+
+    if (word != "") {
+        bool is_letter_in_gaddag = false;
+        int i;
+
+        if (next_gaddags.size() == 0) {
+            Gaddag new_gaddag();
+            std::tuple<Gaddag, char> new_tuple(new_gaddag, word[0]);
+            next_gaddags.push_back(new_tuple);
+            std::string sub_word = word.substr(1, word.size() - 1);
+            new_gaddag.insert(sub_word);
+        } else {
+            // Verifier si la lettre existe dans un des sous-gaddags
+            
+
+            // Sinon
+
+        }
+        
+        // Sinon push_back nouveau tuple 
+    } else {
+        is_final = true;
+    }
 }
