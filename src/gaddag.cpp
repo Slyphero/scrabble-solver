@@ -97,3 +97,14 @@ Gaddag Gaddag::operator=(Gaddag gaddag) {
         next_gaddags.push_back(next_gaddag);
     }
 }
+
+void Gaddag::print(){
+
+    if (next_gaddags.empty())
+        std::cout<<std::endl;
+
+    for (int i = 0; i < next_gaddags.size(); i++){
+        std::cout<<std::get<1>(next_gaddags[i])<<"  ";
+        next_gaddags[i].print();
+
+}
