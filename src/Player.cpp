@@ -9,7 +9,7 @@ void Player::add_point(unsigned int point){
 }
 
 void Player::draw(LettersCollection bag){
-    while (bag.FUNCTION_EST_VIDE() && inventory.size() < LIMIT_INVENTORY){
+    while (bag.is_collection_empty() && inventory.size() < LIMIT_INVENTORY){
         inventory.push_back(bag.FUNCTION_PIOCHER());
     }
 
