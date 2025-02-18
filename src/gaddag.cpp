@@ -75,9 +75,8 @@ void Gaddag::research(std::string word){
     for (int i = 0; i < next_gaddags.size(); i++){
         //si la lettre est trouvé alors on fait un appel rec sur le gaddag enfant avec le reste du mot
         if (word[0] == std::get<1>(next_gaddags[i])){
-            Gaddag new_gaddag = std::get<0>(next_gaddags[i]);
             std::string sub_word = word.substr(1, word.size() - 1);
-            new_gaddag.research(sub_word);
+            next_gaddags[i].research(sub_word);
         }
     }
     return (false);
