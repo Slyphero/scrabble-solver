@@ -16,4 +16,5 @@ public:
     std::vector<std::string> decomp(std::string word);
     //decom a word and call insert with the decomposition of the word
     void insert_word(std::string word);
+    bool research(std::string word);
 };
