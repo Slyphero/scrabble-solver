@@ -106,5 +106,5 @@ void Gaddag::print(){
     for (int i = 0; i < next_gaddags.size(); i++){
         std::cout<<std::get<1>(next_gaddags[i])<<"  ";
         next_gaddags[i].print();
-
+    }
 }
