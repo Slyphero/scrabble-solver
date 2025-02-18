@@ -55,3 +55,9 @@ void Gaddag::insert(std::string word){
         is_final = true;
     }
 }
+
+void Gaddag::insert_word(std::string word){
+    for (std::string str : decomp(word)){
+      insert(str);
+    }
+}
