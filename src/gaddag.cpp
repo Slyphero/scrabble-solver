@@ -32,6 +32,12 @@ std::tuple<bool, unsigned int> is_letter_in_subgaddag(char letter) {
     return new_tuple(false, 0);
 }
 
+void Gaddag::add_gaddag(char letter) {
+    Gaddag new_gaddag();
+    std::tuple<Gaddag, char> new_tuple(new_gaddag, letter);
+    next_gaddags.push_back(new_tuple);
+}
+
 void Gaddag::insert(std::string word){
     /*while (word == ""){
         //Vérif si lettre pas déjà dans gaddag suivant
@@ -41,31 +47,27 @@ void Gaddag::insert(std::string word){
     }
     insert("reste du mot");*/
 
-    if (word != "") {
-        // On cree une nouvelle branche si le gaddag n'a que la racine
-        if (next_gaddags.size() == 0) {
-            Gaddag new_gaddag();
-            std::tuple<Gaddag, char> new_tuple(new_gaddag, word[0]);
-            next_gaddags.push_back(new_tuple);
-            std::string sub_word = word.substr(1, word.size() - 1);
-            new_gaddag.insert(sub_word);
-        } else {
-            // Verifier si la lettre existe dans un des sous-gaddags
-            std::tuple<bool, unsigned int> is_letter_in_sub_gaddag_and_index = is_letter_in_subgaddag(word[0]);
-            if (std::get<0>(is_letter_in_sub_gaddag_and_index)) {
-                std::string sub_word = word.substr(1, word.size() - 1);
-                next_gaddag.at(std::get<1>(is_letter_in_sub_gaddag_and_index)).insert(sub_word);
-            } else {
-                Gaddag new_gaddag();
-                std::tuple<Gaddag, char> new_tuple(new_gaddag, word[0]);
-                next_gaddags.push_back(new_tuple);
-                std::string sub_word = word.substr(1, word.size() - 1);
-                new_gaddag.insert(sub_word);
-            }
-        }        
-    } else {
+    if (word == "") {
         is_final = true;
+        return;
     }
+    
+    if (next_gaddags.size() == 0) {
+        add_gaddag(word[0]);
+        std::string sub_word = word.substr(1, word.size() - 1);
+        new_gaddag.insert(sub_word);
+        return;
+    }
+
+    std::tuple<bool, unsigned int> is_letter_in_sub_gaddag_and_index = is_letter_in_subgaddag(word[0]);
+    if (std::get<0>(is_letter_in_sub_gaddag_and_index)) {
+        std::string sub_word = word.substr(1, word.size() - 1);
+        next_gaddag.at(std::get<1>(is_letter_in_sub_gaddag_and_index)).insert(sub_word);
+    } else {
+        add_gaddag(word[0]);
+        std::string sub_word = word.substr(1, word.size() - 1);
+        new_gaddag.insert(sub_word);
+    }   
 }
 
 void Gaddag::insert_word(std::string word){

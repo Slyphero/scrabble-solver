@@ -20,4 +20,5 @@ public:
     Gaddag operator=(Gaddag gaddag);
     std::tuple<bool, unsigned int> is_letter_in_subgaddag(char letter);
     void print();
+    void add_gaddag(char letter);
 };
