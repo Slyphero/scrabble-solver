@@ -23,7 +23,9 @@ std::vector<std::string> Gaddag::decomp(std::string word){
     return (res);
 }
 
-std::tuple<
+std::tuple<bool, unsigned int> is_letter_in_subgaddag(char letter) {
+    
+}
 
 void Gaddag::insert(std::string word){
     /*while (word == ""){
