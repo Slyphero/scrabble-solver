@@ -18,3 +18,12 @@ void Player::draw(LettersCollection bag){
 unsigned int Player::get_point(){
     return(point);
 }
+
+void Player::print_inv(){
+    std::cout<<"Player Inventory"<< srd::endl;
+    for (int i = 0; i < inventory.size(); i++){
+        if (i = LIMIT_INVENTORY - 1)
+            std::cout<<inventory[i]<<std::endl;
+        std::cout<<inventory[i]<< " ; ";
+    }
+}

@@ -17,4 +17,5 @@ class Player{
         //add lettre up to 7 at the inventory of the player
         void draw(LettersCollection bag);
         unsigned int get_point();
+        void print_inv();
 }
