@@ -18,5 +18,5 @@ public:
     void insert_word(std::string word);
     bool research(std::string word);
     Gaddag operator=(Gaddag gaddag);
-    std::tuple<bool, unsigned int> is_letter_in_sub_gaddag(char letter);
+    std::tuple<bool, unsigned int> is_letter_in_subgaddag(char letter);
 };
