@@ -33,3 +33,9 @@ void Gaddag::insert(std::string word){
     insert("reste du mot");*/
     return;
 }
+
+void Gaddag::insert_word(std::string word){
+    for (std::string str : decomp(word)){
+      insert(str);
+    }
+}
