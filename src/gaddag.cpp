@@ -6,7 +6,7 @@ Gaddag::Gaddag(){
 
 std::vector<std::string> Gaddag::decomp(std::string word){
     std::vector<std::string> res;
-    for (int i = 1; i < word.size(); i++){
+    for (int i = 0; i < word.size(); i++){
         std::string substring1 = word.substr(0, i);
         std::string substring2 = word.substr(i+1, word.size() - 1);
         res.push_back(std::reverse(substring1.begin(), substring1.end()) + '+' + substring2);
