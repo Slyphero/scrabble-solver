@@ -9,7 +9,7 @@
 struct Spot {
   //default initialization, no letter, no bonus
   Spot() :
-    letter(0)
+    letter(0) // <=> letter = 0 autoconstructor
   {}
 
   //bonus spot initialization

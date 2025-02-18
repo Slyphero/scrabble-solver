@@ -6,6 +6,9 @@ SOURCES =
 SOURCES += bonus.cpp
 SOURCES += spot.cpp
 SOURCES += board.cpp
+SOURCES += letter.cpp 
+SOURCES += letters_collection.cpp
+SOURCES += Player.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 
