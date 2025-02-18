@@ -32,4 +32,9 @@ class LettersCollection {
          * @return : True if the collection is empty
          */
         bool is_collection_empty();
+
+        /**
+         * @brief Display info about collection
+         */
+        void print();
 };

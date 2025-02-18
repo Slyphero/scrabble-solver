@@ -31,5 +31,18 @@ int main() {
 
   std::cout << b << std::endl ;
 
+  LettersCollection my_collection;
+  my_collection.print();
+
+  std::cout << "###################" << std::endl;
+
+  Letter letter = my_collection.pick_random_letter();
+
+  letter.print();
+
+  std::cout << "#####################" << std::endl;
+
+  my_collection.print();
+
   return 0 ;
 }

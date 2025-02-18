@@ -27,7 +27,8 @@ Letter LettersCollection::get_letter(unsigned int i) {
 
 Letter LettersCollection::pick_random_letter() {
     if (is_collection_empty()) {
-        Letter empty_letter("0", 0, 0);
+        char zero = '0';
+        Letter empty_letter(zero, 0, 0);
         return empty_letter;
     }
 
@@ -51,4 +52,10 @@ bool LettersCollection::is_collection_empty() {
     }
 
     return true;
+}
+
+void LettersCollection::print() {
+    for (Letter letter : letters_collection) {
+        letter.print();
+    }
 }
