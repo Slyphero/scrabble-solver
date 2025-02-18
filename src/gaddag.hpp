@@ -9,7 +9,7 @@ class Gaddag
 {
 private:
     bool is_final;
-    vector<tuple<Gaddag, char>> next_gaddags;
+    std::vector<std::tuple<Gaddag, char>> next_gaddags;
 public:
     Gaddag();
     void insert(std::string word);

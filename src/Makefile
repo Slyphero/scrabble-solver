@@ -9,6 +9,7 @@ SOURCES += board.cpp
 SOURCES += letter.cpp 
 SOURCES += letters_collection.cpp
 SOURCES += Player.cpp
+SOURCES += gaddag.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 

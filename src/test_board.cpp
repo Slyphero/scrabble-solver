@@ -2,6 +2,7 @@
 
 #include "letters_collection.hpp"
 #include "Player.hpp"
+#include "gaddag.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -32,6 +33,7 @@ int main() {
 
   std::cout << b << std::endl ;
 
+  /*
   LettersCollection my_collection;
   my_collection.print();
 
@@ -55,6 +57,16 @@ int main() {
   std::cout << " ########################### " << std::endl;
 
   my_collection.print();
+  */
+
+  Gaddag my_gaddag;
+
+  std::vector<std::string> decomposition;
+
+  for (std::string str : my_gaddag.decomp("BATEAU")) {
+    std::cout << str << std::endl;
+    decomposition.push_back(str);
+  }
 
   return 0 ;
 }

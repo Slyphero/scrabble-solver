@@ -1,15 +1,23 @@
 #include "gaddag.hpp"
 
 Gaddag::Gaddag(){
-    final = false;
+    is_final = false;
 }
 
 std::vector<std::string> Gaddag::decomp(std::string word){
     std::vector<std::string> res;
     for (int i = 0; i < word.size(); i++){
-        std::string substring1 = word.substr(0, i);
-        std::string substring2 = word.substr(i+1, word.size() - 1);
-        res.push_back(std::reverse(substring1.begin(), substring1.end()) + '+' + substring2);
+        std::string substring1 = word.substr(0, i + 1);
+        std::string substring2 = word.substr(
+            i + 1, 
+            word.size() - i - 1
+        );
+        std::reverse(substring1.begin(), substring1.end());
+        res.push_back(
+            substring1 + 
+            "+" + 
+            substring2
+        );
     }
 
     return (res);
@@ -23,5 +31,5 @@ void Gaddag::insert(std::string word){
         //insert(word.substr( 1, word.size() ))
     }
     insert("reste du mot");*/
-    pass;
+    return;
 }
