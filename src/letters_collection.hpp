@@ -4,7 +4,7 @@
 
 #include <vector>
 
-const int NUMBER_OF_LETTERS = 26;
+const int NUMBER_OF_LETTERS = 27;
 
 class LettersCollection 
 {

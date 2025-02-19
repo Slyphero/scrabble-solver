@@ -5,25 +5,18 @@ Gaddag::Gaddag()
     bIsFinal = false;
 }
 
-vector<string> Gaddag::decomp(string word) 
+vector<string> Gaddag::decompose(string word) 
 {
-    vector<string> res;
+    vector<string> decompositions;
     for (int i = 0; i < word.size(); i++)
     {
         string substring1 = word.substr(0, i + 1);
-        string substring2 = word.substr(
-            i + 1, 
-            word.size() - i - 1
-        );
+        string substring2 = word.substr(i + 1, word.size() - i - 1);
         reverse(substring1.begin(), substring1.end());
-        res.push_back(
-            substring1 + 
-            "+" + 
-            substring2
-        );
+        decompositions.push_back(substring1 + "+" + substring2);
     }
 
-    return (res);
+    return (decompositions);
 }
 
 tuple<bool, unsigned int> isLetterInSubGaddag(char letter) 

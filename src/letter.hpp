@@ -4,7 +4,7 @@
 class Letter 
 {
     private:
-        char letter; // in [A, B, C, ..., X, Y, Z]
+        char letter; // in [A, B, C, ..., X, Y, Z, !]
         unsigned int occurences;
         unsigned int points;
     public:
