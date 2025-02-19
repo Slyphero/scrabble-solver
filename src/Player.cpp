@@ -1,10 +1,12 @@
 #include "Player.hpp"
 
-Player::Player(){
+Player::Player()
+{
     points = 0;
 }
 
-void Player::addPoint(unsigned int points){
+void Player::addPoint(unsigned int points)
+{
     this->points += points;
 }
 
@@ -24,7 +26,7 @@ unsigned int Player::getPoint()
 
 void Player::printInventory()
 {
-    std::cout <<"Player Inventory" << std::endl;
+    cout <<"Player Inventory" << endl;
     for (int i = 0; i < inventory.size(); i++)
     {
         inventory[i].print();

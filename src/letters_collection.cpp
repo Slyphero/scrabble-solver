@@ -30,7 +30,7 @@ LettersCollection::LettersCollection()
 
 Letter LettersCollection::getLetter(unsigned int i) 
 {
-    return lettersCollection.at(i);
+    return lettersCollection[i];
 }
 
 Letter LettersCollection::pickRandomLetter() 
@@ -47,21 +47,22 @@ Letter LettersCollection::pickRandomLetter()
 
     uniform_int_distribution<int> distribution(0, 25);
 
-    int random_number = distribution(generator);
+    int randomNumber = distribution(generator);
 
-    while (lettersCollection.at(random_number).get_occurences() == 0) 
+    while (lettersCollection[randomNumber].getOccurences() == 0) 
     {
-        random_number = distribution(generator);
+        randomNumber = distribution(generator);
     }
 
-    lettersCollection.at(random_number).decrease_occurences();
-    return lettersCollection.at(random_number);
+    lettersCollection[randomNumber].decreaseOccurences();
+    return lettersCollection[randomNumber];
 }
 
-bool LettersCollection::isCollectionEmpty() {
+bool LettersCollection::isCollectionEmpty() 
+{
     for (unsigned int i = 0; i < NUMBER_OF_LETTERS; i++) 
     {
-        if (lettersCollection.at(i).get_occurences() != 0) 
+        if (lettersCollection[i].getOccurences() != 0) 
         {
             return false;
         }
@@ -70,7 +71,8 @@ bool LettersCollection::isCollectionEmpty() {
     return true;
 }
 
-void LettersCollection::print() {
+void LettersCollection::print() 
+{
     for (Letter letter : lettersCollection) 
     {
         letter.print();

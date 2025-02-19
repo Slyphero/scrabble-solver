@@ -36,9 +36,9 @@ void Letter::print() {
          << endl;
 }
 
-Letter Letter::operator=(Letter my_letter) 
+Letter Letter::operator=(Letter newLetter) 
 {
-    letter = my_letter.letter;
-    occurences = my_letter.occurences;
-    points = my_letter.points;
+    letter = newLetter.letter;
+    occurences = newLetter.occurences;
+    points = newLetter.points;
 }

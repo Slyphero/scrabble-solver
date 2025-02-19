@@ -63,6 +63,8 @@ void Gaddag::insert(string word)
 
     string subword = word.substr(1, word.size() - 1);
 
+    // TODO : Check les newGaddag WTF 
+
     if (nextGaddags.size() == 0) 
     {
         addGaddag(word[0]);
@@ -74,7 +76,7 @@ void Gaddag::insert(string word)
     
     if (get<0>(bIsLetterInSubGaddagAndIndex)) 
     {
-        next_gaddag.at(get<1>(bIsLetterInSubGaddagAndIndex)).insert(subword);
+        nextGaddags.at(get<1>(bIsLetterInSubGaddagAndIndex)).insert(subword);
     } 
     else 
     {
@@ -117,9 +119,9 @@ Gaddag Gaddag::operator=(Gaddag gaddag)
     bIsFinal = gaddag.bIsFinal;
     nextGaddags.clear();
 
-    for (tuple<Gaddag, char> next_gaddag : gaddag.nextGaddags) 
+    for (tuple<Gaddag, char> nextGaddag : gaddag.nextGaddags) 
     {
-        nextGaddags.push_back(next_gaddag);
+        nextGaddags.push_back(nextGaddag);
     }
 }
 
