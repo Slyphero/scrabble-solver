@@ -20,7 +20,7 @@ class Gaddag
         //decom a word and call insert with the decomposition of the word
         void insertWord(string word);
         bool research(string word);
-        Gaddag operator=(Gaddag gaddag);
+        Gaddag operator=(const Gaddag& gaddag);
         tuple<bool, unsigned int> isLetterInSubGaddag(char letter);
         void print();
 };

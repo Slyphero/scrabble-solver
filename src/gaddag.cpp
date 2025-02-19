@@ -111,7 +111,7 @@ void Gaddag::research(string word)
     return (false);
 }
 
-Gaddag Gaddag::operator=(Gaddag gaddag) 
+Gaddag Gaddag::operator=(const Gaddag& gaddag) 
 {
     bIsFinal = gaddag.bIsFinal;
     nextGaddags.clear();

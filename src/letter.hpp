@@ -42,5 +42,5 @@ class Letter
          * @brief Overloading of the = operator for letters
          * @return : A letter
          */
-        Letter operator=(Letter newLetter); 
+        Letter operator=(const Letter& newLetter); 
 };

@@ -36,7 +36,7 @@ void Letter::print() {
          << endl;
 }
 
-Letter Letter::operator=(Letter newLetter) 
+Letter Letter::operator=(const Letter& newLetter) 
 {
     letter = newLetter.letter;
     occurences = newLetter.occurences;
