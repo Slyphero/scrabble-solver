@@ -38,9 +38,8 @@ tuple<bool, unsigned int> isLetterInSubGaddag(char letter)
     return new_tuple(false, 0);
 }
 
-void Gaddag::addGaddag(char letter) 
+void Gaddag::addGaddag(const Gaddag& newGaddag, char letter) 
 {
-    Gaddag newGaddag();
     tuple<Gaddag, char> new_tuple = make_tuple(newGaddag, letter);
     nextGaddags.push_back(new_tuple);
 }
@@ -62,13 +61,12 @@ void Gaddag::insert(string word)
     }
 
     string subword = word.substr(1, word.size() - 1);
-
-    // TODO : Check les newGaddag WTF 
+    Gaddag newGaddag;
 
     if (nextGaddags.size() == 0) 
     {
-        addGaddag(word[0]);
         newGaddag.insert(subword);
+        addGaddag(newGaddag, word[0]);
         return;
     }
 
@@ -77,12 +75,11 @@ void Gaddag::insert(string word)
     if (get<0>(bIsLetterInSubGaddagAndIndex)) 
     {
         nextGaddags.at(get<1>(bIsLetterInSubGaddagAndIndex)).insert(subword);
+        return;
     } 
-    else 
-    {
-        addGaddag(word[0]);
-        newGaddag.insert(subword);
-    }   
+    
+    newGaddag.insert(subword);
+    addGaddag(newGaddag, word[0]);
 }
 
 void Gaddag::insertWord(string word)
