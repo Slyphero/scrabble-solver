@@ -5,20 +5,22 @@
 #include <string>
 #include <algorithm>
 
+using namespace std;
+
 class Gaddag
 {
-private:
-    bool is_final;
-    std::vector<std::tuple<Gaddag, char>> next_gaddags;
-public:
-    Gaddag();
-    void insert(std::string word);
-    std::vector<std::string> decomp(std::string word);
-    //decom a word and call insert with the decomposition of the word
-    void insert_word(std::string word);
-    bool research(std::string word);
-    Gaddag operator=(Gaddag gaddag);
-    std::tuple<bool, unsigned int> is_letter_in_subgaddag(char letter);
-    void print();
-    void add_gaddag(char letter);
+    private:
+        bool bIsFinal;
+        vector<tuple<Gaddag, char>> nextGaddags;
+        void addGaddag(char letter);
+    public:
+        Gaddag();
+        void insert(string word);
+        vector<string> decomp(string word);
+        //decom a word and call insert with the decomposition of the word
+        void insertWord(string word);
+        bool research(string word);
+        Gaddag operator=(Gaddag gaddag);
+        tuple<bool, unsigned int> isLetterInSubGaddag(char letter);
+        void print();
 };

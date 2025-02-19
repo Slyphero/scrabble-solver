@@ -1,27 +1,32 @@
 #include "Player.hpp"
 
 Player::Player(){
-    point = 0;
+    points = 0;
 }
 
-void Player::add_point(unsigned int point){
-    this->point += point;
+void Player::addPoint(unsigned int points){
+    this->points += points;
 }
 
-void Player::draw(LettersCollection& bag){
-    while (!bag.is_collection_empty() && inventory.size() < LIMIT_INVENTORY){
-        inventory.push_back(bag.pick_random_letter());
+void Player::drawLetters(LettersCollection& bag)
+{
+    while (!bag.isCollectionEmpty() && inventory.size() < LIMIT_INVENTORY)
+    {
+        inventory.push_back(bag.pickRandomLetter());
     }
 
 }
 
-unsigned int Player::get_point(){
+unsigned int Player::getPoint()
+{
     return(point);
 }
 
-void Player::print_inv(){
-    std::cout<<"Player Inventory"<< std::endl;
-    for (int i = 0; i < inventory.size(); i++){
+void Player::printInventory()
+{
+    std::cout <<"Player Inventory" << std::endl;
+    for (int i = 0; i < inventory.size(); i++)
+    {
         inventory[i].print();
     }
 }

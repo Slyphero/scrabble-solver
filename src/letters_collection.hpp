@@ -6,9 +6,10 @@
 
 const int NUMBER_OF_LETTERS = 26;
 
-class LettersCollection {
+class LettersCollection 
+{
     private:
-        std::vector<Letter> letters_collection;
+        Letter lettersCollection[NUMBER_OF_LETTERS];
     public:
         /**
          * @brief Constructor of LettersCollection
@@ -19,19 +20,19 @@ class LettersCollection {
          * @brief Get the letter at i index in the collection
          * @return The i-th letter
          */
-        Letter get_letter(unsigned int i);
+        Letter getLetter(unsigned int i);
 
         /**
          * @brief Draw a random letter from the collection
          * @return A random letter
          */
-        Letter pick_random_letter();
+        Letter pickRandomLetter();
         
         /**
          * @brief Check if the collection is empty
          * @return : True if the collection is empty
          */
-        bool is_collection_empty();
+        bool isCollectionEmpty();
 
         /**
          * @brief Display info about collection

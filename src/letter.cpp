@@ -2,34 +2,42 @@
 
 #include <iostream>
 
-Letter::Letter(char letter, unsigned int occurences, unsigned int points) {
+using namespace std;
+
+Letter::Letter(char letter, unsigned int occurences, unsigned int points) 
+{
     this->letter = letter;
     this->occurences = occurences;
     this->points = points;
 }
 
-unsigned int Letter::get_occurences() {
+unsigned int Letter::getOccurences() 
+{
     return occurences;
 }
 
-unsigned int Letter::get_points() {
+unsigned int Letter::getPoints() 
+{
     return points;
 }
 
-void Letter::decrease_occurences() {
-    if (occurences > 0) {
+void Letter::decreaseOccurences() 
+{
+    if (occurences > 0) 
+    {
         occurences--;
     }
 }
 
 void Letter::print() {
-    std::cout << "Letter : " << letter 
-              << " / Occurences : " << occurences
-              << " / Points : " << points 
-              << std::endl;
+    cout << "Letter : "        << letter 
+         << " / Occurences : " << occurences
+         << " / Points : "     << points 
+         << endl;
 }
 
-Letter Letter::operator=(Letter my_letter) {
+Letter Letter::operator=(Letter my_letter) 
+{
     letter = my_letter.letter;
     occurences = my_letter.occurences;
     points = my_letter.points;
