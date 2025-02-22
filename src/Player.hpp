@@ -9,7 +9,8 @@ using namespace std;
 
 const int LIMIT_INVENTORY = 7;
 
-class Player{
+class Player
+{
     private:
         unsigned int points;
         vector<Letter> inventory;

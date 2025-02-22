@@ -2,8 +2,6 @@
 
 #include "letter.hpp"
 
-#include <vector>
-
 const int NUMBER_OF_LETTERS = 27;
 
 class LettersCollection 

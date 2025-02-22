@@ -9,6 +9,11 @@ class Letter
         unsigned int points;
     public:
         /**
+         * @brief Default letter constructor ('0', 0, 0)
+         */
+        Letter();
+
+        /**
          * @brief : Letter constructor
          * @param letter : the character of the letter ex : A, B, C...
          * @param occurences : The number of occurences of this letter in the game
@@ -42,5 +47,5 @@ class Letter
          * @brief Overloading of the = operator for letters
          * @return : A letter
          */
-        Letter operator=(const Letter& newLetter); 
+        // void operator=(const Letter& newLetter); 
 };

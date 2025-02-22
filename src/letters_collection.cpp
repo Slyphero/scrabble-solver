@@ -1,4 +1,4 @@
-#include "lettersCollection.hpp"
+#include "letters_collection.hpp"
 
 #include <iostream>
 
@@ -22,12 +22,12 @@ LettersCollection::LettersCollection()
     for (unsigned int i = 0; i < NUMBER_OF_LETTERS; i++) 
     {
         char character = 65 + i;
-        lettersCollection[i].letter = character;
-        lettersCollection[i].points = pointsArray[i]
-        lettersCollection[i].occurences = occurencesArray[i];
+        Letter letter(character, occurencesArray[i], pointsArray[i]);
+        lettersCollection[i] = letter;
     }
 
-    lettersCollection[i].letter =  '!';
+    Letter letter('!', 1, 0);
+    lettersCollection[26] = letter;
 }
 
 Letter LettersCollection::getLetter(unsigned int i) 

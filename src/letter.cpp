@@ -4,6 +4,13 @@
 
 using namespace std;
 
+Letter::Letter()
+{
+    letter = '0';
+    occurences = 0;
+    points = 0;
+}
+
 Letter::Letter(char letter, unsigned int occurences, unsigned int points) 
 {
     this->letter = letter;
@@ -36,9 +43,9 @@ void Letter::print() {
          << endl;
 }
 
-Letter Letter::operator=(const Letter& newLetter) 
-{
-    letter = newLetter.letter;
-    occurences = newLetter.occurences;
-    points = newLetter.points;
-}
+// void Letter::operator=(const Letter& newLetter) 
+// {
+//     letter = newLetter.letter;
+//     occurences = newLetter.occurences;
+//     points = newLetter.points;
+// }

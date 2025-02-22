@@ -3,14 +3,16 @@
 #include <unordered_map>
 #include <string>
 #include <algorithm>
+#include <memory>
+#include <vector>
 
 using namespace std;
 
 class Gaddag
 {
     private:
-        bool isFinal = false;
-        unordered_map<char, Gaddag> gaddags;
+        bool isFinal;
+        unordered_map<char, unique_ptr<Gaddag>> gaddags;
 
     public:
         /**
@@ -39,17 +41,18 @@ class Gaddag
         void insertWord(const string& word);
 
         /**
-         * @brief Look if a word is in the gaddag
-         * @param word : The word to look for
-         * @return True if the word is found
+         * @brief Look if a decomposition is in the gaddag
+         * @param decomposition : The decomposition to look for
+         * @return true if the decomposition is found
          */
-        bool checkIfInGaddag(const string& word);
+        bool checkIfDecompositionInGaddag(const string& decomposition);
 
         /**
-         * @brief Overloading of the = operator for Gaddag
-         * @return A Gaddag
+         * @brief Look if a word is in the gaddag
+         * @param word : The word to look for
+         * @return true if the word is found
          */
-        Gaddag operator=(const Gaddag& gaddag);
+        bool checkIfWordInGaddag(const string& word);
 
         /**
          * @brief Display the gaddag

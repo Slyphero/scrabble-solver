@@ -5,7 +5,7 @@ Player::Player()
     points = 0;
 }
 
-void Player::addPoint(unsigned int points)
+void Player::addPoints(unsigned int points)
 {
     this->points += points;
 }
@@ -19,9 +19,9 @@ void Player::drawLetters(LettersCollection& bag)
 
 }
 
-unsigned int Player::getPoint()
+unsigned int Player::getPoints()
 {
-    return(point);
+    return points;
 }
 
 void Player::printInventory()
