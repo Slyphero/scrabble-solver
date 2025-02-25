@@ -33,34 +33,34 @@ int main() {
 
   std::cout << b << std::endl ;
 
-  /*
-  LettersCollection my_collection;
-  my_collection.print();
+  
+  LettersCollection myCollection;
+  myCollection.print();
 
   std::cout << "###################" << std::endl;
 
-  Letter letter = my_collection.pick_random_letter();
+  Letter letter = myCollection.pickRandomLetter();
 
   letter.print();
 
   std::cout << "#####################" << std::endl;
 
-  my_collection.print();
+  myCollection.print();
 
   Player player;
 
   std::cout << "######################" << std::endl;
 
-  player.draw(my_collection);
-  player.print_inv();
+  player.drawLetters(myCollection);
+  player.printInventory();
 
   std::cout << " ########################### " << std::endl;
 
-  my_collection.print();
-  */
+  myCollection.print();
+  
 
   Gaddag gaddag;
 
-  gaddag.dico();
+  gaddag.insertDictionnary();
   return 0 ;
 }

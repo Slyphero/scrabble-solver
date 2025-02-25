@@ -10,7 +10,7 @@ Gaddag::Gaddag()
 vector<string> Gaddag::decompose(const string& word) 
 {
     vector<string> decompositions;
-    for (int i = 0; i < word.size(); i++)
+    for (unsigned int i = 0; i < (unsigned int)word.size(); i++)
     {
         string substring1 = word.substr(0, i + 1);
         string substring2 = word.substr(i + 1, word.size() - i - 1);
@@ -25,7 +25,7 @@ void Gaddag::insertDecomposition(const string& decomposition)
 {
     Gaddag* currentGaddag = this;
 
-    for (int i = 0; i < decomposition.size(); i++) 
+    for (unsigned int i = 0; i < (unsigned int)decomposition.size(); i++) 
     {
         char currentLetter = decomposition[i];
 
@@ -58,42 +58,23 @@ void Gaddag::insertWord(const string& word)
     }
 }
 
-void Gaddag::dico(){
+void Gaddag::insertDictionnary()
+{
     ifstream file("../data/dico.txt");
-    string st = "";
-    while (file >> st){
-                                insertWord(st);
-        }
-        file.close();
+    string currentLine = "";
+    while (file >> currentLine)
+    {
+        insertWord(currentLine);
     }
+    file.close();
+}
 
-
-// bool Gaddag::checkIfInGaddag(const string& word)
-// {
-//     //si le mot est vide on renvoie le bIsFinal car si il n'est pas final on renvoie false sinon si le mot est fini et final on renvoie true
-//     if (word.empty())
-//     {   
-//         return (bIsFinal);
-//     }
-
-//     //parcours les gaddags enfant
-//     for (int i = 0; i < nextGaddags.size(); i++)
-//     {
-//         //si la lettre est trouvé alors on fait un appel rec sur le gaddag enfant avec le reste du mot
-//         if (word[0] == get<1>(nextGaddags[i]))
-//         {
-//             string subword = word.substr(1, word.size() - 1);
-//             nextGaddags[i].research(subword);
-//         }
-//     }
-//     return (false);
-// }
 
 bool Gaddag::checkIfDecompositionInGaddag(const string& decomposition)
 {
     Gaddag* currentGaddag = this;
 
-    for (int i = 0; i < decomposition.size(); i++) 
+    for (unsigned int i = 0; i < (unsigned int)decomposition.size(); i++) 
     {
         char currentLetter = decomposition[i];
 
@@ -124,20 +105,6 @@ bool Gaddag::checkIfWordInGaddag(const string& word)
     }    
     return true;
 }
-
-// void Gaddag::print()
-// {
-//     if (nextGaddags.empty())
-//     {
-//         cout << endl;
-//     }
-
-//     for (int i = 0; i < nextGaddags.size(); i++)
-//     {
-//         cout << get<1>(nextGaddags[i]) << "  ";
-//         nextGaddags[i].print();
-//     }
-// }
 
 void Gaddag::print()
 {

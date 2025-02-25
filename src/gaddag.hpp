@@ -21,7 +21,10 @@ class Gaddag
          */
         Gaddag();
 
-        void dico();
+        /**
+         * @brief Insert the whole dictionary (data/dico.txt) in the Gaddag
+         */
+        void insertDictionnary();
 
         /**
          * @brief Auxilary function to insert one decomposition of a word in
