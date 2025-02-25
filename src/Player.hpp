@@ -5,18 +5,41 @@
 #include <vector>
 #include <iostream>
 
+using namespace std;
+
 const int LIMIT_INVENTORY = 7;
 
-class Player{
+class Player
+{
     private:
-        unsigned int point;
-        std::vector<Letter> inventory;
+        unsigned int points;
+        vector<Letter> inventory;
     public:
+        /**
+         * @brief Player class constructor
+         */
         Player();
-        //add point to the current score of the player
-        void add_point(unsigned int point);
-        //add lettre up to 7 at the inventory of the player
-        void draw(LettersCollection& bag);
-        unsigned int get_point();
-        void print_inv();
+
+        /**
+         * @brief Add points to the current score of the player
+         * @param points : Number of points to add to the score
+         */
+        void addPoints(unsigned int points);
+
+        /**
+         * @brief Draw letters until the player has 7.
+         * @param bag : The letters's bag to pick letters from
+         */
+        void drawLetters(LettersCollection& bag);
+
+        /**
+         * @brief Get player's score
+         * @return Player's score
+         */
+        unsigned int getPoints();
+
+        /**
+         * @brief Display player's inventory 
+         */
+        void printInventory();
 };

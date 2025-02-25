@@ -1,12 +1,18 @@
 #pragma once
 
 //ASCII 65 = A, 90 = Z
-class Letter {
+class Letter 
+{
     private:
-        char letter; // in [A, B, C, ..., X, Y, Z]
+        char letter; // in [A, B, C, ..., X, Y, Z, !]
         unsigned int occurences;
         unsigned int points;
     public:
+        /**
+         * @brief Default letter constructor ('0', 0, 0)
+         */
+        Letter();
+
         /**
          * @brief : Letter constructor
          * @param letter : the character of the letter ex : A, B, C...
@@ -19,18 +25,18 @@ class Letter {
          * @brief : Returns the number of occurences
          * @return : The number of occurences
          */
-        unsigned int get_occurences();
+        unsigned int getOccurences();
 
         /**
          * @brief : Returns the number of points of the letter
          * @return : The number of points of the letter
          */
-        unsigned int get_points();
+        unsigned int getPoints();
 
         /**
          * @brief : When a letter is picked, decrease its remaining occurences in the bag
          */
-        void decrease_occurences();
+        void decreaseOccurences();
 
         /**
          * @brief : Display letter attributes
@@ -41,5 +47,5 @@ class Letter {
          * @brief Overloading of the = operator for letters
          * @return : A letter
          */
-        Letter operator=(Letter letter); 
+        // void operator=(const Letter& newLetter); 
 };
