@@ -43,9 +43,14 @@ void Letter::print() {
          << endl;
 }
 
-// void Letter::operator=(const Letter& newLetter) 
-// {
-//     letter = newLetter.letter;
-//     occurences = newLetter.occurences;
-//     points = newLetter.points;
-// }
+bool Letter::operator==(const Letter& newLetter)
+{
+    return ((letter == newLetter.letter) 
+            && (points == newLetter.points));
+}
+
+bool Letter::operator!=(const Letter& newLetter)
+{
+    return((letter != newLetter.letter)
+            || (points != newLetter.points));
+}

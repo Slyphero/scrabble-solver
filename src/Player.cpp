@@ -27,8 +27,30 @@ unsigned int Player::getPoints()
 void Player::printInventory()
 {
     cout <<"Player Inventory" << endl;
-    for (int i = 0; i < inventory.size(); i++)
+    for (unsigned int i = 0; i < (unsigned int)inventory.size(); i++)
     {
         inventory[i].print();
     }
 }
+
+vector<Letter> Player::getInventory() 
+{
+    return inventory;
+}
+
+Letter Player::getLetter(unsigned int i)
+{
+    return inventory[i];
+}
+
+void Player::removeLetter(const Letter& letter)
+{
+    for (unsigned int i = 0; i < (unsigned int)inventory.size(); i++) 
+    {
+        if (inventory[i] == letter)
+        {
+            inventory.erase(inventory.begin() + i);
+        }
+    }
+}
+

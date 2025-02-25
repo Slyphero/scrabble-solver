@@ -44,8 +44,10 @@ class Letter
         void print();
 
         /**
-         * @brief Overloading of the = operator for letters
-         * @return : A letter
+         * @brief Overloading of the == operator for letters
+         * @return True if this letter and newLetter are equal
          */
-        // void operator=(const Letter& newLetter); 
+        bool operator==(const Letter& newLetter); 
+
+        bool operator!=(const Letter& newLetter); 
 };

@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <cassert>
 
 int main() {
   Board b ;
@@ -35,23 +36,14 @@ int main() {
 
   
   LettersCollection myCollection;
-  myCollection.print();
-
-  std::cout << "###################" << std::endl;
-
-  Letter letter = myCollection.pickRandomLetter();
-
-  letter.print();
-
-  std::cout << "#####################" << std::endl;
-
-  myCollection.print();
 
   Player player;
 
-  std::cout << "######################" << std::endl;
-
   player.drawLetters(myCollection);
+  Letter letter2 = player.getLetter(3);
+  player.printInventory();
+
+  player.removeLetter(letter2);
   player.printInventory();
 
   std::cout << " ########################### " << std::endl;
@@ -62,5 +54,7 @@ int main() {
   Gaddag gaddag;
 
   gaddag.insertDictionnary();
+  
+
   return 0 ;
 }

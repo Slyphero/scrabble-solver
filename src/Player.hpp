@@ -14,6 +14,7 @@ class Player
     private:
         unsigned int points;
         vector<Letter> inventory;
+    
     public:
         /**
          * @brief Player class constructor
@@ -42,4 +43,23 @@ class Player
          * @brief Display player's inventory 
          */
         void printInventory();
+
+        /**
+         * @brief Returns player's current inventory
+         * @return Player's current inventory
+         */
+        vector<Letter> getInventory();
+
+        /**
+         * @brief 
+         * @param
+         * @return
+         */
+        Letter getLetter(unsigned int i);
+
+        /**
+         * @brief Remove the letter in argument of the player's inventory
+         * @param letter : Letter to remove
+         */
+        void removeLetter(const Letter& letter);
 };
