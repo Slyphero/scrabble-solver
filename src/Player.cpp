@@ -50,6 +50,7 @@ void Player::removeLetter(const Letter& letter)
         if (inventory[i] == letter)
         {
             inventory.erase(inventory.begin() + i);
+            break;
         }
     }
 }
