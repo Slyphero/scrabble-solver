@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <memory>
 #include <vector>
+#include <fstream>
 
 using namespace std;
 
@@ -19,6 +20,8 @@ class Gaddag
          * @brief Gaddag's class constructor
          */
         Gaddag();
+
+        void dico();
 
         /**
          * @brief Auxilary function to insert one decomposition of a word in

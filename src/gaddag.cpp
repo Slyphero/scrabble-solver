@@ -58,6 +58,15 @@ void Gaddag::insertWord(const string& word)
     }
 }
 
+void Gaddag::dico(){
+    ifstream file("../data/dico.txt");
+    string st = "";
+    while (file >> st){
+                                insertWord(st);
+        }
+        file.close();
+    }
+
 
 // bool Gaddag::checkIfInGaddag(const string& word)
 // {

@@ -61,26 +61,6 @@ int main() {
 
   Gaddag gaddag;
 
-  string bateau = "BATEAU";
-  string tas = "TAS";
-
-  std::vector<std::string> decomposition;
-
-  for (std::string str : gaddag.decompose(bateau)) {
-    std::cout << str << std::endl;
-    decomposition.push_back(str);
-  }
-
-  gaddag.insertWord(bateau);
-
-  gaddag.insertWord(tas);
-
-  gaddag.print();
-
-  cout << endl;
-
-  cout << gaddag.checkIfWordInGaddag(bateau) << endl;
-  cout << gaddag.checkIfWordInGaddag("CHAT") << endl;
-
+  gaddag.dico();
   return 0 ;
 }
