@@ -1,8 +1,7 @@
 
 
-class Game 
-{
-    private:
-        
-    public:
+class Game {
+private:
+    
+public:
 };

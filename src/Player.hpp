@@ -5,61 +5,58 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
-
 const int LIMIT_INVENTORY = 7;
 
-class Player
-{
-    private:
-        unsigned int points;
-        vector<Letter> inventory;
-    
-    public:
-        /**
-         * @brief Player class constructor
-         */
-        Player();
+class Player {
+private:
+    unsigned int points;
+    std::vector<Letter> inventory;
 
-        /**
-         * @brief Add points to the current score of the player
-         * @param points : Number of points to add to the score
-         */
-        void addPoints(unsigned int points);
+public:
+    /**
+     * @brief Player class constructor
+     */
+    Player();
 
-        /**
-         * @brief Draw letters until the player has 7.
-         * @param bag : The letters's bag to pick letters from
-         */
-        void drawLetters(LettersCollection& bag);
+    /**
+     * @brief Add points to the current score of the player
+     * @param points : Number of points to add to the score
+     */
+    void addPoints(unsigned int points);
 
-        /**
-         * @brief Get player's score
-         * @return Player's score
-         */
-        unsigned int getPoints();
+    /**
+     * @brief Draw letters until the player has 7.
+     * @param bag : The letters's bag to pick letters from
+     */
+    void drawLetters(LettersCollection& bag);
 
-        /**
-         * @brief Display player's inventory 
-         */
-        void printInventory();
+    /**
+     * @brief Get player's score
+     * @return Player's score
+     */
+    unsigned int getPoints();
 
-        /**
-         * @brief Returns player's current inventory
-         * @return Player's current inventory
-         */
-        vector<Letter> getInventory();
+    /**
+     * @brief Display player's inventory 
+     */
+    void printInventory();
 
-        /**
-         * @brief 
-         * @param
-         * @return
-         */
-        Letter getLetter(unsigned int i);
+    /**
+     * @brief Returns player's current inventory
+     * @return Player's current inventory
+     */
+    std::vector<Letter> getInventory();
 
-        /**
-         * @brief Remove the letter in argument of the player's inventory
-         * @param letter : Letter to remove
-         */
-        void removeLetter(const Letter& letter);
+    /**
+     * @brief 
+     * @param
+     * @return
+     */
+    Letter getLetter(unsigned int i);
+
+    /**
+     * @brief Remove the letter in argument of the player's inventory
+     * @param letter : Letter to remove
+     */
+    void removeLetter(const Letter& letter);
 };
