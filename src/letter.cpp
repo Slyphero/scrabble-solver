@@ -37,10 +37,10 @@ void Letter::print() {
         << std::endl;
 }
 
-bool Letter::operator==(const Letter& newLetter){
+bool Letter::operator==(const Letter& newLetter) {
     return (letter == newLetter.letter) && (points == newLetter.points);
 }
 
-bool Letter::operator!=(const Letter& newLetter){
+bool Letter::operator!=(const Letter& newLetter) {
     return (letter != newLetter.letter) || (points != newLetter.points);
 }
