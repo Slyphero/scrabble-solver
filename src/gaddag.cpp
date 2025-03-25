@@ -49,7 +49,9 @@ void Gaddag::insertDictionnary() {
     std::ifstream file("../data/dico.txt");
     std::string currentLine = "";
     while (file >> currentLine) {
-        insertWord(currentLine);
+        if(currentLine.size() <= 15) {
+            insertWord(currentLine);
+        }
     }
     file.close();
 }

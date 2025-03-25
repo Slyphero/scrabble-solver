@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <cassert>
+#include <chrono>
 
 int main() {
   Board b ;
@@ -52,9 +53,11 @@ int main() {
   
 
   Gaddag gaddag;
-
-  gaddag.insertDictionnary();
-  
+  //auto start = std::chrono::high_resolution_clock::now();
+    gaddag.insertDictionnary();
+  //auto end = std::chrono::high_resolution_clock::now();
+  //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end -start);
+  //std::cout << duration.count() <<std::endl;
 
   return 0 ;
 }
