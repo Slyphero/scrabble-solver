@@ -3,6 +3,7 @@
 #include "board.hpp"
 #include "spot.hpp"
 #include "direction.hpp"
+
 #include <vector>
 
 struct State {
