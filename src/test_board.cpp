@@ -54,7 +54,7 @@ int main() {
 
   Gaddag gaddag;
   //auto start = std::chrono::high_resolution_clock::now();
-    gaddag.insertDictionnary();
+  gaddag.insertDictionnary();
   //auto end = std::chrono::high_resolution_clock::now();
   //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end -start);
   //std::cout << duration.count() <<std::endl;
