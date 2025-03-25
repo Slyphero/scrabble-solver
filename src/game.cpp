@@ -6,3 +6,5 @@ function qui fait appel à la fonction du dessus pour chaque case non vide
 parcours gauche ou haut avant + on essaie de placer les lettres
 parcours droite ou bas après + on teste de placer les lettre du joueur
 */
+
+#include "game.hpp"

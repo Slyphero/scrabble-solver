@@ -31,33 +31,14 @@ int main() {
   ss << "..............." << std::endl ;
   ss << "..............." << std::endl ;
 
-  b.load(ss) ;
-
-  std::cout << b << std::endl ;
-
-  
-  LettersCollection myCollection;
-
-  Player player;
-
-  player.drawLetters(myCollection);
-  Letter letter2 = player.getLetter(3);
-  player.printInventory();
-
-  player.removeLetter(letter2);
-  player.printInventory();
-
-  std::cout << " ########################### " << std::endl;
-
-  myCollection.print();
-  
+  b.load(ss) ;  
 
   Gaddag gaddag;
-  //auto start = std::chrono::high_resolution_clock::now();
+  auto start = std::chrono::high_resolution_clock::now();
   gaddag.insertDictionnary();
-  //auto end = std::chrono::high_resolution_clock::now();
-  //auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end -start);
-  //std::cout << duration.count() <<std::endl;
+  auto end = std::chrono::high_resolution_clock::now();
+  auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end -start);
+  std::cout << duration.count() <<std::endl;
 
   return 0 ;
 }
