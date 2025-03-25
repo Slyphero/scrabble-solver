@@ -1,6 +1,8 @@
 /*
-parcours plateau à la recherche de case nn vide -> si case centrale vide on insère un mot puis on regarde position opti pour un max de pt
-si on croise une lettre :
-    parcours gauche ou haut avant + on essaie de placer les lettres
-    parcours droite ou bas après + on teste de placer les lettre du joueur
+function renvoie une liste de mots à partir d'un inventaire (inventaire)
+function qui renvoie la liste de mots à partir du tableau #(case de départ, direction, inventaire) -> tester sur toute les lettre poisitionner function(case de la new case, direction bis,inventaire vide)
+function qui fait appel à la fonction du dessus pour chaque case non vide
+
+parcours gauche ou haut avant + on essaie de placer les lettres
+parcours droite ou bas après + on teste de placer les lettre du joueur
 */
