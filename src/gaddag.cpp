@@ -99,3 +99,7 @@ void Gaddag::print() {
         }
     }
 }
+
+bool checkSubWord(string word){
+    
+}

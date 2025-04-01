@@ -61,4 +61,6 @@ public:
      * @brief Display the gaddag
      */
     void print();
+
+    bool checkSubWord(string word);
 };
