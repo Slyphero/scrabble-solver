@@ -63,3 +63,25 @@ string buildMot(Board, direction, point){
 */
 
 #include "game.hpp"
+
+string buildMot(Board board, Direction direction, Position pos){
+    Position postemp = pos; 
+    string res = "";
+    while (board(pos.x,pos.y).letter != 0){
+        res = Board(pos.x,pos.y).letter + res;
+        pos = pos.getNextPosition(direction);
+    }
+    pos = postemp;
+    while (board(pos.x,pos.y).letter != 0){
+            res = res + Board(pos.x,pos.y).letter;
+            pos = pos.getNextPosition((direction + 2) % 4);
+    }
+    return res;
+}
+
+bool is_possible(Board board, direction direction, Position pos, Gaddag gadd){
+    return (
+        gadd.checkIfWordInGaddag(buildMot(board,(direction + 1) % 4,pos)) && 
+        gadd.checkSubWord(buildMot(board, direction, pos))
+    );
+}

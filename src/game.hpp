@@ -18,4 +18,6 @@ private:
     State state;
 
 public:
+    string buildMot(Board board, Direction direction, Position pos);
+    bool is_possible(Board board, Direction direction, Position pos, Gaddag gaddag);
 }; 
