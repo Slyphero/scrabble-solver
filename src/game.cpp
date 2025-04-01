@@ -185,13 +185,13 @@ int calculSubWord(Board, Position, direction){
 string buildMot(Board board, Direction direction, Position pos){
     Position postemp = pos; 
     string res = "";
-    while (board(pos.x,pos.y).letter != 0){
-        res = Board(pos.x,pos.y).letter + res;
+    while (board(pos.line,pos.column).letter != 0){
+        res = Board(pos.line,pos.column).letter + res;
         pos = pos.getNextPosition(direction);
     }
     pos = postemp;
-    while (board(pos.x,pos.y).letter != 0){
-        res = res + Board(pos.x,pos.y).letter;
+    while (board(pos.line,pos.column).letter != 0){
+        res = res + Board(pos.line,pos.column).letter;
         pos = pos.getNextPosition((direction + 2) % 4);
     }
     return res;
@@ -208,15 +208,15 @@ int calculSubWord(Board board, Direction direction, Position pos){
     Position postemp = pos;
     int score = 0;
     int coefword = 1;
-    while (board(pos.x, pos.y) =! 0){
-        score += board(pos.x, pos.y).letter.points * board(pos.x, pos.y).bonus.letter_factor;
-        coefword *= board(pos.x, pos.y).bonus.word_factor;
+    while (board(pos.line, pos.column).letter =! 0){
+        score += board(pos.line, pos.column).letter.points * board(pos.line, pos.column).bonus.letter_factor;
+        coefword *= board(pos.line, pos.column).bonus.word_factor;
         pos = pos.getNextPosition(direction);
     }
     pos = postemp;
-    while (board(pos.x, pos.y) != 0){
-        score += board(pos.x, pos.y).letter.points * board(pos.x, pos.y).bonus.letter_factor;
-        coefword *= board(pos.x, pos.y).bonus.word_factor;
+    while (board(pos.line, pos.column).letter != 0){
+        score += board(pos.line, pos.column).letter.points * board(pos.line, pos.column).bonus.letter_factor;
+        coefword *= board(pos.line, pos.column).bonus.word_factor;
         pos = pos.getNextPosition((direction + 2) % 4);
     }
     return (score * coefword);
@@ -227,20 +227,24 @@ int scoreAll(Board board, Direction direction, Position pos){
     int score = 0;
     int scorethis = 0;
     int coefword = 1;
-    while (board(pos.x, pos.y) =! 0){
-        scorethis += board(pos.x, pos.y).letter.points * board(pos.x, pos.y).bonus.letter_factor;
-        coefword *= board(pos.x, pos.y).bonus.word_factor;
-        if (board(point + direction + 1 % 4) != vide || board(point + direction + 3 % 4) != vide){
-            res += calculSubWord(board,direction, pos);
+    while (board(pos.line, pos.column).letter =! 0){
+        scorethis += board(pos.line, pos.column).letter.points * board(pos.line, pos.column).bonus.letter_factor;
+        coefword *= board(pos.line, pos.column).bonus.word_factor;
+        Position postemp1 = pos.getNextPosition((direction + 1) % 4);
+        Position postemp2 = pos.getNextPosition((direction + 3) % 4);
+        if (board(postemp1.line,postemp1.column).letter != 0 || board(postemp2.line,postemp2.column).letter != 0){
+            res += calculSubWord(board,(direction + 1) % 4, pos);
         }
         pos = pos.getNextPosition(direction);
     }
     pos = postemp;
-    while (board(pos.x, pos.y) != 0){
-        scorethis += board(pos.x, pos.y).letter.points * board(pos.x, pos.y).bonus.letter_factor;
-        coefword *= board(pos.x, pos.y).bonus.word_factor;
-        if (board(point + direction + 1 % 4) != vide || board(point + direction + 3 % 4) != vide){
-            res += calculSubWord(board,direction, pos);
+    while (board(pos.line, pos.column).letter != 0){
+        scorethis += board(pos.line, pos.column).letter.points * board(pos.line, pos.column).bonus.letter_factor;
+        coefword *= board(pos.line, pos.column).bonus.word_factor;
+        Position postemp1 = pos.getNextPosition((direction + 1) % 4);
+        Position postemp2 = pos.getNextPosition((direction + 3) % 4);
+        if (board(postemp1.line, postemp1.column).letter != 0 || board(postemp2.line, postemp2.column).letter != 0){
+            res += calculSubWord(board,(direction + 1) % 4, pos);
         }
         pos = pos.getNextPosition((direction + 2) % 4);
     }
