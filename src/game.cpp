@@ -60,6 +60,41 @@ string buildMot(Board, direction, point){
     }
     return res;
 }
+
+int scoreAll(Board, Position, direction){
+    int score = 0;
+    int coefword = 1;
+    while (Board(point - direction) =! vide){ // TOP et LEFT
+        res += scoreLettre * coefLettre;
+        coefword *= coefLettre;
+        if (Board(point + direction + 1 % 4) != vide || Board(point + direction + 3 % 4) != vide){
+            res += calculSubWord(Board,Direction, Position);
+        }
+    }
+    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
+            res += scoreLettre * coefLettre;
+            coefword *= coefLettre;
+            if (Board(point + direction + 1 % 4) != vide || Board(point + direction + 3 % 4) != vide){
+                res += calculSubWord(Board,Direction, Position);
+        }
+    }
+}
+
+int calculSubWord(Board, Position, direction){
+    int score = 0;
+    int coefword = 1;
+    while (Board(point - direction) =! vide){ // TOP et LEFT
+        res += scoreLettre * coefLettre;
+        coefword *= coefMot;
+    }
+    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
+        res += scoreLettre * coefLettre;
+        coefwword *= coefMot;
+    }
+    return (score * coefword);
+}
+
+
 */
 
 #include "game.hpp"
