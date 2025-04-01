@@ -15,7 +15,7 @@ coup(Board currentBoard, Spot currentLocation, Direction currentDirection, Playe
         if((0 <= l || l >= 14) && (0<= c || c >= 14)){
             for(int i = 0; i < player.inv.size(); i++){
                 verifier si gaddag[lettreJouer] existe{
-                   
+                    joue lettre
                     if (gaddag est terminal puis case suivante vide){
                         save état courant
                     }
@@ -28,7 +28,7 @@ coup(Board currentBoard, Spot currentLocation, Direction currentDirection, Playe
         }  
     }
     else {
-       
+
         coup(currentBoard, currentLocation + direction, currentDirection, player, gaddag, save);
     }
     
@@ -41,7 +41,25 @@ autrefonction(){
     }
 }
 
+bool is_possible(Board, direction, point, Gaddag){
+    // autre_direction = direction + 1 % 4
+    return (
+        Gadda.checkIfWordInGaddag(buildMot(Board,autre_direction,point)) && 
+        Gaddag.Checkdecomp(buildMot(Board, direction, point))
+    );
+}
 
+
+string buildMot(Board, direction, point){
+    string res = ""; 
+    while (Board(point - direction) =! vide){ // TOP et LEFT
+        res = lettre_actuelle + res;
+    }
+    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
+            res = res + lettre_actuelle;
+    }
+    return res;
+}
 */
 
 #include "game.hpp"
