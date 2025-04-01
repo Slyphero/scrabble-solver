@@ -102,3 +102,7 @@ void Gaddag::print() {
 Gaddag Gaddag::getGaddagByLetter(char letter) {
     return *gaddags[letter];
 }
+
+bool checkSubWord(string word){
+    
+}

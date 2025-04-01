@@ -63,4 +63,6 @@ public:
     void print();
 
     Gaddag getGaddagByLetter(char letter);
+
+    bool checkSubWord(string word);
 };

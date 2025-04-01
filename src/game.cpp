@@ -12,7 +12,7 @@ parcours droite ou bas après + on teste de placer les lettre du joueur
         if((0 <= l || l >= 14) && (0<= c || c >= 14)){
             for(int i = 0; i < player.inv.size(); i++){
                 verifier si gaddag[lettreJouer] existe{
-                   
+                    joue lettre
                     if (gaddag est terminal puis case suivante vide){
                         save état courant
                     }
@@ -25,7 +25,7 @@ parcours droite ou bas après + on teste de placer les lettre du joueur
         }  
     }
     else {
-       
+
         coup(currentBoard, currentLocation + direction, currentDirection, player, gaddag, save);
     }
     
@@ -124,6 +124,124 @@ autrefonction(){
         coup(Board,spotActuelle,TOP, joueur,gaddag,  save);
     }
 }
+
+bool is_possible(Board, direction, point, Gaddag){
+    // autre_direction = direction + 1 % 4
+    return (
+        Gadda.checkIfWordInGaddag(buildMot(Board,autre_direction,point)) && 
+        Gaddag.Checkdecomp(buildMot(Board, direction, point))
+    );
+}
+
+
+string buildMot(Board, direction, point){
+    string res = ""; 
+    while (Board(point - direction) =! vide){ // TOP et LEFT
+        res = lettre_actuelle + res;
+    }
+    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
+            res = res + lettre_actuelle;
+    }
+    return res;
+}
+
+int scoreAll(Board, Position, direction){
+    int score = 0;
+    int coefword = 1;
+    while (Board(point - direction) =! vide){ // TOP et LEFT
+        res += scoreLettre * coefLettre;
+        coefword *= coefLettre;
+        if (Board(point + direction + 1 % 4) != vide || Board(point + direction + 3 % 4) != vide){
+            res += calculSubWord(Board,Direction, Position);
+        }
+    }
+    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
+            res += scoreLettre * coefLettre;
+            coefword *= coefLettre;
+            if (Board(point + direction + 1 % 4) != vide || Board(point + direction + 3 % 4) != vide){
+                res += calculSubWord(Board,Direction, Position);
+        }
+    }
+}
+
+int calculSubWord(Board, Position, direction){
+    int score = 0;
+    int coefword = 1;
+    while (Board(point - direction) =! vide){ // TOP et LEFT
+        res += scoreLettre * coefLettre;
+        coefword *= coefMot;
+    }
+    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
+        res += scoreLettre * coefLettre;
+        coefwword *= coefMot;
+    }
+    return (score * coefword);
+}
 */
 
 
+
+
+string buildMot(Board board, Direction direction, Position pos){
+    Position postemp = pos; 
+    string res = "";
+    while (board(pos.x,pos.y).letter != 0){
+        res = Board(pos.x,pos.y).letter + res;
+        pos = pos.getNextPosition(direction);
+    }
+    pos = postemp;
+    while (board(pos.x,pos.y).letter != 0){
+        res = res + Board(pos.x,pos.y).letter;
+        pos = pos.getNextPosition((direction + 2) % 4);
+    }
+    return res;
+}
+
+bool is_possible(Board board, direction direction, Position pos, Gaddag gadd){
+    return (
+        gadd.checkIfWordInGaddag(buildMot(board,(direction + 1) % 4,pos)) && 
+        gadd.checkSubWord(buildMot(board, direction, pos))
+    );
+}
+
+int calculSubWord(Board board, Direction direction, Position pos){
+    Position postemp = pos;
+    int score = 0;
+    int coefword = 1;
+    while (board(pos.x, pos.y) =! 0){
+        score += board(pos.x, pos.y).letter.points * board(pos.x, pos.y).bonus.letter_factor;
+        coefword *= board(pos.x, pos.y).bonus.word_factor;
+        pos = pos.getNextPosition(direction);
+    }
+    pos = postemp;
+    while (board(pos.x, pos.y) != 0){
+        score += board(pos.x, pos.y).letter.points * board(pos.x, pos.y).bonus.letter_factor;
+        coefword *= board(pos.x, pos.y).bonus.word_factor;
+        pos = pos.getNextPosition((direction + 2) % 4);
+    }
+    return (score * coefword);
+}
+
+int scoreAll(Board board, Direction direction, Position pos){
+    Position postemp = pos;
+    int score = 0;
+    int scorethis = 0;
+    int coefword = 1;
+    while (board(pos.x, pos.y) =! 0){
+        scorethis += board(pos.x, pos.y).letter.points * board(pos.x, pos.y).bonus.letter_factor;
+        coefword *= board(pos.x, pos.y).bonus.word_factor;
+        if (board(point + direction + 1 % 4) != vide || board(point + direction + 3 % 4) != vide){
+            res += calculSubWord(board,direction, pos);
+        }
+        pos = pos.getNextPosition(direction);
+    }
+    pos = postemp;
+    while (board(pos.x, pos.y) != 0){
+        scorethis += board(pos.x, pos.y).letter.points * board(pos.x, pos.y).bonus.letter_factor;
+        coefword *= board(pos.x, pos.y).bonus.word_factor;
+        if (board(point + direction + 1 % 4) != vide || board(point + direction + 3 % 4) != vide){
+            res += calculSubWord(board,direction, pos);
+        }
+        pos = pos.getNextPosition((direction + 2) % 4);
+    }
+}

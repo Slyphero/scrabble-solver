@@ -27,6 +27,10 @@ private:
     State currentState;    
 
 public:
+    string buildMot(Board board, Direction direction, Position pos);
+    bool is_possible(Board board, Direction direction, Position pos, Gaddag gaddag);
+    int calculSubWord(Board board, Direction direction, Position pos);
+    int scoreAll(Board board, Direction direction, Position pos);
     void getPossibleNextStates(const State& state, std::vector<State>& possibleNextStates);    
     State getBestNextState(const std::vector<State>& nextStates);
 }; 
