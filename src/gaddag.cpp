@@ -56,7 +56,6 @@ void Gaddag::insertDictionnary() {
     file.close();
 }
 
-
 bool Gaddag::checkIfDecompositionInGaddag(const std::string& decomposition) {
     Gaddag* currentGaddag = this;
     for (unsigned int i = 0; i < (unsigned int)decomposition.size(); i++) {
@@ -98,4 +97,8 @@ void Gaddag::print() {
             std::cout << ")";
         }
     }
+}
+
+Gaddag Gaddag::getGaddagByLetter(char letter) {
+    return *gaddags[letter];
 }

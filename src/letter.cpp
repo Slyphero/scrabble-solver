@@ -37,6 +37,12 @@ void Letter::print() {
         << std::endl;
 }
 
+void Letter::operator=(const Letter& newLetter) {
+    letter = newLetter.letter;
+    points = newLetter.points;
+    occurences = newLetter.occurences;
+}
+
 bool Letter::operator==(const Letter& newLetter) {
     return (letter == newLetter.letter) && (points == newLetter.points);
 }

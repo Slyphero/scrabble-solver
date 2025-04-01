@@ -6,16 +6,27 @@
 
 #include <vector>
 
+struct Position {
+    unsigned int line;
+    unsigned int column;
+    Position getNextPosition(Direction direction);
+    void operator=(const Position& newPosition);
+}
+
 struct State {
     Player player;
     Gaddag gaddag;
     Board board;
-    Spot spot;
-}
+    Position currentPosition;
+    Direction direction;
+    Position initialPosition;
+};
 
 class Game {
 private:
-    State state;
+    State currentState;    
 
 public:
+    void getPossibleNextStates(const State& state, std::vector<State>& possibleNextStates);    
+    State getBestNextState(const std::vector<State>& nextStates);
 }; 

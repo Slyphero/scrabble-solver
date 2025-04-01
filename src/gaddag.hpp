@@ -61,4 +61,6 @@ public:
      * @brief Display the gaddag
      */
     void print();
+
+    Gaddag getGaddagByLetter(char letter);
 };

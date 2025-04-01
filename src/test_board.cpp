@@ -1,8 +1,10 @@
 #include "board.hpp"
 
+
 #include "letters_collection.hpp"
 #include "Player.hpp"
 #include "gaddag.hpp"
+#include "game.hpp"
 
 #include <iostream>
 #include <sstream>
@@ -40,5 +42,13 @@ int main() {
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end -start);
   std::cout << duration.count() <<std::endl;
 
+  State state;
+
+  state.direction = TOP;
+
+  std::cout << state.direction << std::endl;
+
   return 0 ;
+
+
 }

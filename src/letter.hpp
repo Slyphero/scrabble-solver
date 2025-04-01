@@ -49,4 +49,6 @@ public:
     bool operator==(const Letter& newLetter); 
 
     bool operator!=(const Letter& newLetter); 
+
+    void operator=(const Letter& newLetter);
 };
