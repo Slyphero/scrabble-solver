@@ -20,4 +20,6 @@ private:
 public:
     string buildMot(Board board, Direction direction, Position pos);
     bool is_possible(Board board, Direction direction, Position pos, Gaddag gaddag);
+    int calculSubWord(Board board, Direction direction, Position pos);
+    int scoreAll(Board board, Direction direction, Position pos);
 }; 
