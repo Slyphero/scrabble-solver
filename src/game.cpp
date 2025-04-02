@@ -68,37 +68,11 @@ void Game::getPossibleNextStates(const State &state,
   Position nextPosition =
       state.currentPosition.getNextPosition(state.direction);
 
-  if (state.board(l, c).letter == 0) {
-    if (l >= 0 && l <= 14 && c >= 0 && c <= 14) {
-      for (unsigned int = 0; i < inventorySize; i++) {
-        Letter playerLetter = state.player.getLetter(i);
-        if (state.gaddag.gaddags.find(playerLetter) !=
-            state.gaddag.gaddags.end()) {
-          if (state.gaddag.gaddags.getGaddagByLetter(playerLetter)->isFinal &&
-              state.board(nextPosition.line, nextPosition.column).letter == 0) {
-            possibleNextStates.push_back(state);
-          }
-          /*
-          Appel récursif avec les paramètres
-          - player après retrait de la lettre jouée
-          - gaddag de la lettre jouée
-          - board après ajout de la lettre
-          - nextPosition
-          - direction
-          - initialPosition
-          */
-        }
-      }
-      if (state.gaddag.gaddags.find("+") != state.gaddag.gaddags.end() &&
-          state.board(nextPosition.line, nextPosition.column).letter == 0) {
-        State newState(state.player,
-                       state.gaddag.gaddags.getGaddagByLetter("+")->gaddags,
-                       state.board, state.initialPosition,
-                       (state.direction + 2) % 4, state.initialPosition);
-        getPossibleNextStates(newState, possibleNextStates);
-      }
-    }
-  } else {
+  if (!(l >= 0 && l <= 14 && c >= 0 && c <= 14)) {
+    return;
+  }
+
+  if (state.board(l, c).letter != 0) {
     State newState(
         state.player,
         state.gaddag.gaddags
@@ -108,6 +82,35 @@ void Game::getPossibleNextStates(const State &state,
                                    .letter)
             ->gaddags,
         state.board, nextPosition, state.direction, state.initialPosition);
+    getPossibleNextStates(newState, possibleNextStates);
+    return;
+  }
+
+  for (unsigned int i = 0; i < inventorySize; i++) {
+    Letter playerLetter = state.player.getLetter(i);
+    if (state.gaddag.gaddags.find(playerLetter) != state.gaddag.gaddags.end()) {
+      if (state.gaddag.gaddags.getGaddagByLetter(playerLetter)->isFinal &&
+          state.board(nextPosition.line, nextPosition.column).letter == 0) {
+        possibleNextStates.push_back(state);
+      }
+      /*
+      Appel récursif avec les paramètres
+      - player après retrait de la lettre jouée
+      - gaddag de la lettre jouée
+      - board après ajout de la lettre
+      - nextPosition
+      - direction
+      - initialPosition
+      */
+    }
+  }
+
+  if (state.gaddag.gaddags.find("+") != state.gaddag.gaddags.end() &&
+      state.board(nextPosition.line, nextPosition.column).letter == 0) {
+    State newState(state.player,
+                   state.gaddag.gaddags.getGaddagByLetter("+")->gaddags,
+                   state.board, state.initialPosition,
+                   (state.direction + 2) % 4, state.initialPosition);
     getPossibleNextStates(newState, possibleNextStates);
   }
 }
