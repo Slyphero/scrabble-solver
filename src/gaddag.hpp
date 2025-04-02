@@ -60,9 +60,11 @@ class Gaddag {
   /**
    * @brief Display the gaddag
    */
-  void print();
+  // void print();
 
-  Gaddag getGaddagByLetter(char letter);
+  void print(int depth);
+
+  Gaddag* getGaddagByLetter(char letter);
 
   bool checkIfSubwordInGaddag(const std::string& subword);
 };

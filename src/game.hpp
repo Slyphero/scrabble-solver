@@ -11,7 +11,7 @@ struct Position {
   unsigned int column;
   Position getNextPosition(Direction direction);
   void operator=(const Position& newPosition);
-}
+};
 
 struct State {
   Player player;
@@ -27,9 +27,9 @@ class Game {
   State currentState;
 
  public:
-  string buildMot(Board board, Direction direction, Position pos);
-  bool is_possible(Board board, Direction direction, Position pos,
-                   Gaddag gaddag);
+  std::string buildMot(Board board, Direction direction, Position pos);
+  bool isPossible(Board board, Direction direction, Position pos,
+                  Gaddag gaddag);
   int calculSubWord(Board board, Direction direction, Position pos);
   int scoreAll(Board board, Direction direction, Position pos);
   void getPossibleNextStates(const State& state,

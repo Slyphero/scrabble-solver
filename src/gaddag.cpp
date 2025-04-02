@@ -80,24 +80,47 @@ bool Gaddag::checkIfWordInGaddag(const std::string& word) {
   return true;
 }
 
-void Gaddag::print() {
-  if (gaddags.size() == 0) {
-    std::cout << std::endl;
-    return;
+// void Gaddag::print() {
+//   if (gaddags.size() == 0) {
+//     std::cout << std::endl;
+//     return;
+//   }
+
+//   for (const auto& [key, value] : gaddags) {
+//     std::cout << std::endl;
+//     std::cout << key;
+//     if (value != nullptr) {
+//       std::cout << "(";
+//       value->print();
+//       std::cout << ")";
+//     }
+//   }
+// }
+
+void Gaddag::print(int depth = 0) {
+  std::cout << std::string(depth * 4, ' ') << "|- ";
+
+  if (isFinal) {
+    std::cout << "(final)";
   }
 
+  std::cout << std::endl;
+
   for (const auto& [key, value] : gaddags) {
-    std::cout << std::endl;
-    std::cout << key;
-    if (value != nullptr) {
-      std::cout << "(";
-      value->print();
-      std::cout << ")";
+    std::cout << std::string(depth * 4, ' ') << "|- " << key << " →"
+              << std::endl;
+    if (value) {
+      value->print(depth + 1);
     }
   }
 }
 
-Gaddag Gaddag::getGaddagByLetter(char letter) { return *gaddags[letter]; }
+Gaddag* Gaddag::getGaddagByLetter(char letter) {
+  if (gaddags.find(letter) != gaddags.end()) {
+    return gaddags[letter].get();
+  }
+  return nullptr;
+}
 
 bool Gaddag::checkIfSubwordInGaddag(const std::string& subword) {
   Gaddag* currentGaddag = this;

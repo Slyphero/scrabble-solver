@@ -9,11 +9,15 @@ parcours gauche ou haut avant + on essaie de placer les lettres
 parcours droite ou bas après + on teste de placer les lettre du joueur
 */
 #include "game.hpp"
-/*coup(Board currentBoard, Spot currentLocation, Direction currentDirection,
+/*
+
+coup(Board currentBoard, Spot currentLocation, Direction currentDirection,
 Player player,gaddag, struct save){ if (Board(currentLocation) == 0//la case ne
 contient pas de lettre){ if((0 <= l || l >= 14) && (0<= c || c >= 14)){ for(int
-i = 0; i < player.inv.size(); i++){ verifier si gaddag[lettreJouer] existe{ joue
-lettre if (gaddag est terminal puis case suivante vide){ save état courant
+i = 0; i < player.inv.size(); i++){ verifier si gaddag[lettreJouer] existe{
+
+                    if (gaddag est terminal puis case suivante vide){
+                        save état courant
                     }
                     coup(Boardmodif, currentLocation + direction,
 currentDirection, player.inv - lettre jouer,gaddag, save);
@@ -29,6 +33,8 @@ currentDirection, player.inv - lettre jouer,gaddag, save);
         coup(currentBoard, currentLocation + direction, currentDirection,
 player, gaddag, save);
     }
+
+}
 
 }*/
 
@@ -68,7 +74,7 @@ void Game::getPossibleNextStates(const State &state,
         Letter playerLetter = state.player.getLetter(i);
         if (state.gaddag.gaddags.find(playerLetter) !=
             state.gaddag.gaddags.end()) {
-          if (state.gaddag.gaddags.getGaddagByLetter(playerLetter).isFinal &&
+          if (state.gaddag.gaddags.getGaddagByLetter(playerLetter)->isFinal &&
               state.board(nextPosition.line, nextPosition.column).letter == 0) {
             possibleNextStates.push_back(state);
           }
@@ -86,19 +92,21 @@ void Game::getPossibleNextStates(const State &state,
       if (state.gaddag.gaddags.find("+") != state.gaddag.gaddags.end() &&
           state.board(nextPosition.line, nextPosition.column).letter == 0) {
         State newState(state.player,
-                       state.gaddag.gaddags.getGaddagByLetter("+"), state.board,
-                       state.initialPosition, (state.direction + 2) % 4,
-                       state.initialPosition);
+                       state.gaddag.gaddags.getGaddagByLetter("+")->gaddags,
+                       state.board, state.initialPosition,
+                       (state.direction + 2) % 4, state.initialPosition);
         getPossibleNextStates(newState, possibleNextStates);
       }
     }
   } else {
     State newState(
         state.player,
-        state.gaddag.gaddags.getGaddagByLetter(
-            state
-                .board(state.currentPosition.line, state.currentPosition.column)
-                .letter),
+        state.gaddag.gaddags
+            .getGaddagByLetter(state
+                                   .board(state.currentPosition.line,
+                                          state.currentPosition.column)
+                                   .letter)
+            ->gaddags,
         state.board, nextPosition, state.direction, state.initialPosition);
     getPossibleNextStates(newState, possibleNextStates);
   }
@@ -166,7 +174,7 @@ int calculSubWord(Board, Position, direction){
 }
 */
 
-string buildMot(Board board, Direction direction, Position pos) {
+std::string Game::buildMot(Board board, Direction direction, Position pos) {
   Position postemp = pos;
   string res = "";
   while (board(pos.line, pos.column).letter != 0) {
@@ -181,12 +189,13 @@ string buildMot(Board board, Direction direction, Position pos) {
   return res;
 }
 
-bool is_possible(Board board, direction direction, Position pos, Gaddag gadd) {
+bool Game::isPossible(Board board, direction direction, Position pos,
+                      Gaddag gadd) {
   return (gadd.checkIfWordInGaddag(buildMot(board, (direction + 1) % 4, pos)) &&
           gadd.checkSubWord(buildMot(board, direction, pos)));
 }
 
-int calculSubWord(Board board, Direction direction, Position pos) {
+int Game::calculSubWord(Board board, Direction direction, Position pos) {
   Position postemp = pos;
   int score = 0;
   int coefword = 1;
@@ -206,7 +215,7 @@ int calculSubWord(Board board, Direction direction, Position pos) {
   return (score * coefword);
 }
 
-int scoreAll(Board board, Direction direction, Position pos) {
+int Game::scoreAll(Board board, Direction direction, Position pos) {
   Position postemp = pos;
   int score = 0;
   int scorethis = 0;

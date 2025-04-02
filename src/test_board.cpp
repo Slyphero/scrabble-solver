@@ -47,5 +47,12 @@ int main() {
 
   std::cout << state.direction << std::endl;
 
+  Gaddag gaddagTest;
+
+  gaddagTest.insertWord("SAC");
+  gaddagTest.insertWord("TAS");
+
+  gaddagTest.print(0);
+
   return 0;
 }
