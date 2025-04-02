@@ -1,44 +1,33 @@
 #include "Player.hpp"
 
-Player::Player() {
-    points = 0;
-}
+Player::Player() { points = 0; }
 
-void Player::addPoints(unsigned int points) {
-    this->points += points;
-}
+void Player::addPoints(unsigned int points) { this->points += points; }
 
 void Player::drawLetters(LettersCollection& bag) {
-    while (!bag.checkIfCollectionEmpty() && inventory.size() < LIMIT_INVENTORY) {
-        inventory.push_back(bag.pickRandomLetter());
-    }
+  while (!bag.checkIfCollectionEmpty() && inventory.size() < LIMIT_INVENTORY) {
+    inventory.push_back(bag.pickRandomLetter());
+  }
 }
 
-unsigned int Player::getPoints() {
-    return points;
-}
+unsigned int Player::getPoints() { return points; }
 
 void Player::printInventory() {
-    std::cout <<"Player Inventory" << std::endl;
-    for (unsigned int i = 0; i < (unsigned int)inventory.size(); i++) {
-        inventory[i].print();
-    }
+  std::cout << "Player Inventory" << std::endl;
+  for (unsigned int i = 0; i < (unsigned int)inventory.size(); i++) {
+    inventory[i].print();
+  }
 }
 
-std::vector<Letter> Player::getInventory() {
-    return inventory;
-}
+std::vector<Letter> Player::getInventory() { return inventory; }
 
-Letter Player::getLetter(unsigned int i) {
-    return inventory[i];
-}
+Letter Player::getLetter(unsigned int i) { return inventory[i]; }
 
 void Player::removeLetter(const Letter& letter) {
-    for (unsigned int i = 0; i < (unsigned int)inventory.size(); i++) {
-        if (inventory[i] == letter) {
-            inventory.erase(inventory.begin() + i);
-            break;
-        }
+  for (unsigned int i = 0; i < (unsigned int)inventory.size(); i++) {
+    if (inventory[i] == letter) {
+      inventory.erase(inventory.begin() + i);
+      break;
     }
+  }
 }
-

@@ -5,34 +5,35 @@
 const int NUMBER_OF_LETTERS = 27;
 
 class LettersCollection {
-private:
-    Letter lettersCollection[NUMBER_OF_LETTERS];
-public:
-    /**
-     * @brief Constructor of LettersCollection
-     */
-    LettersCollection(); 
+ private:
+  Letter lettersCollection[NUMBER_OF_LETTERS];
 
-    /**
-     * @brief Get the letter at i index in the collection
-     * @return The i-th letter
-     */
-    Letter getLetter(unsigned int i);
+ public:
+  /**
+   * @brief Constructor of LettersCollection
+   */
+  LettersCollection();
 
-    /**
-     * @brief Draw a random letter from the collection
-     * @return A random letter
-     */
-    Letter pickRandomLetter();
-    
-    /**
-     * @brief Check if the collection is empty
-     * @return : True if the collection is empty
-     */
-    bool checkIfCollectionEmpty();
+  /**
+   * @brief Get the letter at i index in the collection
+   * @return The i-th letter
+   */
+  Letter getLetter(unsigned int i);
 
-    /**
-     * @brief Display info about collection
-     */
-    void print();
+  /**
+   * @brief Draw a random letter from the collection
+   * @return A random letter
+   */
+  Letter pickRandomLetter();
+
+  /**
+   * @brief Check if the collection is empty
+   * @return : True if the collection is empty
+   */
+  bool checkIfCollectionEmpty();
+
+  /**
+   * @brief Display info about collection
+   */
+  void print();
 };
