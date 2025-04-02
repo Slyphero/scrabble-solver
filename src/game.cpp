@@ -68,9 +68,7 @@ void Game::getPossibleNextStates(const State &state,
   Position nextPosition =
       state.currentPosition.getNextPosition(state.direction);
 
-  if (!(l >= 0 && l <= 14 && c >= 0 && c <= 14)) {
-    return;
-  }
+  if (!(l >= 0 && l <= 14 && c >= 0 && c <= 14)) return;
 
   if (state.board(l, c).letter != 0) {
     State newState(
