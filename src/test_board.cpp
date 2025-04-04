@@ -10,9 +10,11 @@
 #include "letters_collection.hpp"
 
 int main() {
-  Board b;
+  Board board;
 
-  std::cout << b << std::endl;
+  std::cout << board << std::endl;
+
+  /*
 
   std::stringstream ss;
   ss << "..............." << std::endl;
@@ -33,26 +35,31 @@ int main() {
 
   b.load(ss);
 
+  */
+  LettersCollection lettersCollection;
+
   Gaddag gaddag;
-  auto start = std::chrono::high_resolution_clock::now();
   gaddag.insertDictionnary();
-  auto end = std::chrono::high_resolution_clock::now();
-  auto duration =
-      std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-  std::cout << duration.count() << std::endl;
 
-  State state;
+  Player player;
+  player.drawLetters(lettersCollection);
 
-  state.direction = TOP;
+  std::vector<State> possibleNextStates;
 
-  std::cout << state.direction << std::endl;
+  Position initialPosition(8, 8);
 
-  Gaddag gaddagTest;
+  State state(player, gaddag, board, initialPosition, LEFT);
 
-  gaddagTest.insertWord("SAC");
-  gaddagTest.insertWord("TAS");
+  Game game(state.player, state.gaddag, state.board, state.initialPosition,
+            state.direction);
 
-  gaddagTest.print(0);
+  player.printInventory();
+
+  game.getPossibleNextStates(state, possibleNextStates);
+
+  for (auto possibleNextState : possibleNextStates) {
+    possibleNextState.player.printInventory();
+  }
 
   return 0;
 }

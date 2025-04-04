@@ -10,7 +10,7 @@ SOURCES += letter.cpp
 SOURCES += letters_collection.cpp
 SOURCES += Player.cpp
 SOURCES += gaddag.cpp
-
+SOURCES += game.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 CXXFLAGS  += -g -Wall -std=c++11 -pedantic -O3

@@ -9,6 +9,7 @@ parcours gauche ou haut avant + on essaie de placer les lettres
 parcours droite ou bas après + on teste de placer les lettre du joueur
 */
 #include "game.hpp"
+
 /*
 
 coup(Board currentBoard, Spot currentLocation, Direction currentDirection,
@@ -55,13 +56,13 @@ Position Position::getNextPosition(Direction direction) {
   }
 }
 
-void Position::operator=(const Position &newPosition) {
+void Position::operator=(const Position& newPosition) {
   line = newPosition.line;
   column = newPosition.column;
 }
 
-void Game::getPossibleNextStates(const State &state,
-                                 std::vector<State> &possibleNextStates) {
+void Game::getPossibleNextStates(const State& state,
+                                 std::vector<State>& possibleNextStates) {
   unsigned int l = state.currentPosition.line;
   unsigned int c = state.currentPosition.column;
   unsigned int inventorySize = state.player.getInventory().size();
@@ -100,6 +101,21 @@ void Game::getPossibleNextStates(const State &state,
       - direction
       - initialPosition
       */
+      state.board(l, c).letter = playerLetter;
+
+      if (!isPossible(state.board, state.direction, state.currentPosition,
+                      state.gaddag)) {
+        return;
+      }
+
+      state.player.removeLetter(playerLetter);
+
+      State newState(
+          state.player,
+          state.gaddag.gaddags.getGaddagByLetter(playerLetter)->gaddags,
+          state.board, state.direction, state.initialPosition);
+
+      getPossibleNextStates(newState, possibleNextStates);
     }
   }
 
@@ -198,9 +214,10 @@ bool Game::isPossible(Board board, direction direction, Position pos,
 
 int Game::calculSubWord(Board board, Direction direction, Position pos) {
   Position postemp = pos;
+  int res = 0;
   int score = 0;
   int coefword = 1;
-  while (board(pos.line, pos.column).letter = !0) {
+  while (board(pos.line, pos.column).letter != 0) {
     score += board(pos.line, pos.column).letter.points *
              board(pos.line, pos.column).bonus.letter_factor;
     coefword *= board(pos.line, pos.column).bonus.word_factor;
@@ -218,10 +235,11 @@ int Game::calculSubWord(Board board, Direction direction, Position pos) {
 
 int Game::scoreAll(Board board, Direction direction, Position pos) {
   Position postemp = pos;
+  int res = 0;
   int score = 0;
   int scorethis = 0;
   int coefword = 1;
-  while (board(pos.line, pos.column).letter = !0) {
+  while (board(pos.line, pos.column).letter != 0) {
     scorethis += board(pos.line, pos.column).letter.points *
                  board(pos.line, pos.column).bonus.letter_factor;
     coefword *= board(pos.line, pos.column).bonus.word_factor;
@@ -245,5 +263,6 @@ int Game::scoreAll(Board board, Direction direction, Position pos) {
       res += calculSubWord(board, (direction + 1) % 4, pos);
     }
     pos = pos.getNextPosition((direction + 2) % 4);
+    return (scorethis * coefword + res);
   }
 }

@@ -1,7 +1,5 @@
 #include "Player.hpp"
 
-Player::Player() { points = 0; }
-
 void Player::addPoints(unsigned int points) { this->points += points; }
 
 void Player::drawLetters(LettersCollection& bag) {

@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-Gaddag::Gaddag() { isFinal = false; }
-
 std::vector<std::string> Gaddag::decompose(const std::string& word) {
   std::vector<std::string> decompositions;
   for (unsigned int i = 0; i < (unsigned int)word.size(); i++) {

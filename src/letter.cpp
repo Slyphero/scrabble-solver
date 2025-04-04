@@ -2,20 +2,6 @@
 
 #include <iostream>
 
-using namespace std;
-
-Letter::Letter() {
-  letter = '0';
-  occurences = 0;
-  points = 0;
-}
-
-Letter::Letter(char letter, unsigned int occurences, unsigned int points) {
-  this->letter = letter;
-  this->occurences = occurences;
-  this->points = points;
-}
-
 unsigned int Letter::getOccurences() { return occurences; }
 
 unsigned int Letter::getPoints() { return points; }

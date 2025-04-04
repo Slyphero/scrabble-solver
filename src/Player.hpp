@@ -17,7 +17,7 @@ class Player {
   /**
    * @brief Player class constructor
    */
-  Player();
+  Player() : points(0) {}
 
   /**
    * @brief Add points to the current score of the player

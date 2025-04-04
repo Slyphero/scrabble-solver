@@ -16,7 +16,7 @@ class Gaddag {
   /**
    * @brief Gaddag's class constructor
    */
-  Gaddag();
+  Gaddag() : isFinal(false) {}
 
   /**
    * @brief Insert the whole dictionary (data/dico.txt) in the Gaddag

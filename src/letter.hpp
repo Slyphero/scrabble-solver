@@ -11,7 +11,7 @@ class Letter {
   /**
    * @brief Default letter constructor ('0', 0, 0)
    */
-  Letter();
+  Letter() : letter('0'), occurences(0), points(0) {}
 
   /**
    * @brief : Letter constructor
@@ -19,7 +19,8 @@ class Letter {
    * @param occurences : The number of occurences of this letter in the game
    * @param points : The score given by this letter
    */
-  Letter(char letter, unsigned int occurences, unsigned int points);
+  Letter(char _letter, unsigned int _occurences, unsigned int _points)
+      : letter(_letter), occurences(_occurences), points(_points) {}
 
   /**
    * @brief : Returns the number of occurences
