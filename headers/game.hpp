@@ -1,39 +1,20 @@
+#include <queue>
+#include <stack>
 #include <vector>
 
 #include "Player.hpp"
 #include "board.hpp"
 #include "direction.hpp"
 #include "gaddag.hpp"
+#include "position.hpp"
 #include "spot.hpp"
-
-struct Position {
-  unsigned int line;
-  unsigned int column;
-  Position(unsigned int l, unsigned int c) : line(l), column(c) {}
-  Position getNextPosition(Direction direction);
-  void operator=(const Position& newPosition);
-};
-
-struct State {
-  Player player;
-  const Gaddag& gaddag;
-  Board board;
-  Position currentPosition;
-  Direction direction;
-  Position initialPosition;
-  State(const Player& _player, const Gaddag& _gaddag, const Board& _board,
-        const Position& _initialPosition, const Direction& _direction)
-      : player(_player),
-        gaddag(_gaddag),
-        board(_board),
-        currentPosition(_initialPosition),
-        direction(_direction),
-        initialPosition(_initialPosition) {}
-};
+#include "state.hpp"
 
 class Game {
  private:
   State currentState;
+  std::queue<State> nextPossibleStates;
+  State bestNextState;
 
  public:
   Game(const Player& player, const Gaddag& gaddag, const Board& board,
@@ -44,7 +25,6 @@ class Game {
                   Gaddag gaddag);
   int calculSubWord(Board board, Direction direction, Position pos);
   int scoreAll(Board board, Direction direction, Position pos);
-  void getPossibleNextStates(const State& state,
-                             std::vector<State>& possibleNextStates);
+  void getPossibleNextStates(Position position);
   State getBestNextState(const std::vector<State>& nextStates);
 };

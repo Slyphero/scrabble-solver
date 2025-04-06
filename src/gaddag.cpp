@@ -95,6 +95,8 @@ void Gaddag::print(int depth) {
   }
 }
 
+bool Gaddag::checkIfFinal() { return isFinal; }
+
 Gaddag *Gaddag::getGaddagByLetter(char letter) {
   if (gaddags.find(letter) != gaddags.end()) {
     return gaddags[letter];

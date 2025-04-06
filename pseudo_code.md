@@ -27,7 +27,7 @@ coup(Board currentBoard, Spot currentLocation, Direction currentDirection, Playe
 
 # Vérification des coups possibles : 2e ébauche
 
-Dans un état, on a besoin de l'inventaire du joueur, du plateau (avec les lettres déjà placées) ainsi que l'avancement dans le gaddag (le noeud courant)
+Dans un état, on a besoin de l'inventaire du joueur, du plateau (avec les lettres déjà placées), la position courante, ainsi que l'avancement dans le gaddag (le noeud courant)
 
 Pseudo code itératif pour lister les coups possibles à partir d'une case, dans le code final, il faudra bien distinguer exploration verticale et horizontale, dans ce pseudo code, je ne vais pas préciser car c'est la même chose sur le principe.
 
@@ -45,26 +45,46 @@ Un mot pourrait être juste dans une direction, mais créer des mots invalides d
 C'est pour cette raison que j'ai choisi de stocker le résultat dans une file, pour pouvoir défiler les états qui ne sont pas valides après d'autres vérfications (par exemple, les cas d'erreurs cités précédemment).
 
 ```
-file etats_possibles : etats_possibles_de_position(Position depart)
-    ajouter etat_courant a la pile_etats
+On empile l'état initial.
+Tant que pile d'états à étudier n'est pas vide :
+  On dépile le sommet puis on l'étudie.
 
-    Tant que pile_etats non vide :
-        On dépile le l'état au sommet
+  Si bord haut ou gauche :
+    Si noeud terminal :
+      Enfiler etat.
+      Depiler etat (garder une copie pour la vérif du +).
 
-        Si le noeud courant est terminal :
-            On enfile l'état courant à la file de résultats
+    Si + existe :
+      Empiler les coups possibles.
 
-        Si case courante vide :
-            empiler un nouvel etat pour chaque lettre jouable
-            Si arête + :
-                On ajoute un nouvel etat partant
-                de la position initiale
-                et on change le sens de parcours
-        Sinon :
-            Si l'arête existe :
-                on empile le nouvel etat
-            Sinon :
-                On dépile l'état sans rien en faire
+    Sinon :
+      Depiler etat.
 
-    Retourner etats_possibles
+  Si bord bas ou droite :
+    Si noeud terminal :
+      Enfiler etat.
+      Depiler etat.
+    Sinon :
+      Depiler etat.
+
+  Si case vide :
+    Si aucune arête et noeud terminal:
+      Enfiler état.
+      Dépiler état.
+
+    Si noeud terminal (et qu'il y a des arêtes):
+      Enfiler etat.
+
+    On empile les états données après avoir joué toutes
+    les lettres jouables (si arête existe et si dans l'inventaire).
+
+    Si on a une arête + :
+      On retourne à la position initiale et on empile le nouvel état.
+      On pense bien à changer de sens dans le parcours.
+
+  Si case occupée :
+    Si arête n'existe pas (même si noeud terminal):
+      On dépile sans rien faire d'autre de cet état.
+    Si arête existe :
+      On empile un nouvel état.
 ```

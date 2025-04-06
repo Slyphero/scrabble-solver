@@ -62,6 +62,8 @@ class Gaddag {
    */
   void print(int depth = 0);
 
+  bool checkIfFinal();
+
   Gaddag* getGaddagByLetter(char letter);
 
   bool checkIfSubwordInGaddag(const std::string& subword);
