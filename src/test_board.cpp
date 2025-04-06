@@ -13,8 +13,6 @@ int main() {
 
   std::cout << board << std::endl;
 
-  /*
-
   std::stringstream ss;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
@@ -32,9 +30,10 @@ int main() {
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
 
-  b.load(ss);
+  board.load(ss);
 
-  */
+  std::cout << board << std::endl;
+
   /*
   LettersCollection lettersCollection;
 
@@ -61,12 +60,6 @@ int main() {
     possibleNextState.player.printInventory();
   }
   */
-  Gaddag gaddag;
-
-  gaddag.insertWord("TAS");
-  gaddag.insertWord("BATEAU");
-
-  gaddag.print();
 
   return 0;
 }

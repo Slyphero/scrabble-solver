@@ -18,8 +18,8 @@ class Game {
 
  public:
   Game(const Player& player, const Gaddag& gaddag, const Board& board,
-       const Position& initialPosition, const Direction& direction)
-      : currentState(player, gaddag, board, initialPosition, direction) {}
+       const Position& initialPosition)
+      : currentState(player, gaddag, board, initialPosition) {}
   std::string buildMot(Board board, Direction direction, Position pos);
   bool isPossible(Board board, Direction direction, Position pos,
                   Gaddag gaddag);
