@@ -24,3 +24,44 @@ coup(Board currentBoard, Spot currentLocation, Direction currentDirection, Playe
   }
 }
 ```
+
+Dans un état, on a besoin de l'inventaire du joueur, du plateau (avec les lettres déjà placées) ainsi que l'avancement dans le gaddag (le noeud courant)
+
+Pseudo code itératif pour lister les coups possibles à partir d'une case, dans le code final, il faudra bien distinguer exploration verticale et horizontale, dans ce pseudo code, je ne vais pas préciser car c'est la même chose sur le principe.
+
+Il faut aussi ajouter la prise en compte du bord
+Si jamais on arrive sur le bord haut ou gauche : il faut vérifier que le noeud soit terminal ou bien qu'un + existe
+
+Si jamais on arrive sur le bord bas ou droite, le noeud doit être terminal
+
+Le pseudo code n'est pas complet, il donne les grandes idées.  
+On considère que la position de départ est valide
+
+Certains cas d'erreur ne sont pas encore pris en compte par cet algorithme  
+Un mot pourrait être juste dans une direction, mais créer des mots invalides dans une autre.
+
+```
+tableau etats_possibles : etats_possibles_de_position(Position depart)
+    ajouter etat_courant a la pile_etats
+
+    Tant que pile_etats non vide :
+        On dépile le l'état au sommet
+
+        Si le noeud courant est terminal :
+            On ajoute etat_courant au tableau
+            d'etats possibles
+
+        Si case courante vide :
+            empiler un nouvel etat pour chaque lettre jouable
+            Si arête + :
+                On ajoute un nouvel etat partant
+                de la position initiale
+                et on change le sens de parcours
+        Sinon :
+            Si l'arête existe :
+                on empile le nouvel etat
+            Sinon :
+                On dépile l'état sans rien en faire
+
+    Retourner etats_possibles
+```
