@@ -52,25 +52,17 @@ Tant que pile d'états à étudier n'est pas vide :
   Si bord haut ou gauche :
     Si noeud terminal :
       Enfiler etat.
-      Depiler etat (garder une copie pour la vérif du +).
 
     Si + existe :
-      Empiler les coups possibles.
-
-    Sinon :
-      Depiler etat.
+      Empiler nouvel etat.
 
   Si bord bas ou droite :
     Si noeud terminal :
       Enfiler etat.
-      Depiler etat.
-    Sinon :
-      Depiler etat.
 
   Si case vide :
     Si aucune arête et noeud terminal:
       Enfiler état.
-      Dépiler état.
 
     Si noeud terminal (et qu'il y a des arêtes):
       Enfiler etat.
@@ -83,8 +75,6 @@ Tant que pile d'états à étudier n'est pas vide :
       On pense bien à changer de sens dans le parcours.
 
   Si case occupée :
-    Si arête n'existe pas (même si noeud terminal):
-      On dépile sans rien faire d'autre de cet état.
     Si arête existe :
       On empile un nouvel état.
 ```

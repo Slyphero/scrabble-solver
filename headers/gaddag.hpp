@@ -68,5 +68,7 @@ class Gaddag {
 
   bool checkIfSubwordInGaddag(const std::string& subword);
 
+  bool checkIfGaddagsEmpty();
+
   ~Gaddag();
 };

@@ -39,8 +39,78 @@ player, gaddag, save);
 
 }*/
 
-void Game::getPossibleNextStates(Position position) { std::stack states; }
+void Game::getPossibleNextStates(Position position) {
+  std::stack<State> states;
+  currentState.currentPosition = position;
+  states.push(currentState);
+  State analyzedState;
 
+  while (!states.empty()) {
+    analyzedState = states.top();
+    states.pop();
+    // Si bord haut ou gauche
+    if (analyzedState.currentPosition.column == 0 ||
+        analyzedState.currentPosition.line == 0) {
+      if (analyzedState.currentGaddag->checkIfFinal()) {
+        nextPossibleStates.push(analyzedState);
+      }
+
+      if (analyzedState.currentGaddag->getGaddagByLetter("+") != nullptr) {
+        State newState();
+        states.push(newState);
+      }
+    }
+    // Si bord bas ou droite
+    else if (analyzedState.currentPosition.column == 14 ||
+             analyzedState.currentPosition.line == 14) {
+      if (analyzedState.currentGaddag->checkIfFinal()) {
+        nextPossibleStates.push(analyzedState);
+      }
+    } else {
+      char letter = analyzedState
+                        .board(analyzedState.currentPosition.line,
+                               analyzedState.currentPosition.column)
+                        .letter;
+      // Si case vide
+      if (letter == 0) {
+        // Si aucune arête et noeud terminal
+        if (analyzedState.currentGaddag->checkIfFinal() &&
+            analyzedState.currentGaddag.checkIfGaddagsEmpty()) {
+          nextPossibleStates.push(analyzedState);
+          continue;
+        }
+
+        // Si noeud terminal
+        if (analyzedState.currentGaddag->checkIfFinal()) {
+          nextPossibleStates.push(analyzedState);
+        }
+
+        // On empile les états possibles
+        // Pour chaque lettre du joueur
+        // On vérifie si l'arête existe et on empile si c'est le cas
+        for () {
+          if () {
+            State newState();
+            states.push(newState);
+          }
+        }
+
+        // Si on a une arête +
+        if (analyzedState.currentGaddag->getGaddagByLetter("+") != nullptr) {
+          // On retourne à la position initiale et on empile le nouvel etat
+          // On pense bien à changer de sens
+          State newState();
+          states.push(newState);
+        }
+      } else {
+        if (analyzedState.currentGaddag->getGaddagByLetter(letter) != nullptr) {
+          State newState();
+          states.push(newState);
+        }
+      }
+    }
+  }
+}
 /*
 autrefonction(){
     parcours le tab de (8,8) en allant sur les voisin non vide{

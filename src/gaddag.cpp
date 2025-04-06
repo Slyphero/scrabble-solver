@@ -104,6 +104,8 @@ Gaddag *Gaddag::getGaddagByLetter(char letter) {
   return nullptr;
 }
 
+bool Gaddag::checkIfGaddagsEmpty() { return gaddags.empty(); }
+
 bool Gaddag::checkIfSubwordInGaddag(const std::string &subword) {
   Gaddag *currentGaddag = this;
   for (unsigned int i = 0; i < (unsigned int)subword.size(); i++) {
