@@ -6,7 +6,7 @@
 #include "Player.hpp"
 #include "board.hpp"
 #include "gaddag.hpp"
-#include "game.hpp"
+// #include "game.hpp"
 #include "letters_collection.hpp"
 
 int main() {
@@ -36,6 +36,7 @@ int main() {
   b.load(ss);
 
   */
+  /*
   LettersCollection lettersCollection;
 
   Gaddag gaddag;
@@ -60,6 +61,13 @@ int main() {
   for (auto possibleNextState : possibleNextStates) {
     possibleNextState.player.printInventory();
   }
+  */
+  Gaddag gaddag;
+
+  gaddag.insertWord("TAS");
+  gaddag.insertWord("BATEAU");
+
+  gaddag.print();
 
   return 0;
 }

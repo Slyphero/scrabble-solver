@@ -10,7 +10,7 @@
 class Gaddag {
  private:
   bool isFinal;
-  std::unordered_map<char, std::unique_ptr<Gaddag>> gaddags;
+  std::unordered_map<char, Gaddag*> gaddags;
 
  public:
   /**
@@ -62,9 +62,11 @@ class Gaddag {
    */
   // void print();
 
-  void print(int depth);
+  void print(int depth = 0);
 
   Gaddag* getGaddagByLetter(char letter);
 
   bool checkIfSubwordInGaddag(const std::string& subword);
+
+  ~Gaddag();
 };
