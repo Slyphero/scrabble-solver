@@ -88,8 +88,9 @@ void Game::getPossibleNextStates(Position position) {
         // On empile les états possibles
         // Pour chaque lettre du joueur
         // On vérifie si l'arête existe et on empile si c'est le cas
-        for () {
-          if () {
+        for (const Letter& tile : analyzedState.player.getInventory()) {
+          if (analyzedState.currentGaddag->getGaddagByLetter(tile.letter) !=
+              nullptr) {
             State newState();
             states.push(newState);
           }
