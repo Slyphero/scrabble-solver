@@ -1,14 +1,14 @@
 /*
 function renvoie une liste de mots à partir d'un inventaire (inventaire)
 function qui renvoie la liste de mots à partir du tableau #(case de départ,
-direction, inventaire) -> tester sur toute les lettre poisitionner function(case
-de la new case, direction bis,inventaire vide) function qui fait appel à la
-fonction du dessus pour chaque case non vide
+direction, inventaire) -> tester sur toute les lettre poisitionner
+function(case de la new case, direction bis,inventaire vide) function qui fait
+appel à la fonction du dessus pour chaque case non vide
 
 parcours gauche ou haut avant + on essaie de placer les lettres
 parcours droite ou bas après + on teste de placer les lettre du joueur
 */
-#include "game.hpp"
+#include "../headers/game.hpp"
 
 /*
 
@@ -56,13 +56,13 @@ Position Position::getNextPosition(Direction direction) {
   }
 }
 
-void Position::operator=(const Position& newPosition) {
+void Position::operator=(const Position &newPosition) {
   line = newPosition.line;
   column = newPosition.column;
 }
 
-void Game::getPossibleNextStates(const State& state,
-                                 std::vector<State>& possibleNextStates) {
+void Game::getPossibleNextStates(const State &state,
+                                 std::vector<State> &possibleNextStates) {
   unsigned int l = state.currentPosition.line;
   unsigned int c = state.currentPosition.column;
   unsigned int inventorySize = state.player.getInventory().size();

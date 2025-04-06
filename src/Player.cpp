@@ -1,4 +1,4 @@
-#include "Player.hpp"
+#include "../headers/player.hpp"
 
 void Player::addPoints(unsigned int points) { this->points += points; }
 

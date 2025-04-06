@@ -1,8 +1,8 @@
-#include "gaddag.hpp"
+#include "../headers/gaddag.hpp"
 
 #include <iostream>
 
-std::vector<std::string> Gaddag::decompose(const std::string& word) {
+std::vector<std::string> Gaddag::decompose(const std::string &word) {
   std::vector<std::string> decompositions;
   for (unsigned int i = 0; i < (unsigned int)word.size(); i++) {
     std::string substring1 = word.substr(0, i + 1);
@@ -14,8 +14,8 @@ std::vector<std::string> Gaddag::decompose(const std::string& word) {
   return decompositions;
 }
 
-void Gaddag::insertDecomposition(const std::string& decomposition) {
-  Gaddag* currentGaddag = this;
+void Gaddag::insertDecomposition(const std::string &decomposition) {
+  Gaddag *currentGaddag = this;
   for (unsigned int i = 0; i < (unsigned int)decomposition.size(); i++) {
     char currentLetter = decomposition[i];
     // Si on trouve une arête correspondant a la lettre,
@@ -34,8 +34,8 @@ void Gaddag::insertDecomposition(const std::string& decomposition) {
   currentGaddag->isFinal = true;
 }
 
-void Gaddag::insertWord(const std::string& word) {
-  for (const std::string& decomposition : decompose(word)) {
+void Gaddag::insertWord(const std::string &word) {
+  for (const std::string &decomposition : decompose(word)) {
     insertDecomposition(decomposition);
   }
 }
@@ -51,8 +51,8 @@ void Gaddag::insertDictionnary() {
   file.close();
 }
 
-bool Gaddag::checkIfDecompositionInGaddag(const std::string& decomposition) {
-  Gaddag* currentGaddag = this;
+bool Gaddag::checkIfDecompositionInGaddag(const std::string &decomposition) {
+  Gaddag *currentGaddag = this;
   for (unsigned int i = 0; i < (unsigned int)decomposition.size(); i++) {
     char currentLetter = decomposition[i];
     // Si on ne trouve pas d'arête correspondant à la lettre,
@@ -68,8 +68,8 @@ bool Gaddag::checkIfDecompositionInGaddag(const std::string& decomposition) {
   return currentGaddag->isFinal;
 }
 
-bool Gaddag::checkIfWordInGaddag(const std::string& word) {
-  for (const std::string& decomposition : decompose(word)) {
+bool Gaddag::checkIfWordInGaddag(const std::string &word) {
+  for (const std::string &decomposition : decompose(word)) {
     if (!checkIfDecompositionInGaddag(decomposition)) {
       return false;
     }
@@ -86,7 +86,7 @@ void Gaddag::print(int depth) {
 
   std::cout << std::endl;
 
-  for (const auto& pair : gaddags) {
+  for (const auto &pair : gaddags) {
     std::cout << std::string(depth * 4, ' ') << "|- " << pair.first << " →"
               << std::endl;
     if (pair.second) {
@@ -95,15 +95,15 @@ void Gaddag::print(int depth) {
   }
 }
 
-Gaddag* Gaddag::getGaddagByLetter(char letter) {
+Gaddag *Gaddag::getGaddagByLetter(char letter) {
   if (gaddags.find(letter) != gaddags.end()) {
     return gaddags[letter];
   }
   return nullptr;
 }
 
-bool Gaddag::checkIfSubwordInGaddag(const std::string& subword) {
-  Gaddag* currentGaddag = this;
+bool Gaddag::checkIfSubwordInGaddag(const std::string &subword) {
+  Gaddag *currentGaddag = this;
   for (unsigned int i = 0; i < (unsigned int)subword.size(); i++) {
     char currentLetter = subword[i];
     if (currentGaddag->gaddags.find(currentLetter) ==
@@ -117,7 +117,7 @@ bool Gaddag::checkIfSubwordInGaddag(const std::string& subword) {
 
 Gaddag::~Gaddag() {
   isFinal = false;
-  for (auto& pair : gaddags) {
+  for (auto &pair : gaddags) {
     delete pair.second;
     pair.second = nullptr;
   }

@@ -3,11 +3,10 @@
 #include <iostream>
 #include <sstream>
 
-#include "Player.hpp"
-#include "board.hpp"
-#include "gaddag.hpp"
-// #include "game.hpp"
-#include "letters_collection.hpp"
+#include "../headers/board.hpp"
+#include "../headers/gaddag.hpp"
+#include "../headers/letters_collection.hpp"
+#include "../headers/player.hpp"
 
 int main() {
   Board board;

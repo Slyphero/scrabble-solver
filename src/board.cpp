@@ -1,4 +1,4 @@
-#include "board.hpp"
+#include "../headers/board.hpp"
 
 #include <fstream>
 
@@ -56,7 +56,7 @@ Board::Board() {
 }
 
 // i/o to files
-void Board::save(std::ostream& out) {
+void Board::save(std::ostream &out) {
   // write the grid of chars
   for (unsigned char i = 0; i < 225; ++i) {
     if (i % 15 == 0) {
@@ -72,7 +72,7 @@ void Board::save(std::ostream& out) {
   }
 }
 
-void Board::load(std::istream& in) {
+void Board::load(std::istream &in) {
   char c;
   // read a char for each spot
   for (unsigned char i = 0; i < 225; ++i) {
@@ -92,14 +92,14 @@ Spot Board::operator()(unsigned char l, unsigned char c) const {
   return spots[l * 15 + c];
 }
 
-Spot& Board::operator()(unsigned char l, unsigned char c) {
+Spot &Board::operator()(unsigned char l, unsigned char c) {
   return spots[l * 15 + c];
 }
 
 // display on the console
-std::ostream& operator<<(std::ostream& out, const Board& b) {
-  static const char* grey = "\033[1;90m";
-  static const char* reset = "\033[1;0m";
+std::ostream &operator<<(std::ostream &out, const Board &b) {
+  static const char *grey = "\033[1;90m";
+  static const char *reset = "\033[1;0m";
 
   // top frame line
   for (int i = 0; i < 67; ++i) {

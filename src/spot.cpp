@@ -1,17 +1,17 @@
-#include "spot.hpp"
+#include "../headers/spot.hpp"
 
 // display of the spot contents
-std::ostream& operator<<(std::ostream& out, Spot s) {
+std::ostream &operator<<(std::ostream &out, Spot s) {
   // triple word color
-  static const char* tw = "\033[1;91m";
+  static const char *tw = "\033[1;91m";
   // double word color
-  static const char* dw = "\033[1;95m";
+  static const char *dw = "\033[1;95m";
   // triple letter color
-  static const char* tl = "\033[1;34m";
+  static const char *tl = "\033[1;34m";
   // double letter color
-  static const char* dl = "\033[1;96m";
+  static const char *dl = "\033[1;96m";
   // reset color
-  static const char* reset = "\033[1;0m";
+  static const char *reset = "\033[1;0m";
 
   if (s.letter != 0) {
     // a letter is present, show it

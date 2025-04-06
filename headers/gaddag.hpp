@@ -60,8 +60,6 @@ class Gaddag {
   /**
    * @brief Display the gaddag
    */
-  // void print();
-
   void print(int depth = 0);
 
   Gaddag* getGaddagByLetter(char letter);
