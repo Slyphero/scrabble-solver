@@ -8,10 +8,13 @@ struct State {
   Gaddag* currentGaddag;
   Board board;
   Position currentPosition;
+  bool isPlusHasBeenFound;
+
   State(const Player& _player, Gaddag* _currentGaddag, const Board& _board,
-        const Position& _currentPosition)
+        const Position& _currentPosition, bool _isPlusHasBeenFound)
       : player(_player),
         currentGaddag(_currentGaddag),
         board(_board),
-        currentPosition(_currentPosition) {}
+        currentPosition(_currentPosition),
+        isPlusHasBeenFound(_isPlusHasBeenFound) {}
 };

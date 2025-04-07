@@ -29,3 +29,8 @@ void Player::removeLetter(const Letter& letter) {
     }
   }
 }
+
+Player Player::operator=(Player player) {
+  points = player.points;
+  inventory = player.inventory;
+}

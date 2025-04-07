@@ -39,9 +39,10 @@ player, gaddag, save);
 
 }*/
 
-void Game::getPossibleNextStates(Position position) {
+void Game::getPossibleNextStates(Position position, Direction direction) {
   std::stack<State> states;
   currentState.currentPosition = position;
+  currentState.isPlusHasBeenFound = false;
   states.push(currentState);
   State analyzedState;
   std::queue<State> emptyQueue;
@@ -58,7 +59,9 @@ void Game::getPossibleNextStates(Position position) {
       }
 
       if (analyzedState.currentGaddag->getGaddagByLetter("+") != nullptr) {
-        State newState();
+        State newState(analyzedState.player,
+                       analyzedState.currentGaddag->getGaddagByLetter("+"),
+                       analyzedState.board, position, true);
         states.push(newState);
       }
     }
@@ -90,10 +93,25 @@ void Game::getPossibleNextStates(Position position) {
         // On empile les états possibles
         // Pour chaque lettre du joueur
         // On vérifie si l'arête existe et on empile si c'est le cas
+
+        Position newPosition = analyzedState.currentPosition.findNextPosition(
+            direction, analyzedState.isPlusHasBeenFound);
         for (const Letter& tile : analyzedState.player.getInventory()) {
           if (analyzedState.currentGaddag->getGaddagByLetter(tile.letter) !=
               nullptr) {
-            State newState();
+            Player player = analyzedState.player;
+            player.removeLetter(tile);
+
+            Board board = analyzedState.board;
+
+            board(analyzedState.currentPosition.line,
+                  analyzedState.currentPosition.column)
+                .letter = tile.letter;
+
+            State newState(
+                player,
+                analyzedState.currentGaddag->getGaddagByLetter(tile.letter),
+                board, newPosition);
             states.push(newState);
           }
         }
@@ -102,12 +120,18 @@ void Game::getPossibleNextStates(Position position) {
         if (analyzedState.currentGaddag->getGaddagByLetter("+") != nullptr) {
           // On retourne à la position initiale et on empile le nouvel etat
           // On pense bien à changer de sens
-          State newState();
+          State newState(analyzedState.player,
+                         analyzedState.currentGaddag->getGaddagByLetter("+"),
+                         analyzedState.board, position, true);
           states.push(newState);
         }
       } else {
         if (analyzedState.currentGaddag->getGaddagByLetter(letter) != nullptr) {
-          State newState();
+          Position newPosition = analyzedState.currentPosition.findNextPosition(
+              direction, analyzedState.isPlusHasBeenFound);
+          State newState(analyzedState.player,
+                         analyzedState.currentGaddag->getGaddagByLetter(letter),
+                         analyzedState.board, newPosition);
           states.push(newState);
         }
       }

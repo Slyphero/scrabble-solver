@@ -60,4 +60,6 @@ class Player {
    * @param letter : Letter to remove
    */
   void removeLetter(const Letter& letter);
+
+  Player operator=(Player player);
 };

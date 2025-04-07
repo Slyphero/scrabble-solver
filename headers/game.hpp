@@ -25,6 +25,13 @@ class Game {
                   Gaddag gaddag);
   int calculSubWord(Board board, Direction direction, Position pos);
   int scoreAll(Board board, Direction direction, Position pos);
-  void getPossibleNextStates(Position position);
-  State getBestNextState(const std::vector<State>& nextStates);
+
+  /**
+   * @brief Fill the possibles next states from current game state,
+   * starting of a specific position and a direction
+   * @param position : Initial position
+   * @param direction : A direction, vertical or horizontal
+   */
+  void getPossibleNextStates(Position position, Direction direction);
+  State getBestNextState();
 };
