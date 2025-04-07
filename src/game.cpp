@@ -11,36 +11,33 @@ parcours droite ou bas après + on teste de placer les lettre du joueur
 #include "game.hpp"
 
 void Game::getPossibleNextStates(Position position, Direction direction) {
-  std::cout << "J'entre dans getPossibleNextStates" << std::endl;
   std::stack<State> states;
   currentState.currentPosition = position;
   currentState.isPlusHasBeenFound = false;
   states.push(currentState);
-  std::cout << "J'ai ajouté l'état courant dans la pile" << states.size()
-            << std::endl;
   State analyzedState(currentState.player, currentState.currentGaddag,
                       currentState.board, currentState.currentPosition,
                       currentState.isPlusHasBeenFound);
   std::queue<State> emptyQueue;
   std::swap(nextPossibleStates, emptyQueue);
-  std::cout << "J'ai vidé la file des coups possibles" << std::endl;
   while (!states.empty()) {
-    std::cout << "J'entre dans la boucle principale" << std::endl;
     analyzedState = states.top();
-    std::cout << "J'ai sauvegardé le sommet" << std::endl;
+    analyzedState.player.printInventory();
+
+    std::cout << "Position curseur (ligne) : "
+              << analyzedState.currentPosition.line << "(colonne) "
+              << analyzedState.currentPosition.column << std::endl;
     states.pop();
-    std::cout << "J'ai dépilé le sommet" << std::endl;
+
     if (analyzedState.currentPosition.checkIfTopOrLeft()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
         nextPossibleStates.push(analyzedState);
-        std::cout << "Un état a été enfilé" << std::endl;
       }
       if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr) {
         State newState(analyzedState.player,
                        analyzedState.currentGaddag->getGaddagByLetter('+'),
                        analyzedState.board, position, true);
         states.push(newState);
-        std::cout << "Un état a été empilé" << std::endl;
       }
     } else if (analyzedState.currentPosition.checkIfBottomOrRight()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
@@ -78,7 +75,6 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
                            board, newPosition,
                            analyzedState.isPlusHasBeenFound);
             states.push(newState);
-            std::cout << "Un état a été empilé" << std::endl;
           }
         }
         if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr) {
@@ -86,7 +82,6 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
                          analyzedState.currentGaddag->getGaddagByLetter('+'),
                          analyzedState.board, position, true);
           states.push(newState);
-          std::cout << "Un état a été empilé" << std::endl;
         }
       } else {
         if (analyzedState.currentGaddag->getGaddagByLetter(letter) != nullptr) {
@@ -97,12 +92,21 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
                          analyzedState.board, newPosition,
                          analyzedState.isPlusHasBeenFound);
           states.push(newState);
-          std::cout << "Un état a été empilé" << std::endl;
         }
       }
     }
   }
 }
+
+void Game::showPossibleNextStates() {
+  std::queue<State> temp = nextPossibleStates;
+
+  while (!temp.empty()) {
+    std::cout << temp.front().board << std::endl;
+    temp.pop();
+  }
+}
+
 /*
 autrefonction(){
     parcours le tab de (8,8) en allant sur les voisin non vide{

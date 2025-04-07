@@ -36,4 +36,5 @@ class Game {
    */
   void getPossibleNextStates(Position position, Direction direction);
   State getBestNextState();
+  void showPossibleNextStates();
 };
