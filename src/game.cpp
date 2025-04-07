@@ -44,6 +44,8 @@ void Game::getPossibleNextStates(Position position) {
   currentState.currentPosition = position;
   states.push(currentState);
   State analyzedState;
+  std::queue<State> emptyQueue;
+  std::swap(nextPossibleStates, emptyQueue);
 
   while (!states.empty()) {
     analyzedState = states.top();
