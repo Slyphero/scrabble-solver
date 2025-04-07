@@ -36,7 +36,7 @@ int main() {
 
   Player player;
 
-  Position initialPosition(10, 7);  // On commence au E central
+  Position initialPosition(9, 7);  // On commence au E central
 
   Game game(player, &gaddag, board, initialPosition);
 

@@ -22,7 +22,6 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
   std::swap(nextPossibleStates, emptyQueue);
   while (!states.empty()) {
     analyzedState = states.top();
-    analyzedState.player.printInventory();
 
     std::cout << "Position curseur (ligne) : "
               << analyzedState.currentPosition.line << "(colonne) "
