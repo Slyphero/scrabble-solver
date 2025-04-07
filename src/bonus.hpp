@@ -12,6 +12,11 @@ struct Bonus {
   Bonus(unsigned char lf, unsigned char wf)
       : letter_factor(lf), word_factor(wf) {}
 
+  Bonus(const Bonus& other)
+      : letter_factor(other.letter_factor), word_factor(other.word_factor) {}
+
+  Bonus& operator=(const Bonus& bonus);
+
   // apply the bonus to scores
   unsigned int apply_letter(unsigned int score) const;
   unsigned int apply_word(unsigned int score) const;

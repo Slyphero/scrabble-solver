@@ -1,4 +1,4 @@
-#include "../headers/letters_collection.hpp"
+#include "letters_collection.hpp"
 
 #include <chrono>
 #include <iostream>

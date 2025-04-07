@@ -1,4 +1,4 @@
-#include "../headers/board.hpp"
+#include "board.hpp"
 
 #include <fstream>
 
@@ -231,4 +231,19 @@ std::ostream &operator<<(std::ostream &out, const Board &b) {
   out << std::endl;
 
   return out;
+}
+
+Board &Board::operator=(const Board &board) {
+  if (this != &board) {
+    for (int i = 0; i < 225; i++) {
+      spots[i] = board.spots[i];
+    }
+  }
+  return *this;
+}
+
+Board::Board(const Board &other) {
+  for (int i = 0; i < 225; i++) {
+    spots[i] = other.spots[i];
+  }
 }

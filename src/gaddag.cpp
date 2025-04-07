@@ -1,4 +1,4 @@
-#include "../headers/gaddag.hpp"
+#include "gaddag.hpp"
 
 #include <iostream>
 
@@ -95,7 +95,7 @@ void Gaddag::print(int depth) {
   }
 }
 
-bool Gaddag::checkIfFinal() { return isFinal; }
+bool Gaddag::checkIfFinal() const { return isFinal; }
 
 Gaddag *Gaddag::getGaddagByLetter(char letter) {
   if (gaddags.find(letter) != gaddags.end()) {
@@ -104,7 +104,7 @@ Gaddag *Gaddag::getGaddagByLetter(char letter) {
   return nullptr;
 }
 
-bool Gaddag::checkIfGaddagsEmpty() { return gaddags.empty(); }
+bool Gaddag::checkIfGaddagsEmpty() const { return gaddags.empty(); }
 
 bool Gaddag::checkIfSubwordInGaddag(const std::string &subword) {
   Gaddag *currentGaddag = this;

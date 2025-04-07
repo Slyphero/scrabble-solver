@@ -3,10 +3,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "../headers/board.hpp"
-#include "../headers/gaddag.hpp"
-#include "../headers/letters_collection.hpp"
-#include "../headers/player.hpp"
+#include "game.hpp"
 
 int main() {
   Board board;
@@ -34,32 +31,16 @@ int main() {
 
   std::cout << board << std::endl;
 
-  /*
-  LettersCollection lettersCollection;
-
   Gaddag gaddag;
   gaddag.insertDictionnary();
 
   Player player;
-  player.drawLetters(lettersCollection);
 
-  std::vector<State> possibleNextStates;
+  Position initialPosition(10, 7);  // On commence au E central
 
-  Position initialPosition(8, 8);
+  Game game(player, &gaddag, board, initialPosition);
 
-  State state(player, gaddag, board, initialPosition, LEFT);
-
-  Game game(state.player, state.gaddag, state.board, state.initialPosition,
-            state.direction);
-
-  player.printInventory();
-
-  game.getPossibleNextStates(state, possibleNextStates);
-
-  for (auto possibleNextState : possibleNextStates) {
-    possibleNextState.player.printInventory();
-  }
-  */
+  game.getPossibleNextStates(initialPosition, HORIZONTAL);
 
   return 0;
 }

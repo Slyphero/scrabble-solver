@@ -1,4 +1,4 @@
-#include "../headers/spot.hpp"
+#include "spot.hpp"
 
 // display of the spot contents
 std::ostream &operator<<(std::ostream &out, Spot s) {
@@ -33,4 +33,12 @@ std::ostream &operator<<(std::ostream &out, Spot s) {
     out << " ";
   }
   return out;
+}
+
+Spot &Spot::operator=(const Spot &spot) {
+  if (this != &spot) {
+    letter = spot.letter;
+    bonus = spot.bonus;
+  }
+  return *this;
 }

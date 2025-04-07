@@ -20,6 +20,10 @@ struct Board {
 
   // spots are public, and can therefore also be accessed b index
   Spot spots[225];
+
+  Board& operator=(const Board& board);
+
+  Board(const Board& other);
 };
 
 // board display on the console

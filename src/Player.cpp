@@ -1,4 +1,4 @@
-#include "../headers/player.hpp"
+#include "player.hpp"
 
 void Player::addPoints(unsigned int points) { this->points += points; }
 
@@ -30,7 +30,10 @@ void Player::removeLetter(const Letter& letter) {
   }
 }
 
-Player Player::operator=(Player player) {
-  points = player.points;
-  inventory = player.inventory;
+Player& Player::operator=(const Player& other) {
+  if (this != &other) {
+    points = other.points;
+    inventory = other.inventory;
+  }
+  return *this;
 }

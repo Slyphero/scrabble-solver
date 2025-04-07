@@ -1,4 +1,4 @@
-#include "../headers/bonus.hpp"
+#include "bonus.hpp"
 
 // apply the letter factor on a letter score
 unsigned int Bonus::apply_letter(unsigned int score) const {
@@ -8,4 +8,12 @@ unsigned int Bonus::apply_letter(unsigned int score) const {
 // apply the word factor on a word score
 unsigned int Bonus::apply_word(unsigned int score) const {
   return word_factor * score;
+}
+
+Bonus& Bonus::operator=(const Bonus& bonus) {
+  if (this != &bonus) {
+    letter_factor = bonus.letter_factor;
+    word_factor = bonus.word_factor;
+  }
+  return *this;
 }

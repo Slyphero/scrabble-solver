@@ -12,6 +12,10 @@ struct Spot {
       : letter(0)  // <=> letter = 0 autoconstructor
   {}
 
+  Spot(const Spot& other) : letter(other.letter), bonus(other.bonus) {}
+
+  Spot& operator=(const Spot& spot);
+
   // bonus spot initialization
   //  * lf is the bonus letter factor
   //  * wf is the bonus word factor

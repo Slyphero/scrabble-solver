@@ -1,4 +1,4 @@
-#include "../headers/letter.hpp"
+#include "letter.hpp"
 
 #include <iostream>
 
@@ -17,10 +17,13 @@ void Letter::print() {
             << " / Points : " << points << std::endl;
 }
 
-void Letter::operator=(const Letter& newLetter) {
-  letter = newLetter.letter;
-  points = newLetter.points;
-  occurences = newLetter.occurences;
+Letter& Letter::operator=(const Letter& newLetter) {
+  if (this != &newLetter) {
+    letter = newLetter.letter;
+    occurences = newLetter.occurences;
+    points = newLetter.points;
+  }
+  return *this;
 }
 
 bool Letter::operator==(const Letter& newLetter) {
@@ -30,3 +33,5 @@ bool Letter::operator==(const Letter& newLetter) {
 bool Letter::operator!=(const Letter& newLetter) {
   return (letter != newLetter.letter) || (points != newLetter.points);
 }
+
+char Letter::getLetter() const { return letter; }

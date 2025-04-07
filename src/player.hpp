@@ -20,6 +20,12 @@ class Player {
   Player() : points(0) {}
 
   /**
+   * @brief Copy constructor
+   */
+  Player(const Player& other)
+      : points(other.points), inventory(other.inventory) {}
+
+  /**
    * @brief Add points to the current score of the player
    * @param points : Number of points to add to the score
    */
@@ -61,5 +67,5 @@ class Player {
    */
   void removeLetter(const Letter& letter);
 
-  Player operator=(Player player);
+  Player& operator=(const Player& other);
 };

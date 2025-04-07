@@ -22,6 +22,11 @@ class Letter {
   Letter(char _letter, unsigned int _occurences, unsigned int _points)
       : letter(_letter), occurences(_occurences), points(_points) {}
 
+  Letter(const Letter& other)
+      : letter(other.letter),
+        occurences(other.occurences),
+        points(other.points) {}
+
   /**
    * @brief : Returns the number of occurences
    * @return : The number of occurences
@@ -53,5 +58,7 @@ class Letter {
 
   bool operator!=(const Letter& newLetter);
 
-  void operator=(const Letter& newLetter);
+  Letter& operator=(const Letter& newLetter);
+
+  char getLetter() const;
 };
