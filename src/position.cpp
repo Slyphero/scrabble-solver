@@ -38,6 +38,12 @@ Position Position::findNextPosition(Direction direction,
     }
 }
 
-bool Position::checkIfTopOrLeft() { return (column == 0 || line == 0); }
+bool Position::checkIfTopOrLeft()
+{
+    return (column == 0 || line == 0);
+}
 
-bool Position::checkIfBottomOrRight() { return (column == 14 || line == 14); }
+bool Position::checkIfBottomOrRight()
+{
+    return (column == 14 || line == 14);
+}

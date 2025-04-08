@@ -37,14 +37,17 @@ void Game::getPossibleNextStates(Position position, Direction direction)
             {
                 nextPossibleStates.push(analyzedState);
             }
+
             if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr)
             {
+                std::cout << "J'ai trouvé un + (bord gauche ou haut)" << std::endl;
                 State newState(analyzedState.player,
                                analyzedState.currentGaddag->getGaddagByLetter('+'),
                                analyzedState.board, position, true);
                 states.push(newState);
             }
         }
+
         else if (analyzedState.currentPosition.checkIfBottomOrRight())
         {
             if (analyzedState.currentGaddag->checkIfFinal())
@@ -52,6 +55,7 @@ void Game::getPossibleNextStates(Position position, Direction direction)
                 nextPossibleStates.push(analyzedState);
             }
         }
+
         else
         {
             char letter = analyzedState
@@ -66,12 +70,15 @@ void Game::getPossibleNextStates(Position position, Direction direction)
                     nextPossibleStates.push(analyzedState);
                     continue;
                 }
+
                 if (analyzedState.currentGaddag->checkIfFinal())
                 {
                     nextPossibleStates.push(analyzedState);
                 }
+
                 Position newPosition = analyzedState.currentPosition.findNextPosition(
                     direction, analyzedState.isPlusHasBeenFound);
+
                 for (const Letter &tile : analyzedState.player.getInventory())
                 {
                     if (analyzedState.currentGaddag->getGaddagByLetter(
@@ -94,18 +101,22 @@ void Game::getPossibleNextStates(Position position, Direction direction)
                         states.push(newState);
                     }
                 }
+
                 if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr)
                 {
+                    std::cout << "J'ai trouvé un +" << std::endl;
                     State newState(analyzedState.player,
                                    analyzedState.currentGaddag->getGaddagByLetter('+'),
                                    analyzedState.board, position, true);
                     states.push(newState);
                 }
             }
+
             else
             {
                 Position newPosition = analyzedState.currentPosition.findNextPosition(
                     direction, analyzedState.isPlusHasBeenFound);
+
                 if (analyzedState.currentGaddag->getGaddagByLetter(letter) != nullptr)
                 {
                     State newState(analyzedState.player,
@@ -119,10 +130,12 @@ void Game::getPossibleNextStates(Position position, Direction direction)
                                analyzedState.board, newPosition,
                                analyzedState.isPlusHasBeenFound);
 
-                if (newState.board(newState.currentPosition.line, newState.currentPosition.column).letter == 0 && analyzedState.currentGaddag->checkIfFinal())
+                if (newState.board(newState.currentPosition.line, newState.currentPosition.column).letter == 0 &&
+                    analyzedState.currentGaddag->checkIfFinal())
                 {
                     nextPossibleStates.push(analyzedState);
                     std::cout << analyzedState.board << std::endl;
+                    // OK
                 }
             }
         }

@@ -41,12 +41,13 @@ int main()
     Player player;
     player.createInventory(bag);
 
-    Position initialPosition(9, 7); // On commence au E central
+    // Position initialPosition(9, 7); // On commence au E central
     // Position initialPosition(7, 7);
+    Position initialPosition(7, 9);
 
     Game game(player, &gaddag, board, initialPosition);
 
-    game.getPossibleNextStates(initialPosition, HORIZONTAL);
+    game.getPossibleNextStates(initialPosition, VERTICAL);
 
     return 0;
 }
