@@ -69,4 +69,6 @@ public:
     void removeLetter(const Letter &letter);
 
     Player &operator=(const Player &other);
+
+    void createInventory(LettersCollection bag);
 };

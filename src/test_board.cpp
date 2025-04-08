@@ -39,9 +39,10 @@ int main()
     LettersCollection bag;
 
     Player player;
-    player.drawLetters(bag);
+    player.createInventory(bag);
 
     Position initialPosition(9, 7); // On commence au E central
+    // Position initialPosition(7, 7);
 
     Game game(player, &gaddag, board, initialPosition);
 

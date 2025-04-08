@@ -46,3 +46,13 @@ Player &Player::operator=(const Player &other)
     }
     return *this;
 }
+
+void Player::createInventory(LettersCollection bag)
+{
+    inventory.push_back(bag.getLetter(14));
+    inventory.push_back(bag.getLetter(8));
+    for (int i = 0; i < 5; i++)
+    {
+        inventory.push_back(bag.getLetter(i));
+    }
+}
