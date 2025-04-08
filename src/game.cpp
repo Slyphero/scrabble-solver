@@ -10,100 +10,128 @@ parcours droite ou bas après + on teste de placer les lettre du joueur
 */
 #include "game.hpp"
 
-void Game::getPossibleNextStates(Position position, Direction direction) {
-  std::stack<State> states;
-  currentState.currentPosition = position;
-  currentState.isPlusHasBeenFound = false;
-  states.push(currentState);
-  State analyzedState(currentState.player, currentState.currentGaddag,
-                      currentState.board, currentState.currentPosition,
-                      currentState.isPlusHasBeenFound);
-  std::queue<State> emptyQueue;
-  std::swap(nextPossibleStates, emptyQueue);
-  while (!states.empty()) {
-    analyzedState = states.top();
+void Game::getPossibleNextStates(Position position, Direction direction)
+{
+    std::stack<State> states;
+    currentState.currentPosition = position;
+    currentState.isPlusHasBeenFound = false;
 
-    std::cout << "Position curseur (ligne) : "
-              << analyzedState.currentPosition.line << "(colonne) "
-              << analyzedState.currentPosition.column << std::endl;
-    states.pop();
+    State analyzedState(currentState.player, currentState.currentGaddag,
+                        currentState.board, currentState.currentPosition,
+                        currentState.isPlusHasBeenFound);
 
-    if (analyzedState.currentPosition.checkIfTopOrLeft()) {
-      if (analyzedState.currentGaddag->checkIfFinal()) {
-        nextPossibleStates.push(analyzedState);
-      }
-      if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr) {
-        State newState(analyzedState.player,
-                       analyzedState.currentGaddag->getGaddagByLetter('+'),
-                       analyzedState.board, position, true);
-        states.push(newState);
-      }
-    } else if (analyzedState.currentPosition.checkIfBottomOrRight()) {
-      if (analyzedState.currentGaddag->checkIfFinal()) {
-        nextPossibleStates.push(analyzedState);
-      }
-    } else {
-      char letter = analyzedState
-                        .board(analyzedState.currentPosition.line,
-                               analyzedState.currentPosition.column)
-                        .letter;
-      if (letter == 0) {
-        if (analyzedState.currentGaddag->checkIfFinal() &&
-            analyzedState.currentGaddag->checkIfGaddagsEmpty()) {
-          nextPossibleStates.push(analyzedState);
-          continue;
+    states.push(analyzedState);
+    std::queue<State> emptyQueue;
+    std::swap(nextPossibleStates, emptyQueue);
+
+    while (!states.empty())
+    {
+        analyzedState = states.top();
+
+        // analyzedState.player.printInventory();
+
+        std::cout << "Position curseur (ligne) : "
+                  << analyzedState.currentPosition.line << "(colonne) "
+                  << analyzedState.currentPosition.column << std::endl;
+        states.pop();
+
+        if (analyzedState.currentPosition.checkIfTopOrLeft())
+        {
+            if (analyzedState.currentGaddag->checkIfFinal())
+            {
+                nextPossibleStates.push(analyzedState);
+            }
+            if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr)
+            {
+                State newState(analyzedState.player,
+                               analyzedState.currentGaddag->getGaddagByLetter('+'),
+                               analyzedState.board, position, true);
+                states.push(newState);
+            }
         }
-        if (analyzedState.currentGaddag->checkIfFinal()) {
-          nextPossibleStates.push(analyzedState);
+        else if (analyzedState.currentPosition.checkIfBottomOrRight())
+        {
+            if (analyzedState.currentGaddag->checkIfFinal())
+            {
+                nextPossibleStates.push(analyzedState);
+            }
         }
-        Position newPosition = analyzedState.currentPosition.findNextPosition(
-            direction, analyzedState.isPlusHasBeenFound);
-        for (const Letter &tile : analyzedState.player.getInventory()) {
-          if (analyzedState.currentGaddag->getGaddagByLetter(
-                  tile.getLetter()) != nullptr) {
-            Player player = analyzedState.player;
-            player.removeLetter(tile);
-            Board board;
-            board = analyzedState.board;
-            board(analyzedState.currentPosition.line,
-                  analyzedState.currentPosition.column)
-                .letter = tile.getLetter();
-            State newState(player,
-                           analyzedState.currentGaddag->getGaddagByLetter(
-                               tile.getLetter()),
-                           board, newPosition,
-                           analyzedState.isPlusHasBeenFound);
-            states.push(newState);
-          }
+        else
+        {
+            char letter = analyzedState
+                              .board(analyzedState.currentPosition.line,
+                                     analyzedState.currentPosition.column)
+                              .letter;
+            if (letter == 0)
+            {
+                if (analyzedState.currentGaddag->checkIfFinal() &&
+                    analyzedState.currentGaddag->checkIfGaddagsEmpty())
+                {
+                    nextPossibleStates.push(analyzedState);
+                    continue;
+                }
+                if (analyzedState.currentGaddag->checkIfFinal())
+                {
+                    nextPossibleStates.push(analyzedState);
+                }
+                Position newPosition = analyzedState.currentPosition.findNextPosition(
+                    direction, analyzedState.isPlusHasBeenFound);
+                for (const Letter &tile : analyzedState.player.getInventory())
+                {
+                    if (analyzedState.currentGaddag->getGaddagByLetter(
+                            tile.getLetter()) != nullptr)
+                    {
+                        Player player = analyzedState.player;
+                        player.printInventory();
+                        player.removeLetter(tile);
+                        std::cout << tile.getLetter() << std::endl;
+                        Board board;
+                        board = analyzedState.board;
+                        board(analyzedState.currentPosition.line,
+                              analyzedState.currentPosition.column)
+                            .letter = tile.getLetter();
+                        State newState(player,
+                                       analyzedState.currentGaddag->getGaddagByLetter(
+                                           tile.getLetter()),
+                                       board, newPosition,
+                                       analyzedState.isPlusHasBeenFound);
+                        states.push(newState);
+                    }
+                }
+                if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr)
+                {
+                    State newState(analyzedState.player,
+                                   analyzedState.currentGaddag->getGaddagByLetter('+'),
+                                   analyzedState.board, position, true);
+                    states.push(newState);
+                }
+            }
+            else
+            {
+                if (analyzedState.currentGaddag->getGaddagByLetter(letter) != nullptr)
+                {
+                    Position newPosition = analyzedState.currentPosition.findNextPosition(
+                        direction, analyzedState.isPlusHasBeenFound);
+                    State newState(analyzedState.player,
+                                   analyzedState.currentGaddag->getGaddagByLetter(letter),
+                                   analyzedState.board, newPosition,
+                                   analyzedState.isPlusHasBeenFound);
+                    states.push(newState);
+                }
+            }
         }
-        if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr) {
-          State newState(analyzedState.player,
-                         analyzedState.currentGaddag->getGaddagByLetter('+'),
-                         analyzedState.board, position, true);
-          states.push(newState);
-        }
-      } else {
-        if (analyzedState.currentGaddag->getGaddagByLetter(letter) != nullptr) {
-          Position newPosition = analyzedState.currentPosition.findNextPosition(
-              direction, analyzedState.isPlusHasBeenFound);
-          State newState(analyzedState.player,
-                         analyzedState.currentGaddag->getGaddagByLetter(letter),
-                         analyzedState.board, newPosition,
-                         analyzedState.isPlusHasBeenFound);
-          states.push(newState);
-        }
-      }
     }
-  }
 }
 
-void Game::showPossibleNextStates() {
-  std::queue<State> temp = nextPossibleStates;
+void Game::showPossibleNextStates()
+{
+    std::queue<State> temp = nextPossibleStates;
 
-  while (!temp.empty()) {
-    std::cout << temp.front().board << std::endl;
-    temp.pop();
-  }
+    while (!temp.empty())
+    {
+        std::cout << temp.front().board << std::endl;
+        temp.pop();
+    }
 }
 
 /*
