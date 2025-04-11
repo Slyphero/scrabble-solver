@@ -37,4 +37,5 @@ public:
      * @brief Display info about collection
      */
     void print();
+    unsigned int getPoint(char letter);
 };

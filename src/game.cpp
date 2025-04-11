@@ -1,17 +1,14 @@
-/*
-function renvoie une liste de mots à partir d'un inventaire (inventaire)
-function qui renvoie la liste de mots à partir du tableau #(case de départ,
-direction, inventaire) -> tester sur toute les lettre poisitionner
-function(case de la new case, direction bis,inventaire vide) function qui fait
-appel à la fonction du dessus pour chaque case non vide
-
-parcours gauche ou haut avant + on essaie de placer les lettres
-parcours droite ou bas après + on teste de placer les lettre du joueur
-*/
 #include "game.hpp"
+
+void Game::clearNextStates()
+{
+    std::queue<State> emptyQueue;
+    std::swap(nextPossibleStates, emptyQueue);
+}
 
 void Game::getPossibleNextStates(Position position, Direction direction)
 {
+    clearNextStates();
     std::stack<State> states;
     currentState.currentPosition = position;
     currentState.isPlusHasBeenFound = false;
@@ -21,8 +18,6 @@ void Game::getPossibleNextStates(Position position, Direction direction)
                         currentState.isPlusHasBeenFound);
 
     states.push(analyzedState);
-    std::queue<State> emptyQueue;
-    std::swap(nextPossibleStates, emptyQueue);
 
     analyzedState.player.printInventory();
 
@@ -136,11 +131,14 @@ void Game::getPossibleNextStates(Position position, Direction direction)
                     analyzedState.currentGaddag->checkIfFinal())
                 {
                     nextPossibleStates.push(analyzedState);
-                    // OK
                 }
             }
         }
     }
+}
+
+void Game::getAllPossibleNextStates()
+{
 }
 
 void Game::showPossibleNextStates()
@@ -154,141 +152,115 @@ void Game::showPossibleNextStates()
     }
 }
 
-/*
-autrefonction(){
-    parcours le tab de (8,8) en allant sur les voisin non vide{
-        coup(Board,spotActuelle,LEFT, joueur,gaddag, save);
-        coup(Board,spotActuelle,TOP, joueur,gaddag,  save);
-    }
-}
+int Game::calculSubWord(Board board, Direction direction, Position pos)
+{
+    LettersCollection letterCollection;
 
-bool is_possible(Board, direction, point, Gaddag){
-    // autre_direction = direction + 1 % 4
-    return (
-        Gadda.checkIfWordInGaddag(buildMot(Board,autre_direction,point)) &&
-        Gaddag.Checkdecomp(buildMot(Board, direction, point))
-    );
-}
+    Position postemp = pos.findNextPosition(direction, true);
 
+    int score = letterCollection.getPoint(board(pos.line,
+                                                pos.column)
+                                              .letter) *
+                board(pos.line, pos.column).bonus.letter_factor;
 
-string buildMot(Board, direction, point){
-    string res = "";
-    while (Board(point - direction) =! vide){ // TOP et LEFT
-        res = lettre_actuelle + res;
-    }
-    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
-            res = res + lettre_actuelle;
-    }
-    return res;
-}
+    int coefword = board(pos.line,
+                         pos.column)
+                       .bonus.word_factor;
 
-int scoreAll(Board, Position, direction){
-    int score = 0;
-    int coefword = 1;
-    while (Board(point - direction) =! vide){ // TOP et LEFT
-        res += scoreLettre * coefLettre;
-        coefword *= coefLettre;
-        if (Board(point + direction + 1 % 4) != vide || Board(point + direction
-+ 3 % 4) != vide){ res += calculSubWord(Board,Direction, Position);
-        }
-    }
-    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
-            res += scoreLettre * coefLettre;
-            coefword *= coefLettre;
-            if (Board(point + direction + 1 % 4) != vide || Board(point +
-direction + 3 % 4) != vide){ res += calculSubWord(Board,Direction, Position);
-        }
-    }
-}
+    pos.findNextPosition(direction, false);
 
-int calculSubWord(Board, Position, direction){
-    int score = 0;
-    int coefword = 1;
-    while (Board(point - direction) =! vide){ // TOP et LEFT
-        res += scoreLettre * coefLettre;
-        coefword *= coefMot;
+    while (board(pos.line, pos.column).letter != 0)
+    { // parcours vers la gauche tant que lettre non vide
+
+        score += letterCollection.getPoint(board(pos.line,
+                                                 pos.column)
+                                               .letter);
+
+        pos = pos.findNextPosition(direction, false);
     }
-    while (Board(point + direction + 2 % 4) != vide){// BOTOM et RIHGT
-        res += scoreLettre * coefLettre;
-        coefwword *= coefMot;
+
+    pos = postemp;
+
+    while (board(pos.line, pos.column).letter != 0)
+    { // parcours dans l'autre sens pour calculer score
+
+        score += letterCollection.getPoint(board(pos.line,
+                                                 pos.column)
+                                               .letter);
+
+        pos = pos.findNextPosition(direction, true);
     }
+
+    std::cout << "subworld : " << score * coefword << std::endl;
+
     return (score * coefword);
 }
-*/
-/*
-std::string Game::buildMot(Board board, Direction direction, Position pos) {
-  Position postemp = pos;
-  string res = "";
-  while (board(pos.line, pos.column).letter != 0) {
-    res = Board(pos.line, pos.column).letter + res;
-    pos = pos.getNextPosition(direction);
-  }
-  pos = postemp;
-  while (board(pos.line, pos.column).letter != 0) {
-    res = res + Board(pos.line, pos.column).letter;
-    pos = pos.getNextPosition((direction + 2) % 4);
-  }
-  return res;
-}
 
-bool Game::isPossible(Board board, direction direction, Position pos,
-                      Gaddag gadd) {
-  return (gadd.checkIfWordInGaddag(buildMot(board, (direction + 1) % 4, pos)) &&
-          gadd.checkSubWord(buildMot(board, direction, pos)));
-}
+int Game::scoreAll(Board board, Direction direction, Position pos)
+{
+    LettersCollection letterCollection;
+    Position postemp = pos.findNextPosition(direction, true);
+    int res = 0;
+    int scorethis = 0;
+    int coefword = 1;
 
-int Game::calculSubWord(Board board, Direction direction, Position pos) {
-  Position postemp = pos;
-  int res = 0;
-  int score = 0;
-  int coefword = 1;
-  while (board(pos.line, pos.column).letter != 0) {
-    score += board(pos.line, pos.column).letter.points *
-             board(pos.line, pos.column).bonus.letter_factor;
-    coefword *= board(pos.line, pos.column).bonus.word_factor;
-    pos = pos.getNextPosition(direction);
-  }
-  pos = postemp;
-  while (board(pos.line, pos.column).letter != 0) {
-    score += board(pos.line, pos.column).letter.points *
-             board(pos.line, pos.column).bonus.letter_factor;
-    coefword *= board(pos.line, pos.column).bonus.word_factor;
-    pos = pos.getNextPosition((direction + 2) % 4);
-  }
-  return (score * coefword);
-}
+    while (board(pos.line, pos.column).letter != 0)
+    {
+        scorethis += letterCollection.getPoint(
+                         board(pos.line, pos.column).letter) *
+                     board(pos.line, pos.column).bonus.letter_factor;
 
-int Game::scoreAll(Board board, Direction direction, Position pos) {
-  Position postemp = pos;
-  int res = 0;
-  int score = 0;
-  int scorethis = 0;
-  int coefword = 1;
-  while (board(pos.line, pos.column).letter != 0) {
-    scorethis += board(pos.line, pos.column).letter.points *
-                 board(pos.line, pos.column).bonus.letter_factor;
-    coefword *= board(pos.line, pos.column).bonus.word_factor;
-    Position postemp1 = pos.getNextPosition((direction + 1) % 4);
-    Position postemp2 = pos.getNextPosition((direction + 3) % 4);
-    if (board(postemp1.line, postemp1.column).letter != 0 ||
-        board(postemp2.line, postemp2.column).letter != 0) {
-      res += calculSubWord(board, (direction + 1) % 4, pos);
+        coefword *= board(pos.line,
+                          pos.column)
+                        .bonus.word_factor;
+
+        // vérif les deux case adjacente avec la direction opposée
+
+        Position postemp1 = pos.findNextPosition((Direction)((direction + 1) % 2), false);
+
+        Position postemp2 = pos.findNextPosition((Direction)((direction + 1) % 2), true);
+
+        if (board(postemp1.line, postemp1.column).letter != 0 ||
+            board(postemp2.line, postemp2.column).letter != 0)
+        {
+            res += calculSubWord(board,
+                                 (Direction)((direction + 1) % 2), pos);
+        }
+
+        pos = pos.findNextPosition(direction, true);
     }
-    pos = pos.getNextPosition(direction);
-  }
-  pos = postemp;
-  while (board(pos.line, pos.column).letter != 0) {
-    scorethis += board(pos.line, pos.column).letter.points *
-                 board(pos.line, pos.column).bonus.letter_factor;
-    coefword *= board(pos.line, pos.column).bonus.word_factor;
-    Position postemp1 = pos.getNextPosition((direction + 1) % 4);
-    Position postemp2 = pos.getNextPosition((direction + 3) % 4);
-    if (board(postemp1.line, postemp1.column).letter != 0 ||
-        board(postemp2.line, postemp2.column).letter != 0) {
-      res += calculSubWord(board, (direction + 1) % 4, pos);
+
+    pos = postemp;
+
+    while (board(pos.line, pos.column).letter != 0)
+    {
+        scorethis += letterCollection.getPoint(board(pos.line,
+                                                     pos.column)
+                                                   .letter) *
+
+                     board(pos.line, pos.column).bonus.letter_factor;
+
+        coefword *= board(pos.line,
+                          pos.column)
+                        .bonus.word_factor;
+        // vérif les deux case adjacente avec la direction opposée
+
+        Position postemp1 = pos.findNextPosition((Direction)((direction + 1) % 2), false);
+
+        Position postemp2 = pos.findNextPosition((Direction)((direction + 1) % 2), true);
+
+        if (board(postemp1.line, postemp1.column).letter != 0 ||
+
+            board(postemp2.line, postemp2.column).letter != 0)
+        {
+            res += calculSubWord(board,
+                                 (Direction)((direction + 1) % 2), pos);
+        }
+
+        pos = pos.findNextPosition(direction, true);
     }
-    pos = pos.getNextPosition((direction + 2) % 4);
+
+    std::cout << scorethis * coefword << std::endl;
+
     return (scorethis * coefword + res);
-  }
 }
-*/
