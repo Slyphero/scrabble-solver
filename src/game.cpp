@@ -40,10 +40,11 @@ void Game::getPossibleNextStates(Position position, Direction direction)
 
             if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr)
             {
-                std::cout << "J'ai trouvé un + (bord gauche ou haut)" << std::endl;
+                Position newPosition = position.findNextPosition(direction, true);
+
                 State newState(analyzedState.player,
                                analyzedState.currentGaddag->getGaddagByLetter('+'),
-                               analyzedState.board, position, true);
+                               analyzedState.board, newPosition, true);
                 states.push(newState);
             }
         }
@@ -104,10 +105,10 @@ void Game::getPossibleNextStates(Position position, Direction direction)
 
                 if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr)
                 {
-                    std::cout << "J'ai trouvé un +" << std::endl;
+                    newPosition = position.findNextPosition(direction, true);
                     State newState(analyzedState.player,
                                    analyzedState.currentGaddag->getGaddagByLetter('+'),
-                                   analyzedState.board, position, true);
+                                   analyzedState.board, newPosition, true);
                     states.push(newState);
                 }
             }
@@ -125,16 +126,16 @@ void Game::getPossibleNextStates(Position position, Direction direction)
                                    analyzedState.isPlusHasBeenFound);
                     states.push(newState);
                 }
-                State newState(analyzedState.player,
-                               analyzedState.currentGaddag,
+                State newState(analyzedState.player, analyzedState.currentGaddag,
                                analyzedState.board, newPosition,
                                analyzedState.isPlusHasBeenFound);
 
-                if (newState.board(newState.currentPosition.line, newState.currentPosition.column).letter == 0 &&
+                if (newState.board(newState.currentPosition.line,
+                                   newState.currentPosition.column)
+                            .letter == 0 &&
                     analyzedState.currentGaddag->checkIfFinal())
                 {
                     nextPossibleStates.push(analyzedState);
-                    std::cout << analyzedState.board << std::endl;
                     // OK
                 }
             }

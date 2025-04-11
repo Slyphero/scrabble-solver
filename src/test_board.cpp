@@ -8,46 +8,48 @@
 
 int main()
 {
-    Board board;
+  Board board;
 
-    // std::cout << board << std::endl;
+  // std::cout << board << std::endl;
 
-    std::stringstream ss;
-    ss << "..............." << std::endl;
-    ss << "..............." << std::endl;
-    ss << "..............." << std::endl;
-    ss << "..............." << std::endl;
-    ss << "..............." << std::endl;
-    ss << "..............." << std::endl;
-    ss << "..............." << std::endl;
-    ss << "....PROJET....." << std::endl;
-    ss << ".......O......." << std::endl;
-    ss << ".......U......." << std::endl;
-    ss << ".......E......." << std::endl;
-    ss << ".......U......." << std::endl;
-    ss << ".....SCRABBLE.." << std::endl;
-    ss << "..............." << std::endl;
-    ss << "..............." << std::endl;
+  std::stringstream ss;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "....PROJET....." << std::endl;
+  ss << ".......O......." << std::endl;
+  ss << ".......U......." << std::endl;
+  ss << ".......E......." << std::endl;
+  ss << ".......U......." << std::endl;
+  ss << ".....SCRABBLE.." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
 
-    board.load(ss);
+  board.load(ss);
 
-    // std::cout << board << std::endl;
+  // std::cout << board << std::endl;
 
-    Gaddag gaddag;
-    gaddag.insertDictionnary();
+  Gaddag gaddag;
+  gaddag.insertDictionnary();
 
-    LettersCollection bag;
+  LettersCollection bag;
 
-    Player player;
-    player.createInventory(bag);
+  Player player;
+  player.createInventory(bag);
 
-    // Position initialPosition(9, 7); // On commence au E central
-    // Position initialPosition(7, 7);
-    Position initialPosition(7, 9);
+  // Position initialPosition(9, 7); // On commence au E central
+  // Position initialPosition(7, 7);
+  Position initialPosition(7, 9);
 
-    Game game(player, &gaddag, board, initialPosition);
+  Game game(player, &gaddag, board, initialPosition);
 
-    game.getPossibleNextStates(initialPosition, VERTICAL);
+  game.getPossibleNextStates(initialPosition, VERTICAL);
 
-    return 0;
+  game.showPossibleNextStates();
+
+  return 0;
 }
