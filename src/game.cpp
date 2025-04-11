@@ -152,6 +152,7 @@ void Game::showPossibleNextStates()
     }
 }
 
+//Calcul le score des mots étant complété par un coup
 int Game::calculSubWord(Board board, Direction direction, Position pos)
 {
     LettersCollection letterCollection;
@@ -196,6 +197,7 @@ int Game::calculSubWord(Board board, Direction direction, Position pos)
     return (score * coefword);
 }
 
+//Permet de calculer le nombre de points totaux ajouter par un coup
 int Game::scoreAll(Board board, Direction direction, Position pos)
 {
     LettersCollection letterCollection;
@@ -263,4 +265,33 @@ int Game::scoreAll(Board board, Direction direction, Position pos)
     std::cout << scorethis * coefword << std::endl;
 
     return (scorethis * coefword + res);
+}
+
+
+
+//Construction de la chaine de charactère associé à un placement de lettre
+string Game::buildMot(Board board, Direction direction, Position pos){
+    Position postemp = pos.findNextPosition(direction, true); 
+    string res = "";
+    //construction dans le sens inverse (avant le +)
+    while (board(pos.line,pos.column).letter != 0){
+        res = Board(pos.line,pos.column).letter + res;
+        pos = pos.findNextPosition(direction,false);
+    }
+    pos = postemp;
+    //construction dans le bon sens (après le +)
+    while (board(pos.line,pos.column).letter != 0){
+        res = res + Board(pos.line,pos.column).letter;
+        pos = pos.findNextPosition(direction, true);
+    }
+    return res;
+}
+
+
+//on vérifie si le mot créer est terminal dans la deuxième direction, tandis qu'on cherche à vérifier que le mot dans la direction existe dans le gaddag
+bool isPossible(Board board, direction direction, Position pos, Gaddag gadd){
+    return (
+        gadd.checkIfWordInGaddag(buildMot(board,(Direction)((direction + 1) % 2),pos)) && 
+        gadd.checkSubWord(buildMot(board, direction, pos))
+    );
 }
