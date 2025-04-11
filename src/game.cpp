@@ -170,7 +170,7 @@ int Game::calculSubWord(Board board, Direction direction, Position pos)
 
     pos.findNextPosition(direction, false);
 
-    while (board(pos.line, pos.column).letter != 0)
+    while (board(pos.line, pos.column).letter != 0 && pos.line > 0 && pos.line < 15 && pos.column > 0 && pos.column < 15)
     { // parcours vers la gauche tant que lettre non vide
 
         score += letterCollection.getPoint(board(pos.line,
@@ -182,7 +182,7 @@ int Game::calculSubWord(Board board, Direction direction, Position pos)
 
     pos = postemp;
 
-    while (board(pos.line, pos.column).letter != 0)
+    while (board(pos.line, pos.column).letter != 0 && pos.line > 0 && pos.line < 15 && pos.column > 0 && pos.column < 15)
     { // parcours dans l'autre sens pour calculer score
 
         score += letterCollection.getPoint(board(pos.line,
@@ -206,7 +206,7 @@ int Game::scoreAll(Board board, Direction direction, Position pos)
     int scorethis = 0;
     int coefword = 1;
 
-    while (board(pos.line, pos.column).letter != 0)
+    while (board(pos.line, pos.column).letter != 0 && pos.line > 0 && pos.line < 15 && pos.column > 0 && pos.column < 15)
     {
         scorethis += letterCollection.getPoint(
                          board(pos.line, pos.column).letter) *
@@ -234,7 +234,7 @@ int Game::scoreAll(Board board, Direction direction, Position pos)
 
     pos = postemp;
 
-    while (board(pos.line, pos.column).letter != 0)
+    while (board(pos.line, pos.column).letter != 0 && pos.line > 0 && pos.line < 15 && pos.column > 0 && pos.column < 15)
     {
         scorethis += letterCollection.getPoint(board(pos.line,
                                                      pos.column)
@@ -274,13 +274,13 @@ string Game::buildMot(Board board, Direction direction, Position pos){
     Position postemp = pos.findNextPosition(direction, true); 
     string res = "";
     //construction dans le sens inverse (avant le +)
-    while (board(pos.line,pos.column).letter != 0){
+    while (board(pos.line,pos.column).letter != 0 && pos.line > 0 && pos.line < 15 && pos.column > 0 && pos.column < 15){
         res = Board(pos.line,pos.column).letter + res;
         pos = pos.findNextPosition(direction,false);
     }
     pos = postemp;
     //construction dans le bon sens (après le +)
-    while (board(pos.line,pos.column).letter != 0){
+    while (board(pos.line,pos.column).letter != 0 && pos.line > 0 && pos.line < 15 && pos.column > 0 && pos.column < 15){
         res = res + Board(pos.line,pos.column).letter;
         pos = pos.findNextPosition(direction, true);
     }
