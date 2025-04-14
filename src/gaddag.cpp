@@ -106,16 +106,23 @@ Gaddag *Gaddag::getGaddagByLetter(char letter) {
 
 bool Gaddag::checkIfGaddagsEmpty() const { return gaddags.empty(); }
 
-bool Gaddag::checkIfSubwordInGaddag(const std::string &subword) {
+bool Gaddag::checkIfSubpatternInGaddag(const std::string &pattern) {
   Gaddag *currentGaddag = this;
-  for (unsigned int i = 0; i < (unsigned int)subword.size(); i++) {
-    char currentLetter = subword[i];
-    std::cout << "Letter : " << currentLetter << std::endl;
-    if (i == subword.size() - 1 &&
-        currentGaddag->getGaddagByLetter('+') == nullptr) {
+  for (unsigned int i = 0; i < (unsigned int)pattern.size(); i++) {
+    char currentLetter = pattern[i];
+    if (currentGaddag->getGaddagByLetter(currentLetter) == nullptr) {
       return false;
     }
-    currentGaddag = currentGaddag->gaddags[currentLetter];
+    currentGaddag = currentGaddag->getGaddagByLetter(currentLetter);
+  }
+  return true;
+}
+
+bool Gaddag::checkIfSubwordInGaddag(const std::string &subword) {
+  for (const std::string &pattern : decompose(subword)) {
+    if (!checkIfSubpatternInGaddag(pattern)) {
+      return false;
+    }
   }
   return true;
 }

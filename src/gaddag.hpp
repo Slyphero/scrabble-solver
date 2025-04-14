@@ -64,8 +64,28 @@ class Gaddag {
 
   bool checkIfFinal() const;
 
+  /**
+   * @brief Return the pointed gaddag if the key (letter) exists in
+   *   the dictionary
+   * @param letter : The key to look for
+   * @return nullptr if the key is not found
+   */
   Gaddag *getGaddagByLetter(char letter);
 
+  /**
+   * @brief Return if the path exists in the gaddag (whether the last node is
+   *   final or not) for a subpattern like T+AS
+   * @param pattern : The substring to look the path for
+   * @return true if the path exists, false otherwise
+   */
+  bool checkIfSubpatternInGaddag(const std::string &pattern);
+
+  /**
+   * @brief Return if the path exists in the gaddag for a subword (for example
+   *   AS in TAS)
+   * @param subword : The subword to look the path for
+   * @return true if the path exists, false otherwise
+   */
   bool checkIfSubwordInGaddag(const std::string &subword);
 
   bool checkIfGaddagsEmpty() const;

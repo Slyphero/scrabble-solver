@@ -24,7 +24,7 @@ void testPossible(Player player, Gaddag *gaddag, Position pos) {
   ss << "..............." << std::endl;
   ss << "..........U...." << std::endl;
   ss << "....PROJETS...." << std::endl;
-  ss << ".......OT.U...." << std::endl;
+  ss << ".......OD.U...." << std::endl;
   ss << ".......U..R...." << std::endl;
   ss << ".......E......." << std::endl;
   ss << ".......UW......" << std::endl;
@@ -34,19 +34,21 @@ void testPossible(Player player, Gaddag *gaddag, Position pos) {
 
   // XLine7 nom de la lettre placer ainsi que ça ligne
   board.load(ss);
-  Game game(player, gaddag, board, pos);
-  Position TLine7(8, 8);
-  std::cout << "test sur le coup Vertical non valide : "
-            << game.isPossible(board, VERTICAL, TLine7, gaddag) << std::endl;
-  Position WLine11(11, 8);
-  std::cout << "test sur le coup horrizontale non valide : "
-            << game.isPossible(board, HORIZONTAL, WLine11, gaddag) << std::endl;
-  Position SLine7(7, 10);
-  std::cout << "test sur le coup Vertical valide : "
-            << game.isPossible(board, VERTICAL, SLine7, gaddag) << std::endl;
-  Position ALine0(0, 7);
-  std::cout << "test sur le coup horrizontale valide : "
-            << game.isPossible(board, HORIZONTAL, ALine0, gaddag) << std::endl;
+  // Game game(player, gaddag, board, pos);
+  // Position TLine7(8, 8);
+  // std::cout << "test sur le coup Vertical non valide : "
+  //           << game.isPossible(board, VERTICAL, TLine7, gaddag) << std::endl;
+  // Position WLine11(11, 8);
+  // std::cout << "test sur le coup horrizontale non valide : "
+  //           << game.isPossible(board, HORIZONTAL, WLine11, gaddag) <<
+  //           std::endl;
+  // Position SLine7(7, 10);
+  // std::cout << "test sur le coup Vertical valide : "
+  //           << game.isPossible(board, VERTICAL, SLine7, gaddag) << std::endl;
+  // Position ALine0(0, 7);
+  // std::cout << "test sur le coup horrizontale valide : "
+  //           << game.isPossible(board, HORIZONTAL, ALine0, gaddag) <<
+  //           std::endl;
 }
 
 int main() {
@@ -77,8 +79,6 @@ int main() {
 
   Gaddag gaddag;
   gaddag.insertDictionnary();
-  std::cout << "in subgaddag : " << gaddag.checkIfSubwordInGaddag("USUR")
-            << std::endl;
 
   LettersCollection bag;
 
@@ -87,20 +87,16 @@ int main() {
 
   // Position initialPosition(9, 7); // On commence au E central
   // Position initialPosition(7, 7);
-  Position initialPosition(7, 9);
+  Position initialPosition(7, 8);
 
   Game game(player, &gaddag, board, initialPosition);
 
   testScore(game, board);
   testPossible(player, &gaddag, initialPosition);
 
-  /*
-
   game.getPossibleNextStates(initialPosition, VERTICAL);
 
   game.showPossibleNextStates();
-
-  */
 
   return 0;
 }

@@ -63,7 +63,7 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
         Position newPosition = analyzedState.currentPosition.findNextPosition(
             direction, analyzedState.isPlusHasBeenFound);
 
-        for (const Letter &tile : analyzedState.player.getInventory()) {
+        for (const Letter& tile : analyzedState.player.getInventory()) {
           if (analyzedState.currentGaddag->getGaddagByLetter(
                   tile.getLetter()) != nullptr) {
             Player player = analyzedState.player;
@@ -80,7 +80,11 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
                                tile.getLetter()),
                            board, newPosition,
                            analyzedState.isPlusHasBeenFound);
-            states.push(newState);
+
+            if (isPossible(newState.board, direction, newState.currentPosition,
+                           &gaddag)) {
+              states.push(newState);
+            }
           }
         }
 
@@ -143,7 +147,9 @@ int Game::calculSubWord(Board board, Direction direction, Position pos) {
 
   pos = pos.findNextPosition(direction, false);
 
-  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {  // parcours vers la gauche tant que lettre non vide
+  while (pos.checkIfValid() &&
+         board(pos.line, pos.column).letter !=
+             0) {  // parcours vers la gauche tant que lettre non vide
 
     score += letterCollection.getPoint(board(pos.line, pos.column).letter);
 
@@ -152,7 +158,9 @@ int Game::calculSubWord(Board board, Direction direction, Position pos) {
 
   pos = postemp;
 
-  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {  // parcours dans l'autre sens pour calculer score
+  while (pos.checkIfValid() &&
+         board(pos.line, pos.column).letter !=
+             0) {  // parcours dans l'autre sens pour calculer score
 
     score += letterCollection.getPoint(board(pos.line, pos.column).letter);
 
@@ -231,18 +239,16 @@ std::string Game::buildMot(Board board, Direction direction, Position pos) {
     pos = pos.findNextPosition(direction, true);
   }
 
-  std::cout << "Result : " << res << std::endl;
   return res;
 }
 
 // on vérifie si le mot créer est terminal dans la deuxième direction, tandis
 // qu'on cherche à vérifier que le mot dans la direction existe dans le gaddag
 bool Game::isPossible(Board board, Direction direction, Position pos,
-                      Gaddag *gadd) {
-  bool condition1 = gadd->checkIfWordInGaddag(
-      buildMot(board, (Direction)((direction + 1) % 2), pos));
-  bool condition2 =
-      gadd->checkIfSubwordInGaddag(buildMot(board, direction, pos));
-
-  return (condition1 && condition2);
+                      Gaddag* gadd) {
+  std::string word = buildMot(board, (Direction)((direction + 1) % 2), pos);
+  bool condition1 = gadd->checkIfWordInGaddag(word);
+  std::cout << "Mot : " << word << std::endl;
+  std::cout << "condition : " << condition1 << std::endl;
+  return condition1;
 }

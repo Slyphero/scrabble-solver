@@ -7,12 +7,14 @@
 #include "board.hpp"
 #include "direction.hpp"
 #include "gaddag.hpp"
+#include "letters_collection.hpp"
 #include "player.hpp"
 #include "position.hpp"
 #include "state.hpp"
 
 class Game {
  private:
+  Gaddag gaddag;
   State currentState;
   std::queue<State> nextPossibleStates;
   State bestNextState;
