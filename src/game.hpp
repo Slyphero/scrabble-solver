@@ -46,4 +46,9 @@ class Game {
   bool checkValidCollision(const Board &board, Gaddag *gaddag,
                            Direction direction, bool isPlusHasBeenFound,
                            Position position);
+
+  std::pair<State, int> getMaxScore(std::pair<State, int> pair1,
+                                    std::pair<State, int> pair2);
+
+  std::pair<State, int> getBestOverallPlay();
 };

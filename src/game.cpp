@@ -383,3 +383,42 @@ bool Game::checkValidCollision(const Board& board, Gaddag* gaddag,
 
   return gaddag->checkIfFinal();
 }
+
+std::pair<State, int> Game::getMaxScore(std::pair<State, int> pair1,
+                                        std::pair<State, int> pair2) {
+  if (pair1.second > pair2.second) return pair1;
+  return pair2;
+}
+
+std::pair<State, int> Game::getBestOverallPlay() {
+  std::pair<State, int> bestPair = std::make_pair(currentState, 0);
+  for (int line = 0; line < 15; line++) {
+    for (int column = 0; column < 15; column++) {
+      Position position(line, column);
+      if (currentState.board(line, column).letter != 0) {
+        std::pair<State, int> pair1 =
+            getBestPlayFromPosition(position, HORIZONTAL);
+
+        std::cout << "Pair 1 : " << std::endl;
+        std::cout << pair1.first.board << std::endl;
+
+        std::pair<State, int> pair2 =
+            getBestPlayFromPosition(position, VERTICAL);
+
+        std::cout << "Pair 2 : " << std::endl;
+        std::cout << pair2.first.board << std::endl;
+
+        std::pair<State, int> currentBestPair = getMaxScore(pair1, pair2);
+
+        std::cout << "Meilleur coup entre HORIZONTAL et VERTICAL : "
+                  << currentBestPair.second << std::endl;
+
+        if (currentBestPair.second > bestPair.second) {
+          bestPair = currentBestPair;
+          std::cout << "New best score : " << bestPair.second << std::endl;
+        }
+      }
+    }
+  }
+  return bestPair;
+}
