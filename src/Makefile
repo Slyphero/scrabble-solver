@@ -8,9 +8,11 @@ SOURCES += spot.cpp
 SOURCES += board.cpp
 SOURCES += letter.cpp 
 SOURCES += letters_collection.cpp
-SOURCES += Player.cpp
+SOURCES += player.cpp
 SOURCES += gaddag.cpp
-
+SOURCES += game.cpp
+SOURCES += position.cpp
+SOURCES += state.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
 CXXFLAGS  += -g -Wall -std=c++11 -pedantic -O3

@@ -2,50 +2,36 @@
 
 #include <iostream>
 
-using namespace std;
+unsigned int Letter::getOccurences() { return occurences; }
 
-Letter::Letter()
-{
-    letter = '0';
-    occurences = 0;
-    points = 0;
-}
+unsigned int Letter::getPoints() { return points; }
 
-Letter::Letter(char letter, unsigned int occurences, unsigned int points) 
-{
-    this->letter = letter;
-    this->occurences = occurences;
-    this->points = points;
-}
-
-unsigned int Letter::getOccurences() 
-{
-    return occurences;
-}
-
-unsigned int Letter::getPoints() 
-{
-    return points;
-}
-
-void Letter::decreaseOccurences() 
-{
-    if (occurences > 0) 
-    {
-        occurences--;
-    }
+void Letter::decreaseOccurences() {
+  if (occurences > 0) {
+    occurences--;
+  }
 }
 
 void Letter::print() {
-    cout << "Letter : "        << letter 
-         << " / Occurences : " << occurences
-         << " / Points : "     << points 
-         << endl;
+  std::cout << "Letter : " << letter << " / Occurences : " << occurences
+            << " / Points : " << points << std::endl;
 }
 
-// void Letter::operator=(const Letter& newLetter) 
-// {
-//     letter = newLetter.letter;
-//     occurences = newLetter.occurences;
-//     points = newLetter.points;
-// }
+Letter &Letter::operator=(const Letter &newLetter) {
+  if (this != &newLetter) {
+    letter = newLetter.letter;
+    occurences = newLetter.occurences;
+    points = newLetter.points;
+  }
+  return *this;
+}
+
+bool Letter::operator==(const Letter &newLetter) {
+  return (letter == newLetter.letter) && (points == newLetter.points);
+}
+
+bool Letter::operator!=(const Letter &newLetter) {
+  return (letter != newLetter.letter) || (points != newLetter.points);
+}
+
+char Letter::getLetter() const { return letter; }

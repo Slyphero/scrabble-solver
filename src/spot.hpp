@@ -1,30 +1,32 @@
 #pragma once
 
-#include "bonus.hpp"
-
 #include <iostream>
+
+#include "bonus.hpp"
 
 /* A spot on the board to place a letter */
 
 struct Spot {
-  //default initialization, no letter, no bonus
-  Spot() :
-    letter(0) // <=> letter = 0 autoconstructor
+  // default initialization, no letter, no bonus
+  Spot()
+      : letter(0)  // <=> letter = 0 autoconstructor
   {}
 
-  //bonus spot initialization
-  // * lf is the bonus letter factor
-  // * wf is the bonus word factor
-  Spot(unsigned char lf, unsigned char wf) :
-    letter(0), bonus(lf, wf)
-  {}
+  Spot(const Spot &other) : letter(other.letter), bonus(other.bonus) {}
 
-  //the letter placed on the spot, 0 if none
-  char letter ;
+  Spot &operator=(const Spot &spot);
 
-  //the bonus present on the spot
-  Bonus bonus ;
-} ;
+  // bonus spot initialization
+  //  * lf is the bonus letter factor
+  //  * wf is the bonus word factor
+  Spot(unsigned char lf, unsigned char wf) : letter(0), bonus(lf, wf) {}
 
-//display of the spot contents
-std::ostream& operator<<(std::ostream& out, Spot s) ;
+  // the letter placed on the spot, 0 if none
+  char letter;
+
+  // the bonus present on the spot
+  Bonus bonus;
+};
+
+// display of the spot contents
+std::ostream &operator<<(std::ostream &out, Spot s);
