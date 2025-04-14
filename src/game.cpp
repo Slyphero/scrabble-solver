@@ -21,7 +21,8 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
     analyzedState = states.top();
     states.pop();
 
-    bool hasPlayed = (startSize > analyzedState.player.getInventory().size());
+    bool hasPlayed =
+        (startSize > (int)analyzedState.player.getInventory().size());
 
     if (analyzedState.currentPosition.checkIfTopOrLeft()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
