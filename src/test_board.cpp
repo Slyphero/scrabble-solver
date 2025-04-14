@@ -55,7 +55,6 @@ int main() {
   // std::cout << board << std::endl;
 
   std::stringstream ss;
-  /*
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
@@ -71,25 +70,24 @@ int main() {
   ss << ".....SCRABBLE.." << std::endl;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
+  /*
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
   */
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
   board.load(ss);
-
-  // std::cout << board << std::endl;
 
   Gaddag gaddag;
   gaddag.insertDictionnary();
@@ -97,11 +95,11 @@ int main() {
   LettersCollection bag;
 
   Player player;
-  player.drawLetters(bag);
+  player.createInventory(bag);
 
   // Position initialPosition(9, 7); // On commence au E central
   // Position initialPosition(7, 7);
-  Position initialPosition(7, 7);
+  Position initialPosition(7, 9);
 
   Game game(player, &gaddag, board, initialPosition);
 

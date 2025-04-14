@@ -65,13 +65,7 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
         Position newPosition = analyzedState.currentPosition.findNextPosition(
             direction, analyzedState.isPlusHasBeenFound);
 
-        char tempLetter =
-            analyzedState.board(newPosition.line, newPosition.column).letter;
-        Gaddag* tempGaddag =
-            analyzedState.currentGaddag->getGaddagByLetter(tempLetter);
-
-        if (analyzedState.currentGaddag->checkIfFinal() &&
-            tempGaddag != nullptr && tempGaddag->checkIfFinal()) {
+        if (analyzedState.currentGaddag->checkIfFinal()) {
           int score = scoreAll(analyzedState.board, direction, position);
           if (bestPlay.second < score) {
             bestPlay = std::make_pair(analyzedState, score);
@@ -96,8 +90,32 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
                            board, newPosition,
                            analyzedState.isPlusHasBeenFound);
 
+            char letter =
+                newState.board(newPosition.line, newPosition.column).letter;
+
+            std::cout << "Dernière lettre placée : " << tile.getLetter() << " ";
+            analyzedState.currentGaddag->showKeys();
+
+            Gaddag* tempGaddag =
+                newState.currentGaddag->getGaddagByLetter(letter);
+
+            bool isCollision =
+                (tempGaddag != nullptr && !tempGaddag->checkIfFinal());
+
+            /*
+            3 cas sont à prendre en compte :
+            - Si la case suivante est vide (et que le noeud est terminal),
+              pas de collisions rien à faire
+            - Si la case suivante est non vide mais que sa lettre n'a pas
+              d'arête dans le gaddag, ce n'est pas un état possible
+            - Si la case suivante est non vide et que l'arête existe, il faut
+              poursuivre les vérifications tant qu'on arrive pas sur un
+              des cas précédents.
+            */
             if (isPossible(newState.board, direction,
-                           analyzedState.currentPosition, root)) {
+                           analyzedState.currentPosition, root) &&
+                (newState.currentGaddag->checkIfGaddagsEmpty() ||
+                 !isCollision)) {
               states.push(newState);
             }
           }

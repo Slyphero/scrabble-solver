@@ -39,10 +39,11 @@ Player &Player::operator=(const Player &other) {
 }
 
 void Player::createInventory(LettersCollection bag) {
-  inventory.push_back(bag.getLetter(14));
-  inventory.push_back(bag.getLetter(8));
-  inventory.push_back(bag.getLetter(20));
-  for (int i = 0; i < 4; i++) {
-    inventory.push_back(bag.getLetter(i));
-  }
+  inventory.push_back(bag.getLetter(15));  // P
+  inventory.push_back(bag.getLetter(0));   // A
+  inventory.push_back(bag.getLetter(20));  // U
+  inventory.push_back(bag.getLetter(11));  // L
+  inventory.push_back(bag.getLetter(5));   // F
+  inventory.push_back(bag.getLetter(24));  // Y
+  inventory.push_back(bag.getLetter(19));  // T
 }
