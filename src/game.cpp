@@ -250,9 +250,24 @@ std::string Game::buildMot(Board board, Direction direction, Position pos) {
 // qu'on cherche à vérifier que le mot dans la direction existe dans le gaddag
 bool Game::isPossible(Board board, Direction direction, Position pos,
                       Gaddag* gadd) {
-  std::string word = buildMot(board, (Direction)((direction + 1) % 2), pos);
+  Direction oppositeDirection = (Direction)((direction + 1) % 2);
+  std::string word = buildMot(board, oppositeDirection, pos);
   bool condition1 = gadd->checkIfWordInGaddag(word);
-  std::cout << "Mot : " << word << std::endl;
-  std::cout << "condition : " << condition1 << std::endl;
-  return condition1;
+
+  Position previous = pos.findNextPosition(oppositeDirection, false);
+  Position next = pos.findNextPosition(oppositeDirection, true);
+
+  bool areNextTilesEmpty = previous.checkIfValid() && next.checkIfValid() &&
+                           board(previous.line, previous.column).letter == 0 &&
+                           board(next.line, next.column).letter == 0;
+
+  bool isNextTileEmpty = !previous.checkIfValid() && next.checkIfValid() &&
+                         board(next.line, next.column).letter == 0;
+
+  bool isPreviousTileEmpty = previous.checkIfValid() && !next.checkIfValid() &&
+                             board(previous.line, previous.column).letter == 0;
+
+  bool condition2 = areNextTilesEmpty || isNextTileEmpty || isPreviousTileEmpty;
+
+  return condition1 || condition2;
 }

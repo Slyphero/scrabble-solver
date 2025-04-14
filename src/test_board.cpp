@@ -85,7 +85,7 @@ int main() {
 
   // Position initialPosition(9, 7); // On commence au E central
   // Position initialPosition(7, 7);
-  Position initialPosition(7, 8);
+  Position initialPosition(7, 9);
 
   Game game(player, &gaddag, board, initialPosition);
 
@@ -94,7 +94,7 @@ int main() {
 
   game.getPossibleNextStates(initialPosition, VERTICAL);
 
-  // game.showPossibleNextStates();
+  game.showPossibleNextStates();
 
   return 0;
 }
