@@ -127,6 +127,13 @@ bool Gaddag::checkIfSubwordInGaddag(const std::string &subword) {
   return true;
 }
 
+void Gaddag::showKeys() {
+  for (const auto &pair : gaddags) {
+    std::cout << pair.first << " ";
+  }
+  std::cout << std::endl;
+}
+
 Gaddag::~Gaddag() {
   isFinal = false;
   for (auto &pair : gaddags) {

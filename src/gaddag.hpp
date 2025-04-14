@@ -90,5 +90,7 @@ class Gaddag {
 
   bool checkIfGaddagsEmpty() const;
 
+  void showKeys();
+
   ~Gaddag();
 };

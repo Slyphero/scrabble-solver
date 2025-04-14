@@ -14,7 +14,6 @@
 
 class Game {
  private:
-  Gaddag gaddag;
   State currentState;
   std::queue<State> nextPossibleStates;
   State bestNextState;

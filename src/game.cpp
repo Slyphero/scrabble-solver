@@ -6,6 +6,10 @@ void Game::clearNextStates() {
 }
 
 void Game::getPossibleNextStates(Position position, Direction direction) {
+  Gaddag* root = currentState.currentGaddag;
+  std::cout << "Racine : " << std::endl;
+  root->getGaddagByLetter('W')->showKeys();
+
   clearNextStates();
   std::stack<State> states;
   currentState.currentPosition = position;
@@ -81,8 +85,11 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
                            board, newPosition,
                            analyzedState.isPlusHasBeenFound);
 
+            std::cout << "Avant condition : " << std::endl;
+            root->showKeys();
+
             if (isPossible(newState.board, direction, newState.currentPosition,
-                           &gaddag)) {
+                           root)) {
               states.push(newState);
             }
           }
