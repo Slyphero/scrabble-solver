@@ -62,16 +62,21 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
           }
           continue;
         }
+        Position newPosition = analyzedState.currentPosition.findNextPosition(
+            direction, analyzedState.isPlusHasBeenFound);
 
-        if (analyzedState.currentGaddag->checkIfFinal()) {
+        char tempLetter =
+            analyzedState.board(newPosition.line, newPosition.column).letter;
+        Gaddag* tempGaddag =
+            analyzedState.currentGaddag->getGaddagByLetter(tempLetter);
+
+        if (analyzedState.currentGaddag->checkIfFinal() &&
+            tempGaddag != nullptr && tempGaddag->checkIfFinal()) {
           int score = scoreAll(analyzedState.board, direction, position);
           if (bestPlay.second < score) {
             bestPlay = std::make_pair(analyzedState, score);
           }
         }
-
-        Position newPosition = analyzedState.currentPosition.findNextPosition(
-            direction, analyzedState.isPlusHasBeenFound);
 
         for (const Letter& tile : analyzedState.player.getInventory()) {
           if (analyzedState.currentGaddag->getGaddagByLetter(

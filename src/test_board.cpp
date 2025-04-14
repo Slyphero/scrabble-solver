@@ -55,6 +55,7 @@ int main() {
   // std::cout << board << std::endl;
 
   std::stringstream ss;
+
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
@@ -70,7 +71,23 @@ int main() {
   ss << ".....SCRABBLE.." << std::endl;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
-
+  /*
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  */
   board.load(ss);
 
   // std::cout << board << std::endl;
@@ -85,12 +102,12 @@ int main() {
 
   // Position initialPosition(9, 7); // On commence au E central
   // Position initialPosition(7, 7);
-  Position initialPosition(7, 8);
+  Position initialPosition(7, 7);
 
   Game game(player, &gaddag, board, initialPosition);
 
-  testScore(game, board);
-  testPossible(player, &gaddag, initialPosition);
+  // testScore(game, board);
+  // testPossible(player, &gaddag, initialPosition);
 
   std::pair<State, int> bestPlay =
       game.getBestPlayFromPosition(initialPosition, VERTICAL);
