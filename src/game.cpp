@@ -1,14 +1,8 @@
 #include "game.hpp"
 
-void Game::clearNextStates() {
-  std::queue<State> emptyQueue;
-  std::swap(nextPossibleStates, emptyQueue);
-}
-
 void Game::getPossibleNextStates(Position position, Direction direction) {
   Gaddag* root = currentState.currentGaddag;
-
-  clearNextStates();
+  nextPossibleStates.clear();
   std::stack<State> states;
   currentState.currentPosition = position;
   currentState.isPlusHasBeenFound = false;
@@ -27,7 +21,10 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
 
     if (analyzedState.currentPosition.checkIfTopOrLeft()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
-        nextPossibleStates.push(analyzedState);
+        int score = scoreAll(analyzedState.board, direction, position);
+        std::pair<State, unsigned int> possibleStateAndScore =
+            std::make_pair(analyzedState, score);
+        nextPossibleStates.push_back(possibleStateAndScore);
       }
 
       if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr) {
@@ -42,7 +39,10 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
 
     else if (analyzedState.currentPosition.checkIfBottomOrRight()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
-        nextPossibleStates.push(analyzedState);
+        int score = scoreAll(analyzedState.board, direction, position);
+        std::pair<State, unsigned int> possibleStateAndScore =
+            std::make_pair(analyzedState, score);
+        nextPossibleStates.push_back(possibleStateAndScore);
       }
     }
 
@@ -54,12 +54,18 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
       if (letter == 0) {
         if (analyzedState.currentGaddag->checkIfFinal() &&
             analyzedState.currentGaddag->checkIfGaddagsEmpty()) {
-          nextPossibleStates.push(analyzedState);
+          int score = scoreAll(analyzedState.board, direction, position);
+          std::pair<State, unsigned int> possibleStateAndScore =
+              std::make_pair(analyzedState, score);
+          nextPossibleStates.push_back(possibleStateAndScore);
           continue;
         }
 
         if (analyzedState.currentGaddag->checkIfFinal()) {
-          nextPossibleStates.push(analyzedState);
+          int score = scoreAll(analyzedState.board, direction, position);
+          std::pair<State, unsigned int> possibleStateAndScore =
+              std::make_pair(analyzedState, score);
+          nextPossibleStates.push_back(possibleStateAndScore);
         }
 
         Position newPosition = analyzedState.currentPosition.findNextPosition(
@@ -118,21 +124,20 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
                            newState.currentPosition.column)
                     .letter == 0 &&
             analyzedState.currentGaddag->checkIfFinal()) {
-          nextPossibleStates.push(analyzedState);
+          int score = scoreAll(analyzedState.board, direction, position);
+          std::pair<State, unsigned int> possibleStateAndScore =
+              std::make_pair(analyzedState, score);
+          nextPossibleStates.push_back(possibleStateAndScore);
         }
       }
     }
   }
 }
 
-void Game::getAllPossibleNextStates() {}
-
 void Game::showPossibleNextStates() {
-  std::queue<State> temp = nextPossibleStates;
-
-  while (!temp.empty()) {
-    std::cout << temp.front().board << std::endl;
-    temp.pop();
+  for (const auto& pair : nextPossibleStates) {
+    std::cout << pair.first.board << std::endl;
+    std::cout << pair.second << std::endl;
   }
 }
 
@@ -149,9 +154,8 @@ int Game::calculSubWord(Board board, Direction direction, Position pos) {
 
   pos = pos.findNextPosition(direction, false);
 
-  while (pos.checkIfValid() &&
-         board(pos.line, pos.column).letter !=
-             0) {  // parcours vers la gauche tant que lettre non vide
+  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {
+    // parcours vers la gauche tant que lettre non vide
 
     score += letterCollection.getPoint(board(pos.line, pos.column).letter);
 
@@ -177,9 +181,14 @@ int Game::scoreAll(Board board, Direction direction, Position pos) {
   LettersCollection letterCollection;
   Position postemp = pos.findNextPosition(direction, true);
   int res = 0;
-  int scorethis = 0;
-  int coefword = 1;
 
+  int scorethis =
+      letterCollection.getPoint(board(pos.line, pos.column).letter) *
+      board(pos.line, pos.column).bonus.letter_factor;
+
+  int coefword = board(pos.line, pos.column).bonus.word_factor;
+
+  pos = pos.findNextPosition(direction, false);
   while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {
     scorethis += letterCollection.getPoint(board(pos.line, pos.column).letter) *
                  board(pos.line, pos.column).bonus.letter_factor;

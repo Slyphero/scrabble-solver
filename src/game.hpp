@@ -1,6 +1,5 @@
 #pragma once
 
-#include <queue>
 #include <stack>
 #include <vector>
 
@@ -15,8 +14,8 @@
 class Game {
  private:
   State currentState;
-  std::queue<State> nextPossibleStates;
   State bestNextState;
+  std::vector<std::pair<State, unsigned int>> nextPossibleStates;
   void clearNextStates();
 
  public:
