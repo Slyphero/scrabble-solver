@@ -55,7 +55,7 @@ int main() {
   // std::cout << board << std::endl;
 
   std::stringstream ss;
-
+  /*
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
@@ -71,23 +71,22 @@ int main() {
   ss << ".....SCRABBLE.." << std::endl;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
-  /*
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
   */
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
   board.load(ss);
 
   // std::cout << board << std::endl;

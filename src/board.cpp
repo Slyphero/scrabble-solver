@@ -247,3 +247,5 @@ Board::Board(const Board &other) {
     spots[i] = other.spots[i];
   }
 }
+
+bool Board::checkIfEmpty() { return spots[112].letter == 0; }

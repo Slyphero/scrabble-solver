@@ -25,6 +25,8 @@ struct Board {
   Board &operator=(const Board &board);
 
   Board(const Board &other);
+
+  bool checkIfEmpty();
 };
 
 // board display on the console
