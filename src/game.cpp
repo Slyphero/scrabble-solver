@@ -279,3 +279,74 @@ bool Game::isPossible(Board board, Direction direction, Position pos,
 
   return condition1 || condition2;
 }
+
+std::pair<State, int> Game::getBestPlayOnEmptyBoard() {
+  std::pair<State, int> bestPlay = std::make_pair(currentState, 0);
+
+  Position center(7, 7);
+  Direction directions[2] = {Direction::HORIZONTAL, Direction::VERTICAL};
+
+  currentState.player.printInventory();
+
+  for (Direction direction : directions) {
+    std::stack<State> states;
+
+    State startState(currentState.player, currentState.currentGaddag,
+                     currentState.board, center, false);
+    states.push(startState);
+
+    while (!states.empty()) {
+      State state = states.top();
+      states.pop();
+
+      char cellLetter =
+          state.board(state.currentPosition.line, state.currentPosition.column)
+              .letter;
+
+      if (cellLetter == 0) {
+        for (const Letter& tile : state.player.getInventory()) {
+          Gaddag* nextGaddag =
+              state.currentGaddag->getGaddagByLetter(tile.getLetter());
+
+          if (nextGaddag != nullptr) {
+            Player nextPlayer = state.player;
+            nextPlayer.removeLetter(tile);
+
+            Board nextBoard = state.board;
+            nextBoard(state.currentPosition.line, state.currentPosition.column)
+                .letter = tile.getLetter();
+
+            Position nextPosition = state.currentPosition.findNextPosition(
+                direction, state.isPlusHasBeenFound);
+
+            State nextState(nextPlayer, nextGaddag, nextBoard, nextPosition,
+                            state.isPlusHasBeenFound);
+
+            if (nextGaddag->checkIfFinal()) {
+              if (nextBoard(center.line, center.column).letter != 0) {
+                int score = scoreAll(nextBoard, direction, center);
+                if (score > bestPlay.second) {
+                  bestPlay = std::make_pair(nextState, score);
+                }
+              }
+            }
+
+            states.push(nextState);
+          }
+        }
+
+        if (state.currentGaddag->getGaddagByLetter('+') != nullptr &&
+            !state.isPlusHasBeenFound) {
+          Position nextPosition = center.findNextPosition(direction, true);
+
+          State nextState(state.player,
+                          state.currentGaddag->getGaddagByLetter('+'),
+                          state.board, nextPosition, true);
+          states.push(nextState);
+        }
+      }
+    }
+  }
+
+  return bestPlay;
+}

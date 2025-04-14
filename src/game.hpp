@@ -39,5 +39,7 @@ class Game {
   std::pair<State, int> getBestPlayFromPosition(Position position,
                                                 Direction direction);
 
+  std::pair<State, int> getBestPlayOnEmptyBoard();
+
   void getAllPossibleNextStates();
 };

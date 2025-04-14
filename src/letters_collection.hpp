@@ -2,7 +2,7 @@
 
 #include "letter.hpp"
 
-const int NUMBER_OF_LETTERS = 27;
+const int NUMBER_OF_LETTERS = 26;
 
 class LettersCollection {
  private:

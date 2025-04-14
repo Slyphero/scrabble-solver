@@ -109,7 +109,9 @@ int main() {
   // testPossible(player, &gaddag, initialPosition);
 
   std::pair<State, int> bestPlay =
-      game.getBestPlayFromPosition(initialPosition, VERTICAL);
+      (board.checkIfEmpty())
+          ? game.getBestPlayOnEmptyBoard()
+          : game.getBestPlayFromPosition(initialPosition, VERTICAL);
 
   std::cout << bestPlay.first.board << std::endl;
   std::cout << bestPlay.second << std::endl;
