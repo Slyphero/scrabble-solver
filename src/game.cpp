@@ -85,11 +85,8 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
                            board, newPosition,
                            analyzedState.isPlusHasBeenFound);
 
-            std::cout << "Avant condition : " << std::endl;
-            root->showKeys();
-
-            if (isPossible(newState.board, direction, newState.currentPosition,
-                           root)) {
+            if (isPossible(newState.board, direction,
+                           analyzedState.currentPosition, root)) {
               states.push(newState);
             }
           }

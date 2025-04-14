@@ -77,8 +77,6 @@ int main() {
 
   Gaddag gaddag;
   gaddag.insertDictionnary();
-  std::cout << "Racine (main) : " << std::endl;
-  gaddag.getGaddagByLetter('W')->showKeys();
 
   LettersCollection bag;
 
@@ -94,7 +92,7 @@ int main() {
   testScore(game, board);
   testPossible(player, &gaddag, initialPosition);
 
-  // game.getPossibleNextStates(initialPosition, VERTICAL);
+  game.getPossibleNextStates(initialPosition, VERTICAL);
 
   // game.showPossibleNextStates();
 
