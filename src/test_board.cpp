@@ -85,16 +85,18 @@ int main() {
 
   // Position initialPosition(9, 7); // On commence au E central
   // Position initialPosition(7, 7);
-  Position initialPosition(7, 9);
+  Position initialPosition(7, 8);
 
   Game game(player, &gaddag, board, initialPosition);
 
   testScore(game, board);
   testPossible(player, &gaddag, initialPosition);
 
-  game.getPossibleNextStates(initialPosition, VERTICAL);
+  std::pair<State, int> bestPlay =
+      game.getBestPlayFromPosition(initialPosition, VERTICAL);
 
-  game.showPossibleNextStates();
+  std::cout << bestPlay.first.board << std::endl;
+  std::cout << bestPlay.second << std::endl;
 
   return 0;
 }

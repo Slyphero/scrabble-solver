@@ -1,11 +1,13 @@
 #include "game.hpp"
 
-void Game::getPossibleNextStates(Position position, Direction direction) {
+std::pair<State, int> Game::getBestPlayFromPosition(Position position,
+                                                    Direction direction) {
   Gaddag* root = currentState.currentGaddag;
-  nextPossibleStates.clear();
   std::stack<State> states;
   currentState.currentPosition = position;
   currentState.isPlusHasBeenFound = false;
+
+  std::pair<State, int> bestPlay = std::make_pair(currentState, 0);
 
   State analyzedState(currentState.player, currentState.currentGaddag,
                       currentState.board, currentState.currentPosition,
@@ -22,9 +24,9 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
     if (analyzedState.currentPosition.checkIfTopOrLeft()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
         int score = scoreAll(analyzedState.board, direction, position);
-        std::pair<State, unsigned int> possibleStateAndScore =
-            std::make_pair(analyzedState, score);
-        nextPossibleStates.push_back(possibleStateAndScore);
+        if (bestPlay.second < score) {
+          bestPlay = std::make_pair(analyzedState, score);
+        }
       }
 
       if (analyzedState.currentGaddag->getGaddagByLetter('+') != nullptr) {
@@ -40,9 +42,9 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
     else if (analyzedState.currentPosition.checkIfBottomOrRight()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
         int score = scoreAll(analyzedState.board, direction, position);
-        std::pair<State, unsigned int> possibleStateAndScore =
-            std::make_pair(analyzedState, score);
-        nextPossibleStates.push_back(possibleStateAndScore);
+        if (bestPlay.second < score) {
+          bestPlay = std::make_pair(analyzedState, score);
+        }
       }
     }
 
@@ -55,17 +57,17 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
         if (analyzedState.currentGaddag->checkIfFinal() &&
             analyzedState.currentGaddag->checkIfGaddagsEmpty()) {
           int score = scoreAll(analyzedState.board, direction, position);
-          std::pair<State, unsigned int> possibleStateAndScore =
-              std::make_pair(analyzedState, score);
-          nextPossibleStates.push_back(possibleStateAndScore);
+          if (bestPlay.second < score) {
+            bestPlay = std::make_pair(analyzedState, score);
+          }
           continue;
         }
 
         if (analyzedState.currentGaddag->checkIfFinal()) {
           int score = scoreAll(analyzedState.board, direction, position);
-          std::pair<State, unsigned int> possibleStateAndScore =
-              std::make_pair(analyzedState, score);
-          nextPossibleStates.push_back(possibleStateAndScore);
+          if (bestPlay.second < score) {
+            bestPlay = std::make_pair(analyzedState, score);
+          }
         }
 
         Position newPosition = analyzedState.currentPosition.findNextPosition(
@@ -125,20 +127,14 @@ void Game::getPossibleNextStates(Position position, Direction direction) {
                     .letter == 0 &&
             analyzedState.currentGaddag->checkIfFinal()) {
           int score = scoreAll(analyzedState.board, direction, position);
-          std::pair<State, unsigned int> possibleStateAndScore =
-              std::make_pair(analyzedState, score);
-          nextPossibleStates.push_back(possibleStateAndScore);
+          if (bestPlay.second < score) {
+            bestPlay = std::make_pair(analyzedState, score);
+          }
         }
       }
     }
   }
-}
-
-void Game::showPossibleNextStates() {
-  for (const auto& pair : nextPossibleStates) {
-    std::cout << pair.first.board << std::endl;
-    std::cout << pair.second << std::endl;
-  }
+  return bestPlay;
 }
 
 // Calcul le score des mots étant complété par un coup

@@ -15,8 +15,6 @@ class Game {
  private:
   State currentState;
   State bestNextState;
-  std::vector<std::pair<State, unsigned int>> nextPossibleStates;
-  void clearNextStates();
 
  public:
   Game(const Player &player, Gaddag *gaddag, const Board &board,
@@ -34,16 +32,12 @@ class Game {
   int scoreAll(Board board, Direction direction, Position pos);
 
   /**
-   * @brief Fill the possibles next states from current game state,
-   * starting of a specific position and a direction
+   * @brief
    * @param position : Initial position
    * @param direction : A direction, vertical or horizontal
    */
-  void getPossibleNextStates(Position position, Direction direction);
+  std::pair<State, int> getBestPlayFromPosition(Position position,
+                                                Direction direction);
 
   void getAllPossibleNextStates();
-
-  State getBestNextState();
-
-  void showPossibleNextStates();
 };
