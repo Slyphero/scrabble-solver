@@ -15,16 +15,20 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
 
   states.push(analyzedState);
 
-  analyzedState.player.printInventory();
+  currentState.player.printInventory();
+
+  int startSize = currentState.player.getInventory().size();
 
   while (!states.empty()) {
     analyzedState = states.top();
     states.pop();
 
+    bool hasPlayed = (startSize > analyzedState.player.getInventory().size());
+
     if (analyzedState.currentPosition.checkIfTopOrLeft()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
         int score = scoreAll(analyzedState.board, direction, position);
-        if (bestPlay.second < score) {
+        if (bestPlay.second < score && hasPlayed) {
           bestPlay = std::make_pair(analyzedState, score);
         }
       }
@@ -42,7 +46,7 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
     else if (analyzedState.currentPosition.checkIfBottomOrRight()) {
       if (analyzedState.currentGaddag->checkIfFinal()) {
         int score = scoreAll(analyzedState.board, direction, position);
-        if (bestPlay.second < score) {
+        if (bestPlay.second < score && hasPlayed) {
           bestPlay = std::make_pair(analyzedState, score);
         }
       }
@@ -57,7 +61,7 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
         if (analyzedState.currentGaddag->checkIfFinal() &&
             analyzedState.currentGaddag->checkIfGaddagsEmpty()) {
           int score = scoreAll(analyzedState.board, direction, position);
-          if (bestPlay.second < score) {
+          if (bestPlay.second < score && hasPlayed) {
             bestPlay = std::make_pair(analyzedState, score);
           }
           continue;
@@ -67,7 +71,7 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
 
         if (analyzedState.currentGaddag->checkIfFinal()) {
           int score = scoreAll(analyzedState.board, direction, position);
-          if (bestPlay.second < score) {
+          if (bestPlay.second < score && hasPlayed) {
             bestPlay = std::make_pair(analyzedState, score);
           }
         }
@@ -146,7 +150,7 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
                     .letter == 0 &&
             analyzedState.currentGaddag->checkIfFinal()) {
           int score = scoreAll(analyzedState.board, direction, position);
-          if (bestPlay.second < score) {
+          if (bestPlay.second < score && hasPlayed) {
             bestPlay = std::make_pair(analyzedState, score);
           }
         }
