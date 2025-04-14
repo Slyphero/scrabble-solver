@@ -81,7 +81,7 @@ int main() {
   LettersCollection bag;
 
   Player player;
-  player.createInventory(bag);
+  player.drawLetters(bag);
 
   // Position initialPosition(9, 7); // On commence au E central
   // Position initialPosition(7, 7);

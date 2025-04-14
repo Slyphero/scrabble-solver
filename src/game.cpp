@@ -7,8 +7,6 @@ void Game::clearNextStates() {
 
 void Game::getPossibleNextStates(Position position, Direction direction) {
   Gaddag* root = currentState.currentGaddag;
-  std::cout << "Racine : " << std::endl;
-  root->getGaddagByLetter('W')->showKeys();
 
   clearNextStates();
   std::stack<State> states;

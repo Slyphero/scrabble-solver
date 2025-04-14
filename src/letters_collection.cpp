@@ -3,6 +3,7 @@
 #include <chrono>
 #include <iostream>
 #include <random>
+#include <vector>
 
 using namespace std;
 
@@ -30,21 +31,18 @@ Letter LettersCollection::getLetter(unsigned int i) {
 }
 
 Letter LettersCollection::pickRandomLetter() {
-  if (checkIfCollectionEmpty()) {
-    return Letter('0', 0, 0);
+  static std::random_device rd;
+  static std::mt19937 gen(rd());
+
+  std::vector<int> weights;
+
+  for (Letter letter : lettersCollection) {
+    weights.push_back(letter.getOccurences());
   }
-  auto now = chrono::high_resolution_clock::now().time_since_epoch();
-  auto seed = chrono::duration_cast<chrono::nanoseconds>(now).count();
 
-  mt19937 generator(seed);
+  std::discrete_distribution<int> dist(weights.begin(), weights.end());
+  int randomNumber = dist(gen);
 
-  uniform_int_distribution<int> distribution(0, 25);
-
-  int randomNumber = distribution(generator);
-
-  while (lettersCollection[randomNumber].getOccurences() == 0) {
-    randomNumber = distribution(generator);
-  }
   lettersCollection[randomNumber].decreaseOccurences();
   return lettersCollection[randomNumber];
 }
