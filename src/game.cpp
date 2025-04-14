@@ -90,18 +90,6 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
                            board, newPosition,
                            analyzedState.isPlusHasBeenFound);
 
-            char letter =
-                newState.board(newPosition.line, newPosition.column).letter;
-
-            std::cout << "Dernière lettre placée : " << tile.getLetter() << " ";
-            analyzedState.currentGaddag->showKeys();
-
-            Gaddag* tempGaddag =
-                newState.currentGaddag->getGaddagByLetter(letter);
-
-            bool isCollision =
-                (tempGaddag != nullptr && !tempGaddag->checkIfFinal());
-
             /*
             3 cas sont à prendre en compte :
             - Si la case suivante est vide (et que le noeud est terminal),
@@ -113,10 +101,18 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
               des cas précédents.
             */
             if (isPossible(newState.board, direction,
-                           analyzedState.currentPosition, root) &&
-                (newState.currentGaddag->checkIfGaddagsEmpty() ||
-                 !isCollision)) {
-              states.push(newState);
+                           analyzedState.currentPosition, root)) {
+              if (newState
+                      .board(newState.currentPosition.line,
+                             newState.currentPosition.column)
+                      .letter == 0) {
+                states.push(newState);
+              } else if (checkValidCollision(newState.board,
+                                             newState.currentGaddag, direction,
+                                             newState.isPlusHasBeenFound,
+                                             analyzedState.currentPosition)) {
+                states.push(newState);
+              }
             }
           }
         }
@@ -367,4 +363,23 @@ std::pair<State, int> Game::getBestPlayOnEmptyBoard() {
   }
 
   return bestPlay;
+}
+
+bool Game::checkValidCollision(const Board& board, Gaddag* gaddag,
+                               Direction direction, bool isPlusHasBeenFound,
+                               Position position) {
+  Position nextPosition =
+      position.findNextPosition(direction, isPlusHasBeenFound);
+
+  char nextLetter = board(nextPosition.line, nextPosition.column).letter;
+
+  while (nextPosition.checkIfValid() && nextLetter != 0) {
+    if (gaddag->getGaddagByLetter(nextLetter) == nullptr) return false;
+
+    gaddag = gaddag->getGaddagByLetter(nextLetter);
+    nextPosition = nextPosition.findNextPosition(direction, isPlusHasBeenFound);
+    nextLetter = board(nextPosition.line, nextPosition.column).letter;
+  }
+
+  return gaddag->checkIfFinal();
 }

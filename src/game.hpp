@@ -42,4 +42,8 @@ class Game {
   std::pair<State, int> getBestPlayOnEmptyBoard();
 
   void getAllPossibleNextStates();
+
+  bool checkValidCollision(const Board &board, Gaddag *gaddag,
+                           Direction direction, bool isPlusHasBeenFound,
+                           Position position);
 };
