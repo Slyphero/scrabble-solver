@@ -143,9 +143,7 @@ int Game::calculSubWord(Board board, Direction direction, Position pos) {
 
   pos = pos.findNextPosition(direction, false);
 
-  while (
-      board(pos.line, pos.column).letter != 0 &&
-      pos.checkIfValid()) {  // parcours vers la gauche tant que lettre non vide
+  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {  // parcours vers la gauche tant que lettre non vide
 
     score += letterCollection.getPoint(board(pos.line, pos.column).letter);
 
@@ -154,9 +152,7 @@ int Game::calculSubWord(Board board, Direction direction, Position pos) {
 
   pos = postemp;
 
-  while (
-      board(pos.line, pos.column).letter != 0 &&
-      pos.checkIfValid()) {  // parcours dans l'autre sens pour calculer score
+  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {  // parcours dans l'autre sens pour calculer score
 
     score += letterCollection.getPoint(board(pos.line, pos.column).letter);
 
@@ -174,7 +170,7 @@ int Game::scoreAll(Board board, Direction direction, Position pos) {
   int scorethis = 0;
   int coefword = 1;
 
-  while (board(pos.line, pos.column).letter != 0 && pos.checkIfValid()) {
+  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {
     scorethis += letterCollection.getPoint(board(pos.line, pos.column).letter) *
                  board(pos.line, pos.column).bonus.letter_factor;
 
@@ -195,7 +191,7 @@ int Game::scoreAll(Board board, Direction direction, Position pos) {
   }
 
   pos = postemp;
-  while (board(pos.line, pos.column).letter != 0 && pos.checkIfValid()) {
+  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {
     scorethis += letterCollection.getPoint(board(pos.line, pos.column).letter) *
                  board(pos.line, pos.column).bonus.letter_factor;
 
@@ -224,13 +220,13 @@ std::string Game::buildMot(Board board, Direction direction, Position pos) {
   Position postemp = pos.findNextPosition(direction, true);
   std::string res = "";
   // construction dans le sens inverse (avant le +)
-  while (board(pos.line, pos.column).letter != 0 && pos.checkIfValid()) {
+  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {
     res = board(pos.line, pos.column).letter + res;
     pos = pos.findNextPosition(direction, false);
   }
   pos = postemp;
   // construction dans le bon sens (après le +)
-  while (board(pos.line, pos.column).letter != 0 && pos.checkIfValid()) {
+  while (pos.checkIfValid() && board(pos.line, pos.column).letter != 0) {
     res = res + board(pos.line, pos.column).letter;
     pos = pos.findNextPosition(direction, true);
   }
@@ -247,9 +243,6 @@ bool Game::isPossible(Board board, Direction direction, Position pos,
       buildMot(board, (Direction)((direction + 1) % 2), pos));
   bool condition2 =
       gadd->checkIfSubwordInGaddag(buildMot(board, direction, pos));
-
-  std::cout << "Word in gaddag : " << condition1 << std::endl;
-  std::cout << "Subword in gaddag : " << condition2 << std::endl;
 
   return (condition1 && condition2);
 }
