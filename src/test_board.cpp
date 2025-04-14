@@ -52,9 +52,8 @@ void testPossible(Player player, Gaddag *gaddag, Position pos) {
 int main() {
   Board board;
 
-  // std::cout << board << std::endl;
-
   std::stringstream ss;
+  /*
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
@@ -70,23 +69,23 @@ int main() {
   ss << ".....SCRABBLE.." << std::endl;
   ss << "..............." << std::endl;
   ss << "..............." << std::endl;
-  /*
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
-  ss << "..............." << std::endl;
   */
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+  ss << "..............." << std::endl;
+
   board.load(ss);
 
   Gaddag gaddag;
@@ -95,23 +94,25 @@ int main() {
   LettersCollection bag;
 
   Player player;
-  player.createInventory(bag);
+  player.drawLetters(bag);
 
-  // Position initialPosition(9, 7); // On commence au E central
-  // Position initialPosition(7, 7);
-  Position initialPosition(7, 9);
+  std::cout << board << std::endl;
+
+  player.printInventory();
+
+  Position initialPosition(7, 7);
 
   Game game(player, &gaddag, board, initialPosition);
 
-  // testScore(game, board);
-  // testPossible(player, &gaddag, initialPosition);
+  std::pair<State, int> firstPlay = game.getBestPlayOnEmptyBoard();
 
-  std::pair<State, int> bestPlay = (board.checkIfEmpty())
-                                       ? game.getBestPlayOnEmptyBoard()
-                                       : game.getBestOverallPlay();
+  game.applyBestPlay(firstPlay, &gaddag, bag);
 
-  std::cout << bestPlay.first.board << std::endl;
-  std::cout << bestPlay.second << std::endl;
+  std::pair<State, int> bestPlay = game.getBestOverallPlay(&gaddag);
+  while (bestPlay.second != 0) {
+    game.applyBestPlay(bestPlay, &gaddag, bag);
+    bestPlay = game.getBestOverallPlay(&gaddag);
+  }
 
   return 0;
 }

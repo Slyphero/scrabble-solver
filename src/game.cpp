@@ -1,8 +1,8 @@
 #include "game.hpp"
 
 std::pair<State, int> Game::getBestPlayFromPosition(Position position,
-                                                    Direction direction) {
-  Gaddag* root = currentState.currentGaddag;
+                                                    Direction direction,
+                                                    Gaddag* root) {
   std::stack<State> states;
   currentState.currentPosition = position;
   currentState.isPlusHasBeenFound = false;
@@ -302,8 +302,6 @@ std::pair<State, int> Game::getBestPlayOnEmptyBoard() {
   Position center(7, 7);
   Direction directions[2] = {Direction::HORIZONTAL, Direction::VERTICAL};
 
-  currentState.player.printInventory();
-
   for (Direction direction : directions) {
     std::stack<State> states;
 
@@ -392,17 +390,17 @@ std::pair<State, int> Game::getMaxScore(std::pair<State, int> pair1,
   return pair2;
 }
 
-std::pair<State, int> Game::getBestOverallPlay() {
+std::pair<State, int> Game::getBestOverallPlay(Gaddag* root) {
   std::pair<State, int> bestPair = std::make_pair(currentState, 0);
   for (int line = 0; line < 15; line++) {
     for (int column = 0; column < 15; column++) {
       Position position(line, column);
       if (currentState.board(line, column).letter != 0) {
         std::pair<State, int> pair1 =
-            getBestPlayFromPosition(position, HORIZONTAL);
+            getBestPlayFromPosition(position, HORIZONTAL, root);
 
         std::pair<State, int> pair2 =
-            getBestPlayFromPosition(position, VERTICAL);
+            getBestPlayFromPosition(position, VERTICAL, root);
 
         std::pair<State, int> currentBestPair = getMaxScore(pair1, pair2);
 
@@ -413,4 +411,17 @@ std::pair<State, int> Game::getBestOverallPlay() {
     }
   }
   return bestPair;
+}
+
+void Game::applyBestPlay(std::pair<State, int> play, Gaddag* root,
+                         LettersCollection& bag) {
+  currentState = play.first;
+  currentState.currentGaddag = root;
+  currentState.player.addPoints(play.second);
+  currentState.player.drawLetters(bag);
+
+  std::cout << currentState.board << std::endl;
+  std::cout << "Score total : " << currentState.player.getPoints() << std::endl;
+
+  currentState.player.printInventory();
 }

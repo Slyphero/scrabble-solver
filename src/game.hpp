@@ -14,13 +14,11 @@
 class Game {
  private:
   State currentState;
-  State bestNextState;
 
  public:
   Game(const Player &player, Gaddag *gaddag, const Board &board,
        const Position &initialPosition)
-      : currentState(player, gaddag, board, initialPosition, false),
-        bestNextState(player, gaddag, board, initialPosition, false) {}
+      : currentState(player, gaddag, board, initialPosition, false) {}
 
   std::string buildMot(Board board, Direction direction, Position pos);
 
@@ -37,11 +35,10 @@ class Game {
    * @param direction : A direction, vertical or horizontal
    */
   std::pair<State, int> getBestPlayFromPosition(Position position,
-                                                Direction direction);
+                                                Direction direction,
+                                                Gaddag *root);
 
   std::pair<State, int> getBestPlayOnEmptyBoard();
-
-  void getAllPossibleNextStates();
 
   bool checkValidCollision(const Board &board, Gaddag *gaddag,
                            Direction direction, bool isPlusHasBeenFound,
@@ -50,5 +47,8 @@ class Game {
   std::pair<State, int> getMaxScore(std::pair<State, int> pair1,
                                     std::pair<State, int> pair2);
 
-  std::pair<State, int> getBestOverallPlay();
+  std::pair<State, int> getBestOverallPlay(Gaddag *root);
+
+  void applyBestPlay(std::pair<State, int> play, Gaddag *root,
+                     LettersCollection &bag);
 };
