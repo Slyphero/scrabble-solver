@@ -15,8 +15,6 @@ std::pair<State, int> Game::getBestPlayFromPosition(Position position,
 
   states.push(analyzedState);
 
-  currentState.player.printInventory();
-
   int startSize = currentState.player.getInventory().size();
 
   while (!states.empty()) {
@@ -403,23 +401,13 @@ std::pair<State, int> Game::getBestOverallPlay() {
         std::pair<State, int> pair1 =
             getBestPlayFromPosition(position, HORIZONTAL);
 
-        std::cout << "Pair 1 : " << std::endl;
-        std::cout << pair1.first.board << std::endl;
-
         std::pair<State, int> pair2 =
             getBestPlayFromPosition(position, VERTICAL);
 
-        std::cout << "Pair 2 : " << std::endl;
-        std::cout << pair2.first.board << std::endl;
-
         std::pair<State, int> currentBestPair = getMaxScore(pair1, pair2);
-
-        std::cout << "Meilleur coup entre HORIZONTAL et VERTICAL : "
-                  << currentBestPair.second << std::endl;
 
         if (currentBestPair.second > bestPair.second) {
           bestPair = currentBestPair;
-          std::cout << "New best score : " << bestPair.second << std::endl;
         }
       }
     }
