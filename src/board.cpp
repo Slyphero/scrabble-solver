@@ -5,98 +5,102 @@
 // default initialization
 Board::Board() 
 {
-  // Triple word spots
-  {
-    Spot s(1, 3);
-    // number of tripple words in the grid
-    static const unsigned char sz = 8;
-    // coordonate of tripple words in the 1D tab
-    static unsigned char triple_words[sz] = {0, 7, 14, 105, 119, 210, 217, 224};
-    for (unsigned char i = 0; i < sz; ++i) {
-      spots[triple_words[i]] = s;
+    // Triple word spots
+    {
+        Spot s(1, 3);
+        // number of tripple words in the grid
+        static const unsigned char sz = 8;
+        // coordonate of tripple words in the 1D tab
+        static unsigned char triple_words[sz] = { 0, 7, 14, 105, 119, 210, 217, 224 };
+        for (unsigned char i = 0; i < sz; ++i) 
+        {
+            spots[triple_words[i]] = s;
+        }
     }
-  }
-  // Double word spots
-  {
-    Spot s(1, 2);
-    // number of double words in the grid
-    static const unsigned char sz = 17;
-    // coordonate of double words in the 1D tab
-    static unsigned char double_words[sz] = {16,  28,  32,  42,  48,  56,
-                                             64,  70,  112, 154, 160, 168,
-                                             176, 182, 192, 196, 208};
-    for (unsigned char i = 0; i < sz; ++i) {
-      spots[double_words[i]] = s;
+    // Double word spots
+    {
+        Spot s(1, 2);
+        // number of double words in the grid
+        static const unsigned char sz = 17;
+        // coordonate of double words in the 1D tab
+        static unsigned char double_words[sz] = { 16,  28,  32,  42,  48,  56,
+                                                  64,  70,  112, 154, 160, 168,
+                                                  176, 182, 192, 196, 208 };
+        for (unsigned char i = 0; i < sz; ++i) 
+        {
+            spots[double_words[i]] = s;
+        }
     }
-  }
-  // Tripple letter spots
-  {
-    Spot s(3, 1);
-    // number of tripple letter in the grid
-    static const unsigned char sz = 12;
-    // coordonate of tripple letter in the 1D tab
-    static unsigned char triple_letters[sz] = {20,  24,  76,  80,  84,  88,
-                                               136, 140, 144, 148, 200, 204};
-    for (unsigned char i = 0; i < sz; ++i) {
-      spots[triple_letters[i]] = s;
+    // Tripple letter spots
+    {
+        Spot s(3, 1);
+        // number of tripple letter in the grid
+        static const unsigned char sz = 12;
+        // coordonate of tripple letter in the 1D tab
+        static unsigned char triple_letters[sz] = { 20,  24,  76,  80,  84,  88,
+                                                    136, 140, 144, 148, 200, 204 };
+        for (unsigned char i = 0; i < sz; ++i) 
+        {
+            spots[triple_letters[i]] = s;
+        }
     }
-  }
-  // Double letter spots
-  {
-    Spot s(2, 1);
-    // number of double letter in the grid
-    static const unsigned char sz = 24;
-    // coordonate of double letter in the 1D table
-    static unsigned char double_letters[sz] = {
-        3,   11,  36,  38,  45,  52,  59,  92,  96,  98,  102, 108,
-        116, 122, 126, 128, 132, 165, 172, 179, 186, 188, 213, 221};
-    for (unsigned char i = 0; i < sz; ++i) {
-      spots[double_letters[i]] = s;
+    // Double letter spots
+    {
+        Spot s(2, 1);
+        // number of double letter in the grid
+        static const unsigned char sz = 24;
+        // coordonate of double letter in the 1D table
+        static unsigned char double_letters[sz] = { 3,   11,  36,  38,  45,  52,  59,  92,  
+                                                    96,  98,  102, 108, 116, 122, 126, 128, 
+                                                    132, 165, 172, 179, 186, 188, 213, 221 };
+        for (unsigned char i = 0; i < sz; ++i) 
+        {
+            spots[double_letters[i]] = s;
+        }
     }
-  }
 }
 
 // i/o to files
 void Board::save(std::ostream &out) 
 {
-  // write the grid of chars
-  for (unsigned char i = 0; i < 225; ++i) 
-  {
-    if (i % 15 == 0) 
+    // write the grid of chars
+    for (unsigned char i = 0; i < 225; ++i) 
     {
-      out << std::endl;
+        if (i % 15 == 0) 
+        {
+            out << std::endl;
+        }
+        if (spots[i].letter) 
+        {
+            // a letter is present, write it
+            out << spots[i].letter;
+        } 
+        else 
+        {
+            // no letter, put a dot
+            out << ".";
+        }
     }
-    if (spots[i].letter) 
-    {
-      // a letter is present, write it
-      out << spots[i].letter;
-    } 
-    else 
-    {
-      // no letter, put a dot
-      out << ".";
-    }
-  }
 }
 
 void Board::load(std::istream &in) 
 {
-  char c;
-  // read a char for each spot
-  for (unsigned char i = 0; i < 225; ++i) 
-  {
-    in >> c;
-    if (c != '.') 
+    char c;
+    // read a char for each spot
+    for (unsigned char i = 0; i < 225; ++i) 
     {
-      // a letter is provided, save it
-      spots[i].letter = c;
-    } 
-    else 
-    {
-      // no letter, set to 0
-      spots[i].letter = 0;
+        in >> c;
+        if (c != '.') 
+        {
+            // a letter is provided, save it
+            spots[i].letter = c;
+        } 
+        else 
+        {
+            // no letter, set to 0
+            spots[i].letter = 0;
+        }
     }
-  }
 }
 
 // access to the spots by coordinates
